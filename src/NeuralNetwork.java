@@ -1,10 +1,22 @@
 import java.io.*;
+import java.util.Vector;
 
 public class NeuralNetwork implements Serializable {
 
 	NeuralNetwork(){ }
 
 	private static final long serialVersionUID = -88L;
+
+    //Train the Neural Network
+    public void train(TrainingData data) {
+        int cases = data.X.size();
+
+        for (int i = 0; i < cases; i++) {
+            Vector<Float> x = data.X.get(i);
+            Vector<Float> y = data.Y.get(i);
+            // Do something with the input and output vectors.
+        }
+    }
 
 	//Store the state of this neural network
 	public void storeGenome() {

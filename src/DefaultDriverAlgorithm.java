@@ -19,24 +19,25 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
 
     public void trainNeuralNetwork(){
         NeuralNetwork neuralNetwork = new NeuralNetwork();
-        //neuralNetwork = trainNeuralNetwork(neuralNetwork);
+        TrainingData data = new TrainingData("training/AllTrainingData.txt");
+        neuralNetwork.train(data);
         neuralNetwork.storeGenome();
     }
 
     public void run() {
-                Race race = new Race();
-                race.setTrack("road", "aalborg");
-                race.setTermination(Race.Termination.LAPS, 1);
-                race.setStage(Controller.Stage.RACE);
-                race.addCompetitor(new DefaultDriver());
-                Boolean withGUI = true;
-                RaceResults results;
-                if(withGUI) {
-                    results = race.runWithGUI();
-                } else {
-                    results = race.run();
-                }
-                trainNeuralNetwork();
+        trainNeuralNetwork();
+        Race race = new Race();
+        race.setTrack("road", "aalborg");
+        race.setTermination(Race.Termination.LAPS, 1);
+        race.setStage(Controller.Stage.RACE);
+        race.addCompetitor(new DefaultDriver());
+        Boolean withGUI = true;
+        RaceResults results;
+        if(withGUI) {
+            results = race.runWithGUI();
+        } else {
+            results = race.run();
+        }
     }
 
     public static void main(String[] args) {

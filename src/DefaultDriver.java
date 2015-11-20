@@ -19,7 +19,7 @@ public class DefaultDriver extends AbstractDriver {
 
     DefaultDriver() {
         initialize();
-        //neuralNetwork = neuralNetwork.loadGenome();
+        neuralNetwork = neuralNetwork.loadGenome();
     }
 
     public void loadGenome(IGenome genome) { }
