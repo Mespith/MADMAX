@@ -8,8 +8,8 @@ import java.util.Vector;
  */
 public class TrainingData {
 
-    public List<Vector<Float>> X;
-    public List<Vector<Float>> Y;
+    public List<Vector<Double>> X;
+    public List<Vector<Double>> Y;
 
     private BufferedReader reader;
 
@@ -20,16 +20,16 @@ public class TrainingData {
             e.printStackTrace();
         }
 
-        X = new ArrayList<Vector<Float>>();
-        Y = new ArrayList<Vector<Float>>();
+        X = new ArrayList<Vector<Double>>();
+        Y = new ArrayList<Vector<Double>>();
 
         ParseFile();
     }
 
     private void ParseFile() {
         String line = null;
-        Vector<Float> x = new Vector<Float>();
-        Vector<Float> y = new Vector<Float>();
+        Vector<Double> x = new Vector<Double>();
+        Vector<Double> y = new Vector<Double>();
 
         // Read the first line
         try {
@@ -45,10 +45,10 @@ public class TrainingData {
             String[] output = data[1].split(",");
 
             for (int i = 0; i < input.length; i++) {
-                x.add(Float.valueOf(input[i]));
+                x.add(Double.valueOf(input[i]));
             }
             for (int j = 0; j < output.length; j++) {
-                y.add(Float.valueOf(output[j]));
+                y.add(Double.valueOf(output[j]));
             }
 
             X.add(x);
