@@ -1,4 +1,7 @@
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import cicontest.algorithm.abstracts.AbstractAlgorithm;
 import cicontest.algorithm.abstracts.DriversUtils;
 import cicontest.torcs.client.Controller;
@@ -20,6 +23,9 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
     public void trainNeuralNetwork(){
         NeuralNetwork neuralNetwork = new NeuralNetwork();
         //neuralNetwork = trainNeuralNetwork(neuralNetwork);
+        System.out.println();
+        List a = new ArrayList<>();
+
         neuralNetwork.storeGenome();
     }
 
