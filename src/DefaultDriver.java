@@ -12,14 +12,14 @@ import java.io.*;
 
 public class DefaultDriver extends AbstractDriver {
 
-    //NeuralNetwork neuralNetwork = new NeuralNetwork();
+    NeuralNetwork neuralNetwork;
     File f;
     OutputStream stream;
     BufferedWriter writer;
 
-    DefaultDriver() {
+    DefaultDriver(Parser parser) {
         initialize();
-        //neuralNetwork = neuralNetwork.loadGenome();
+        neuralNetwork = neuralNetwork.loadGenome(parser);
     }
 
     public void loadGenome(IGenome genome) { }

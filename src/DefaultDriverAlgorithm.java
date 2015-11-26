@@ -18,21 +18,12 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
 
     public void run(boolean continue_from_checkpoint) { }
 
-    public void trainNeuralNetwork(){
-        //NeuralNetwork neuralNetwork = new NeuralNetwork();
-        parser = new Parser();
-        NeuralNetwork network = parser.ParseNetworkFile("OutputWeights.txt");
-        //neuralNetwork.train(data);
-        //neuralNetwork.storeGenome();
-    }
-
     public void run() {
-        trainNeuralNetwork();
         Race race = new Race();
         race.setTrack("road", "aalborg");
         race.setTermination(Race.Termination.LAPS, 1);
         race.setStage(Controller.Stage.RACE);
-        race.addCompetitor(new DefaultDriver());
+        race.addCompetitor(new DefaultDriver(parser));
         Boolean withGUI = true;
         RaceResults results;
         if(withGUI) {

@@ -18,10 +18,6 @@ public class NeuralNetwork implements Serializable {
 		this.x_prev = new Vector<>(this.W.size());
 	}
 
-	public Vector<Double> predict(Vector<Double> U) {
-		
-	}
-
 	private static final long serialVersionUID = -88L;
 
 	//Store the state of this neural network
@@ -41,7 +37,7 @@ public class NeuralNetwork implements Serializable {
 	}
 
 	// Load a neural network from memory
-	 public NeuralNetwork loadGenome() {
+	 public NeuralNetwork loadGenome(Parser parser) {
 
 		 // Read from disk using FileInputStream
 		 FileInputStream f_in = null;
@@ -67,6 +63,7 @@ public class NeuralNetwork implements Serializable {
 		 } catch (ClassNotFoundException e) {
 			 e.printStackTrace();
 		 }
-		 return null;
+
+		 return parser.ParseNetworkFile("OutputWeights.txt");
 	 }
 	}
