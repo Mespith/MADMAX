@@ -3,21 +3,26 @@ import java.util.Vector;
 
 public class NeuralNetwork implements Serializable {
 
-	NeuralNetwork(){ }
+	private Vector<Vector<Double>> W;
+	private Vector<Vector<Double>> Win;
+	private Vector<Vector<Double>> Wout;
+	private Vector<Double> x_prev;
+	private Double leaking_rate;
+
+	NeuralNetwork(Vector<Vector<Double>> W, Vector<Vector<Double>> Win, Vector<Vector<Double>> Wout, Double leaking_rate){
+		this.W = W;
+		this.Win = Win;
+		this.Wout = Wout;
+		this.leaking_rate = leaking_rate;
+
+		this.x_prev = new Vector<>(this.W.size());
+	}
+
+	public Vector<Double> predict(Vector<Double> U) {
+		
+	}
 
 	private static final long serialVersionUID = -88L;
-
-    // Train the Neural Network
-    public void train(TrainingData data) {
-		// This is the size of the training set.
-        int size = data.X.size();
-
-        for (int i = 0; i < size; i++) {
-            Vector<Double> x = data.X.get(i);
-            Vector<Double> y = data.Y.get(i);
-            // Do something with the input and output vectors.
-        }
-    }
 
 	//Store the state of this neural network
 	public void storeGenome() {

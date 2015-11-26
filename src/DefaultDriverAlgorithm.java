@@ -10,6 +10,7 @@ import race.TorcsConfiguration;
 public class DefaultDriverAlgorithm extends AbstractAlgorithm {
 
     private static final long serialVersionUID = 654963126362653L;
+    private static Parser parser;
 
     public Class<? extends Driver> getDriverClass(){
         return DefaultDriver.class;
@@ -18,10 +19,11 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
     public void run(boolean continue_from_checkpoint) { }
 
     public void trainNeuralNetwork(){
-        NeuralNetwork neuralNetwork = new NeuralNetwork();
-        TrainingData data = new TrainingData("training/AllTrainingData.txt");
-        neuralNetwork.train(data);
-        neuralNetwork.storeGenome();
+        //NeuralNetwork neuralNetwork = new NeuralNetwork();
+        parser = new Parser();
+        NeuralNetwork network = parser.ParseNetworkFile("OutputWeights.txt");
+        //neuralNetwork.train(data);
+        //neuralNetwork.storeGenome();
     }
 
     public void run() {
@@ -41,7 +43,6 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
     }
 
     public static void main(String[] args) {
-
         //Set path to torcs.properties
         TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
 		/*

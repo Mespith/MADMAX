@@ -3,7 +3,7 @@ import numpy as np
 class TrainingData:
     def __init__(self, dataPath):
         f = open(dataPath)
-        # X and Y are lists because we don't know how big our training set is.
+        # U and Y are lists because we don't know how big our training set is.
         self.U = []
         self.Y = []
         for line in f:
