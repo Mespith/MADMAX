@@ -23,7 +23,7 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
         race.setTrack("road", "aalborg");
         race.setTermination(Race.Termination.LAPS, 1);
         race.setStage(Controller.Stage.RACE);
-        race.addCompetitor(new DefaultDriver(parser));
+        race.addCompetitor(new DefaultDriver());
         Boolean withGUI = true;
         RaceResults results;
         if(withGUI) {

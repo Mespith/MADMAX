@@ -8,6 +8,7 @@ import cicontest.torcs.controller.extras.AutomatedGearbox;
 import cicontest.torcs.controller.extras.AutomatedRecovering;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class DefaultDriver extends AbstractDriver {
 
@@ -17,11 +18,12 @@ public class DefaultDriver extends AbstractDriver {
     OutputStream stream;
     BufferedWriter writer;
 
-    DefaultDriver(Parser parser) {
+    DefaultDriver() {
         initialize();
         //neuralNetwork = neuralNetwork.loadGenome(parser);
         //neuralNetwork = neuralNetwork.loadGenome();
-        esn = new EchoStateNet("C:\\Users\\Frederik\\Desktop\\testRes.txt");
+        Parser parser = new Parser();
+        esn = parser.ParseForESN("OutputWeights.txt");
     }
 
     public void loadGenome(IGenome genome) { }
@@ -44,13 +46,15 @@ public class DefaultDriver extends AbstractDriver {
     @Override
     public void control(Action action, SensorModel sensors) {
 
-        double[] actIn = {sensors.getSpeed(), sensors.getAngleToTrackAxis()};
+        double[] actIn = {1.0, sensors.getSpeed(), sensors.getAngleToTrackAxis()};
 
         double[] actOut = esn.doTimeStep(actIn);
 
         action.accelerate = actOut[0];
         action.steering = actOut[1];
         action.brake = actOut[2];
+
+        System.out.println(Arrays.toString(actOut));
 
         // Example of a bot that drives pretty well; you can use this to generate data
 //        action.steering = DriversUtils.alignToTrackAxis(sensors, 0.5);

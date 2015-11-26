@@ -18,8 +18,10 @@ public class EchoStateNet {
         this.inW = inW;
         this.resW = resW;
         this.outW = outW;
-        resState = new double[resW.length];
+        this.resState = new double[resW.length];
+        this.leakAlpha = 0.5;
     }
+
 
     public EchoStateNet(String inFile)
     {
@@ -78,7 +80,7 @@ public class EchoStateNet {
     {
         double[] actRes = new double[resState.length];
 
-        double[] outIn = tanhFunc(actIn); // activation from inputs
+        double[] outIn = actIn; // activation from inputs TODO delete outIN...
 
         for (int idx = 0; idx < outIn.length; idx++)
         {
@@ -108,7 +110,13 @@ public class EchoStateNet {
             out[idx + outIn.length] = resState[idx];
         }
 
-        return tanhFunc(out);
+        double[] y = new double[outW.length] ;
+        for (int idx = 0; idx < outW.length; idx++) {
+            for (int jdx = 0; jdx < outW[0].length; jdx++) {
+                y[idx] += outW[idx][jdx] * out[jdx];
+            }
+        }
+        return y;
     }
 
     private String[] readFile(String inFile) throws IOException
