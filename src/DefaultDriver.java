@@ -17,11 +17,11 @@ public class DefaultDriver extends AbstractDriver {
     OutputStream stream;
     BufferedWriter writer;
 
-    DefaultDriver(Parser parser) {
+    DefaultDriver() {
         initialize();
         //neuralNetwork = neuralNetwork.loadGenome(parser);
         //neuralNetwork = neuralNetwork.loadGenome();
-        esn = new EchoStateNet("C:\\Users\\Frederik\\Desktop\\testRes.txt");
+        //esn = new EchoStateNet("C:\\Users\\Frederik\\Desktop\\testRes.txt");
     }
 
     public void loadGenome(IGenome genome) { }
