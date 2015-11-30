@@ -10,13 +10,16 @@ public class NodeGene {
         Output
     }
 
-    public String name;
+    public Integer id = 0;
     public Type type = Type.Hidden;
 
-    NodeGene(String name, Type type) {
-        this.name = name;
+    NodeGene(Integer id, Type type) {
         if (type != Type.None) {
             this.type = type;
+        }
+
+        if (type == Type.Input || type == Type.Output) {
+            this.id = id;
         }
     }
 }

@@ -37,9 +37,18 @@ public class Population {
         return generation_species;
     }
 
-    // Kill the worst performing individuals of each species
+    public void TestGeneration() {
+        for (int i = 0; i < Generation.size(); i++ ) {
+            Genome individual = Generation.get(i);
 
-    // Create offspring to replace the whole population
+        }
+    }
+
+    // Kill the worst performing individuals of each species.
+    // Create offspring to replace the whole population.
+    public void NewGeneration() {
+
+    }
 
     private Double compatibility(Genome g1, Genome g2)
     {
