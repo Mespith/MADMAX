@@ -4,21 +4,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Arrays;
+import org.ejml.simple.SimpleMatrix;
 
 public class EchoStateNet {
 
-    double[][] inW;
-    double[][] resW;
-    double[][] outW;
-    double[] resState; //activation OUTPUT of last iteration
+    SimpleMatrix inW;
+    SimpleMatrix resW;
+    SimpleMatrix outW;
+    SimpleMatrix resState; //activation OUTPUT of last iteration
     double leakAlpha;
 
     public EchoStateNet(double[][] inW, double[][] resW, double[][] outW)
     {
-        this.inW = inW;
-        this.resW = resW;
-        this.outW = outW;
-        this.resState = new double[resW.length];
+        this.inW = new SimpleMatrix(inW);
+        this.resW = new SimpleMatrix(resW);
+        this.outW = new SimpleMatrix(outW);
+        this.resState = new SimpleMatrix(resW.length, 1);
         this.leakAlpha = 0.5;
     }
 
@@ -69,54 +70,26 @@ public class EchoStateNet {
                 outW[idx][jdx] = Float.valueOf(line[jdx]);
             }
         }
-        this.inW = inW;
-        this.resW = resW;
-        this.outW = outW;
-        this.resState = new double[resSize];
+        this.inW = new SimpleMatrix(inW);
+        this.resW = new SimpleMatrix(resW);
+        this.outW = new SimpleMatrix(outW);
+        this.resState = new SimpleMatrix(resSize, 1);
     }
 
 
-    public double[] doTimeStep(double[] actIn)
+    public SimpleMatrix doTimeStep(SimpleMatrix actIn)
     {
-        double[] actRes = new double[resState.length];
 
-        double[] outIn = actIn; // activation from inputs TODO delete outIN...
-
-        for (int idx = 0; idx < outIn.length; idx++)
-        {
-            for (int jdx = 0; jdx < actRes.length; jdx++)
-            {
-                actRes[jdx] += outIn[idx] * inW[idx][jdx];
-
-            }
-        } //actRes now input to res from in-layer
-
-        for (int idx = 0; idx < actRes.length; idx++)
-        {
-            for (int jdx = 0; jdx < actRes.length; jdx++) {
-                actRes[jdx] += resState[idx] * resW[idx][jdx];
-            }
-        } //actRes now in to res from in-layer and reservoir
+        SimpleMatrix actRes = inW.mult(actIn).plus(resW.mult(resState));
 
         resState = resActFunc(actRes);
 
-        double[] out = new double[outIn.length + resState.length];
-        for (int idx = 0; idx < outIn.length; idx++)
-        {
-            out[idx] = outIn[idx];
-        }
-        for (int idx = 0; idx < resState.length; idx++)
-        {
-            out[idx + outIn.length] = resState[idx];
-        }
+        SimpleMatrix out = new SimpleMatrix(actIn.numRows() + resState.numRows(), 1);
 
-        double[] y = new double[outW.length] ;
-        for (int idx = 0; idx < outW.length; idx++) {
-            for (int jdx = 0; jdx < outW[0].length; jdx++) {
-                y[idx] += outW[idx][jdx] * out[jdx];
-            }
-        }
-        return y;
+        out.insertIntoThis(0, 0, actIn);
+        out.insertIntoThis(actIn.numRows(), 0, resState);
+
+        return outW.mult(out);
     }
 
     private String[] readFile(String inFile) throws IOException
@@ -144,21 +117,18 @@ public class EchoStateNet {
         return stringArray;
     }
 
-    private  double[] resActFunc(double[] input)
+    private  SimpleMatrix resActFunc(SimpleMatrix input)
     {
-        double[] tilde = tanhFunc(input);
-        double[] out = new double[resState.length];
-        for (int idx = 0; idx < resState.length; idx++) {
-            out[idx] = (1.0 - leakAlpha) * resState[idx] + leakAlpha * tilde[idx];
-        }
+        SimpleMatrix tilde = tanhFunc(input);
+        SimpleMatrix out = resState.scale(1.0 - leakAlpha).plus(tilde.scale(leakAlpha));
         return out;
     }
 
-    private double[] tanhFunc(double[] input)
+    private SimpleMatrix tanhFunc(SimpleMatrix input)
     {
-        double[] out = new double[input.length];
-        for (int idx = 0; idx < input.length; idx++) {
-            out[idx] = Math.tanh(input[idx]);
+        SimpleMatrix out = new SimpleMatrix(input.numRows(), 1);
+        for (int idx = 0; idx < input.numRows(); idx++) {
+            out.set(idx, 0, Math.tanh(input.get(idx)));
         }
         return out;
     }
@@ -166,12 +136,10 @@ public class EchoStateNet {
 
     public static void main(String[] args)
     {
-        EchoStateNet esn = new EchoStateNet("C:\\Users\\Frederik\\Desktop\\testRes.txt");
-        double[] inArr = {1.0, 2};
-        double[] o1 = esn.doTimeStep(inArr);
-        double[] o2 = esn.doTimeStep(inArr);
-        System.out.println(Arrays.toString(o1));
-        System.out.println(Arrays.toString(o2));
+        EchoStateNet esn = new EchoStateNet("C:\\Users\\Frederik\\Desktop\\crap_weights.txt");
+
+
+
     }
 }
 

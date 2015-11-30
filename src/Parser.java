@@ -53,15 +53,9 @@ public class Parser {
         String[] dimensions = line.split(",");
 
         double[][] resW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[0]));
-        double[][] inWreverse = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[1]));
+        double[][] inW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[1]));
         double[][] outW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[2]));
 
-        double[][] inW = new double[inWreverse[0].length][inWreverse.length];
-        for (int idx = 0; idx < inWreverse.length; idx++) {
-            for (int jdx = 0; jdx < inWreverse[0].length; jdx++) {
-                inW[jdx][idx] = inWreverse[idx][jdx];
-            }
-        }
         return new EchoStateNet(inW, resW, outW);
     }
 

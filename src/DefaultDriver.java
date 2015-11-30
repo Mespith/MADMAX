@@ -6,6 +6,7 @@ import cicontest.torcs.controller.extras.ABS;
 import cicontest.torcs.controller.extras.AutomatedClutch;
 import cicontest.torcs.controller.extras.AutomatedGearbox;
 import cicontest.torcs.controller.extras.AutomatedRecovering;
+import org.ejml.simple.SimpleMatrix;
 
 import java.io.*;
 import java.util.Arrays;
@@ -46,15 +47,13 @@ public class DefaultDriver extends AbstractDriver {
     @Override
     public void control(Action action, SensorModel sensors) {
 
-        double[] actIn = {1.0, sensors.getSpeed(), sensors.getAngleToTrackAxis()};
+        double[][] actInArr = {{1.0}, {sensors.getSpeed()}, {sensors.getAngleToTrackAxis()}};
+        SimpleMatrix actInMat = new SimpleMatrix(actInArr);
+        SimpleMatrix actOut = esn.doTimeStep(actInMat);
 
-        double[] actOut = esn.doTimeStep(actIn);
-
-        action.accelerate = actOut[0];
-        action.steering = actOut[1];
-        action.brake = actOut[2];
-
-        System.out.println(Arrays.toString(actOut));
+        action.accelerate = actOut.get(0, 0);
+        action.steering = actOut.get(1, 0);
+        action.brake = actOut.get(2, 0);
 
         // Example of a bot that drives pretty well; you can use this to generate data
 //        action.steering = DriversUtils.alignToTrackAxis(sensors, 0.5);
