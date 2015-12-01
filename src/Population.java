@@ -7,7 +7,8 @@ import java.util.List;
  */
 public class Population {
     
-    public int Innovation_nr;
+    //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
+    public int Innovation_nr, inNodes, outNodes;
     private double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation;
 
     private double c1, c2, c3;
@@ -16,11 +17,13 @@ public class Population {
     private List<Genome> Generation;
     
     //temporary constructor:
-    Population(double c1, double c2, double c3, double P_addNode, double P_addWeight, double P_mutateWeights,
+    Population(double c1, double c2, double c3, int inNodes, int outNodes, double P_addNode, double P_addWeight, double P_mutateWeights,
                double P_changeWeight, double permutation, double compatibility_threshold){
         this.c1 = c1;
         this.c2 = c2;
         this.c3 = c3;
+        this.inNodes = inNodes;
+        this.outNodes = outNodes;
         this.P_addNode = P_addNode;
         this.P_addWeight = P_addWeight;
         this.P_mutateWeights = P_mutateWeights;
