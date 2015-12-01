@@ -46,5 +46,5 @@ public class DEW_Genes {
     public Integer getE(){ return E; }
     public Integer getD(){ return D; }
     public Double getW(){ return W; }
-    
+
 }
