@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.lang.Math;
-import java.util.Arrays;
 import org.ejml.simple.SimpleMatrix;
 
 public class EchoStateNet {
@@ -14,13 +13,13 @@ public class EchoStateNet {
     SimpleMatrix resState; //activation OUTPUT of last iteration
     double leakAlpha;
 
-    public EchoStateNet(double[][] inW, double[][] resW, double[][] outW)
+    public EchoStateNet(double[][] inW, double[][] resW, double[][] outW, double leakAlpha)
     {
         this.inW = new SimpleMatrix(inW);
         this.resW = new SimpleMatrix(resW);
         this.outW = new SimpleMatrix(outW);
         this.resState = new SimpleMatrix(resW.length, 1);
-        this.leakAlpha = 0.5;
+        this.leakAlpha = leakAlpha;
     }
 
 

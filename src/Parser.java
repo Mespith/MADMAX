@@ -55,8 +55,8 @@ public class Parser {
         double[][] resW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[0]));
         double[][] inW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[1]));
         double[][] outW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[2]));
-
-        return new EchoStateNet(inW, resW, outW);
+        double leakAlpha = Float.valueOf(dimensions[3]);
+        return new EchoStateNet(inW, resW, outW, leakAlpha);
     }
 
     private Vector<Vector<Double>> ParseMatrixRow(BufferedReader reader, Integer length) {
