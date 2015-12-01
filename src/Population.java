@@ -32,7 +32,7 @@ public class Population {
         this.compatibility_threshold = compatibility_threshold;
         Innovation_nr = 0;
                }
-
+               
     // (Re)Assign species
     public ArrayList<ArrayList<Genome>> Spieciefy() {
         ArrayList<ArrayList<Genome>> generation_species = new ArrayList<>();
@@ -124,5 +124,9 @@ public class Population {
     {
         return (c1 * DEW.getE() + c2 * DEW.getD()) / N + c3 * DEW.getW();
     }
+    
+    public int getInNodes(){ return inNodes;}
+    
+    public int getOutNodes(){return outNodes;}
     
 }
