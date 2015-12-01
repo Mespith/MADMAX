@@ -12,6 +12,11 @@ public class NodeGene {
 
     public Integer id = 0;
     public Type type = Type.Hidden;
+    
+    NodeGene(NodeGene g){
+        this.type = g.type;
+        this.id = g.id;
+    }
 
     NodeGene(Integer id, Type type) {
         if (type != Type.None) {
