@@ -17,7 +17,7 @@ public class Population {
     
     //temporary constructor:
     Population(double c1, double c2, double c3, double P_addNode, double P_addWeight, double P_mutateWeights,
-               double P_changeWeight, double permutation, double compatability_threshold){
+               double P_changeWeight, double permutation, double compatibility_threshold){
         this.c1 = c1;
         this.c2 = c2;
         this.c3 = c3;
@@ -26,7 +26,7 @@ public class Population {
         this.P_mutateWeights = P_mutateWeights;
         this.P_changeWeight = P_changeWeight;
         this.permutation = permutation;
-        this.compatibility_threshold = compatability_threshold;
+        this.compatibility_threshold = compatibility_threshold;
         Innovation_nr = 0;
                }
 
