@@ -10,8 +10,8 @@ public class Population {
     public int Innovation_nr;
     private double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation;
 
-    private Double c1, c2, c3;
-    private Double compatibility_threshold;
+    private double c1, c2, c3;
+    private double compatibility_threshold;
     private List<Genome> Species;
     private List<Genome> Generation;
     
