@@ -14,13 +14,16 @@ public class NodeGene {
     public Type type = Type.Hidden;
     
     public ConnectionGene[] connections;
+    public NodeGene[] potentials;
     
     NodeGene(NodeGene g){
         this.type = g.type;
         this.id = g.id;
         ConnectionGene[] = new ConnectionGene[g.connections.size];
+        NodeGene[] = new NodeGene[g.potentials.size];
         for (int i = 0; i < g.connections.size; i++){
             connections[i] = g.connections[i];
+            potentials[i] = g.potentials[i];
         }
     }
 
