@@ -11,11 +11,12 @@ public class ConnectionGene {
     private Boolean expressed;
     private Integer innovation_nr;
     
-    ConnectionGene(NodeGene in_node, NodeGene out_node, double weight, boolean expressed){
+    ConnectionGene(NodeGene in_node, NodeGene out_node, double weight, boolean expressed, int innovation_nr){
         this.weight = weight;
         this.in_node = in_node;
         this.out_node = out_node;
         this.expressed = expressed;
+        this.innovation_nr = innovation_nr;
     }
 
     ConnectionGene(ConnectionGene g, boolean disable){ //boolean sets expressed to false if disable is true
