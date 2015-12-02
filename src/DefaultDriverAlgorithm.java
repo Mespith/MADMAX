@@ -10,7 +10,6 @@ import race.TorcsConfiguration;
 public class DefaultDriverAlgorithm extends AbstractAlgorithm {
 
     private static final long serialVersionUID = 654963126362653L;
-    private static Parser parser;
 
     public Class<? extends Driver> getDriverClass(){
         return DefaultDriver.class;
