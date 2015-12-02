@@ -19,11 +19,13 @@ public class NodeGene {
     NodeGene(NodeGene g){
         this.type = g.type;
         this.id = g.id;
-        ConnectionGene[] = new ConnectionGene[g.connections.size];
+        
         potentials = new ArrayList<NodeGene>(g.potentials.size);
+        potentials.addAll(0, g.potentials);
+        
+        ConnectionGene[] = new ConnectionGene[g.connections.size];
         for (int i = 0; i < g.connections.size; i++){
             connections[i] = g.connections[i];
-            potentials.add(i, g.potentials[i]);
         }
     }
 
