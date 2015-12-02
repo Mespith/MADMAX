@@ -9,19 +9,21 @@ import java.util.List;
 public class Genome {
     
     private Population parentPopulation;
-    private double fitness;
+    public double fitness;
     public int N;
-    public int nr_of_nodes;
-    private ConnectionGene[] genes;
-    
-    Genome(ConnectionGene[] genes, Population parentPopulation){
+    public Integer nr_of_nodes;
+    private List<ConnectionGene> genes;
+    private List<NodeGene> nodeGenes;
+
+    Genome(List<ConnectionGene> genes, List<NodeGene> nodeGenes, Population parentPopulation){
         this.parentPopulation = parentPopulation;
         this.genes = genes; //genes called by reference?
+        this.nodeGenes = nodeGenes;
         this.fitness = 0;
-        this.N = genes.length;
-        this.nr_of_nodes = 0;//numberOfNodes;
+        this.N = genes.size;
+        this.numberOfNodes = numberOfNodes;
     }
-    
+
     //incomplete
     public void mutate(double P_addNode, double P_addWeight, double P_mutateWeights,
                        double P_permuteWeight, double permutation){
@@ -29,31 +31,50 @@ public class Genome {
         if (Math.random() < P_mutateWeights) {
             for (int i = 0; i < N; i++) {
                 if (Math.random() < P_permuteWeight) {
-                    genes[i].setWeight(permutation*genes[i].getWeight());
+                    genes.get(i).setWeight(permutation*genes.get(i).getWeight());
                 }
                 else{
-                    genes[i].setWeight(Math.random());
+                    genes.get(i).setWeight(Math.random());
                 }
             }
         }
 
-        if (Math.random() < P_addWeight){
-            int inNode = (int)(Math.random() * this.nr_of_nodes);
-            parentPopulation.Innovation_nr++;
-            //if ()
-            //while ()
+        if (Math.random() < P_addWeight) {
 
+            parentPopulation.innovationNumber++;
+
+            do {
+                int source = ((int) Math.random() * (nodeGenes.size - parentPopulation.outNodes) + parentPopulation.inNodes + parentPopulation.outNodes) % nodeGenes.size;
+            } while (nodeGenes.get(source).potentials.isEmpty());
+
+            int sink = (int) Math.random() * nodeGenes.get(source).potentials.size;
+
+            ConnectionGene g = new ConnectionGene(nodeGenes.get(source), nodeGenes.get(source).potentials.get(sink), Math.random()*permutation, true, parentPopulation.innovation_nr);
+            nodeGenes.get(source).potentials.remove(sink);
+            genes.add(g);
 
         }
 
         if (Math.random() < P_addNode){
 
-
+            int placement = (int)Math.random()*parentPopulation.innovation_nr++;
+            genes.get(placement).expressed = false;
+            List<ConnectionGene> conGen = new ListArray<ConnectionGene>(2);
+            List<NodeGene> potentials = new ListArray<NodeGene>(nodeGenes.size-2);
+            NodeGene source = genes.get(placement).in_node, sink = genes.get(placement).out_node;
+            for (int i = 0; i < nodeGenes.size; i++){
+                if (nodeGenes.get(i) != genes.get(placement).in_node && nodeGenes.get(i) != genes.get(placement).out_node){
+                    potentials.set(i, nodeGenes.get(i));
+                }
+            }
+            NodeGene new_node = new NodeGene(2, conGen, potentials);
+            ConnectionGene g_in = new ConnectionGene(source, new_node, 1, true, parentPopulation.innovatoin_nr++);
+            ConnectionGene g_out = new ConnectionGene(new_node, sink, genes.get(placement).weight, true, parentPopulation.innovation_nr);
+            new_node.connections.set(0, g_in);
+            new_node.connections.set(1, g_out);
+            genes.add(g_in);
+            genes.add(g_out);
         }
-
-        // Add a connection
-
-        // Add a node
     }
     
     public double getFitness(){return fitness;}
