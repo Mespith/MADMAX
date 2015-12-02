@@ -10,8 +10,8 @@ public class Genome {
     
     private Population parentPopulation;
     private double fitness;
-    private int N;
-    public Integer nr_of_nodes;
+    public int N;
+    public int nr_of_nodes;
     private ConnectionGene[] genes;
     
     Genome(ConnectionGene[] genes, Population parentPopulation){
@@ -19,7 +19,7 @@ public class Genome {
         this.genes = genes; //genes called by reference?
         this.fitness = 0;
         this.N = genes.length;
-        this.numberOfNodes = numberOfNodes;
+        this.nr_of_nodes = 0;//numberOfNodes;
     }
     
     //incomplete
@@ -38,10 +38,10 @@ public class Genome {
         }
 
         if (Math.random() < P_addWeight){
-            int inNode = Math.random()*numberOfNodes;
-            parentPopulation.innovationNumber++;
-            if ()
-            while ()
+            int inNode = (int)(Math.random() * this.nr_of_nodes);
+            parentPopulation.Innovation_nr++;
+            //if ()
+            //while ()
 
 
         }
@@ -55,13 +55,10 @@ public class Genome {
 
         // Add a node
     }
-
-
-    public int N() {
-        return N;
-    }
     
     public double getFitness(){return fitness;}
+
+    public ConnectionGene[] Genes() { return genes; }
 
     public NeuralNetwork Parse(Integer nr_of_inputs, Integer nr_of_outputs) {
         SimpleMatrix Win = new SimpleMatrix(nr_of_nodes, 1 + nr_of_inputs);

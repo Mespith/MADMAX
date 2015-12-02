@@ -18,7 +18,7 @@ public class Population {
     
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double P_addNode, double P_addWeight, double P_mutateWeights,
-               double P_changeWeight, double permutation, double compatibility_threshold){
+               double P_changeWeight, double permutation, double compatibility_threshold) {
         this.c1 = c1;
         this.c2 = c2;
         this.c3 = c3;
@@ -30,8 +30,8 @@ public class Population {
         this.P_changeWeight = P_changeWeight;
         this.permutation = permutation;
         this.compatibility_threshold = compatibility_threshold;
-        Innovation_nr = 0;
-               }
+        this.Innovation_nr = 0;
+    }
                
     // (Re)Assign species
     public ArrayList<ArrayList<Genome>> Spieciefy() {
@@ -42,7 +42,9 @@ public class Population {
             Genome individual = Generation.get(i);
             // Loop through all the known species.
             for (int j = 0; j < Species.size(); j++) {
-                Double comp = compatibility(individual, Species.get(j));
+                Genome species = Species.get(j);
+                DEW_Genes comp_analysis = new DEW_Genes(individual, species);
+                Double comp = compatibility(Math.max(individual.N, species.N), comp_analysis);
                 // If the individual is compatible with the species, it is assigned to it.
                 if (comp < compatibility_threshold) {
                     generation_species.get(j).add(individual);
@@ -61,21 +63,21 @@ public class Population {
     public void TestGeneration() {
         for (int i = 0; i < Generation.size(); i++ ) {
             Genome individual = Generation.get(i);
-
         }
     }
 
     // Kill the worst performing individuals of each species.
     // Create offspring to replace the whole population.
-    
-    private Genome crossover(Genome g1, Genome g2, DEW_Genes DEW, double P_disabled) { //P_disabled is probability of gene being disabled if either one of parents' gene is disabled
-        int N; //is put to the longest genome, corresponding to the genome length of the offspring
+    // - P_disabled is probability of gene being disabled if either one of parents' gene is disabled
+    // - N is put to the longest genome, corresponding to the genome length of the offspring
+    private Genome crossover(Genome g1, Genome g2, DEW_Genes DEW, double P_disabled) {
+        int N;
         boolean P; //probability of offspring inheriting disjoint and excess genes from g1 or g2
         if (g1.getFitness() < g2.getFitness()) {
-            N = g2.N();
+            N = g2.N;
             P = false;
         } else {
-            N = g1.N();
+            N = g1.N;
             P = true;
         }
 
@@ -84,13 +86,13 @@ public class Population {
 
         //start with the shared genes, 50/50 chance of inheriting from either parent
         for (int i = 0; i < DEW.getN(); i++) {
-            if (Math.random() < P_disabled && (g1.getGenome()[i].getExpressed() || g2.getGenome()[i].getExpressed())) {
+            if (Math.random() < P_disabled && (g1.Genes()[i].getExpressed() || g2.Genes()[i].getExpressed())) {
                 disable = true;
             }
             if (Math.random() < 0.5) {
-                genes[i] = new ConnectionGene(g1.getGenome()[i], disable);
+                genes[i] = new ConnectionGene(g1.Genes()[i], disable);
             } else {
-                genes[i] = new ConnectionGene(g2.getGenome()[i], disable);
+                genes[i] = new ConnectionGene(g2.Genes()[i], disable);
             }
             disable = false;
         }
@@ -98,17 +100,17 @@ public class Population {
         for (int i = DEW.getN(); i < N; i++){ //now copy the excess and disjoint genes from most fit parent
             if (P){
                 disable = false;
-                if (Math.random() < P_disabled && g1.getGenome()[i].getExpressed()){
+                if (Math.random() < P_disabled && g1.Genes()[i].getExpressed()){
                     disable = true;
                 }
-                genes[i] = new ConnectionGene(g1.getGenome()[i], disable);
+                genes[i] = new ConnectionGene(g1.Genes()[i], disable);
             }
             else{
                 disable = false;
-                if (Math.random() < P_disabled && g2.getGenome()[i].getExpressed()){
+                if (Math.random() < P_disabled && g2.Genes()[i].getExpressed()){
                     disable = true;
                 }
-                genes[i] = new ConnectionGene(g2.getGenome()[i], disable);
+                genes[i] = new ConnectionGene(g2.Genes()[i], disable);
             }
         }
 
