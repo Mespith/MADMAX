@@ -10,7 +10,6 @@ public class NodeGene {
         Output
     }
     
-    public Integer id = 0;
     public Type type = Type.Hidden;
     
     public ConnectionGene[] connections;
@@ -18,7 +17,6 @@ public class NodeGene {
     
     NodeGene(NodeGene g){
         this.type = g.type;
-        this.id = g.id;
         
         potentials = new ArrayList<NodeGene>(g.potentials.size);
         potentials.addAll(0, g.potentials);
@@ -29,13 +27,9 @@ public class NodeGene {
         }
     }
 
-    NodeGene(Integer id, Type type, ConnectionGene[] connections) {
+    NodeGene(Type type, ConnectionGene[] connections) {
         if (type != Type.None) {
             this.type = type;
-        }
-
-        if (type == Type.Input || type == Type.Output) {
-            this.id = id;
         }
         
         this.connections = connections;
