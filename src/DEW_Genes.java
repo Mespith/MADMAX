@@ -8,7 +8,7 @@ public class DEW_Genes {
 
     DEW_Genes(Genome g1, Genome g2) {
         E = 0;
-        Integer N = 0;
+        N = 0; //# of shared genes
         W = 0.;
 
         Integer i1 = g1.getGenome()[0].getInnovation_nr();
@@ -43,8 +43,9 @@ public class DEW_Genes {
         D = g1.N() + g2.N() - 2 * (N + E);
     }
 
-    public Integer getE(){ return E; }
-    public Integer getD(){ return D; }
-    public Double getW(){ return W; }
+    public int getE(){ return E; }
+    public int getD(){ return D; }
+    public int getN(){ return N;}
+    public double getW(){ return W; }
 
 }

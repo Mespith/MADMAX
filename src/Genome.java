@@ -7,21 +7,61 @@ import java.util.List;
  * Created by Jaimy on 26/11/2015.
  */
 public class Genome {
-
+    
+    private Population parentPopulation;
+    private double fitness;
+    private int N;
     public Integer nr_of_nodes;
     private ConnectionGene[] genes;
+    
+    Genome(ConnectionGene[] genes, Population parentPopulation){
+        this.parentPopulation = parentPopulation;
+        this.genes = genes; //genes called by reference?
+        this.fitness = 0;
+        this.N = genes.length;
+        this.numberOfNodes = numberOfNodes;
+    }
+    
+    //incomplete
+    public void mutate(double P_addNode, double P_addWeight, double P_mutateWeights,
+                       double P_permuteWeight, double permutation){
 
-    public void mutate(){
-        // Mutate the weights of the connections.
+        if (Math.random() < P_mutateWeights) {
+            for (int i = 0; i < N; i++) {
+                if (Math.random() < P_permuteWeight) {
+                    genes[i].setWeight(permutation*genes[i].getWeight());
+                }
+                else{
+                    genes[i].setWeight(Math.random());
+                }
+            }
+        }
+
+        if (Math.random() < P_addWeight){
+            int inNode = Math.random()*numberOfNodes;
+            parentPopulation.innovationNumber++;
+            if ()
+            while ()
+
+
+        }
+
+        if (Math.random() < P_addNode){
+
+
+        }
 
         // Add a connection
 
         // Add a node
     }
 
-    public Integer N() {
-        return genes.length;
+
+    public int N() {
+        return N;
     }
+    
+    public double getFitness(){return fitness;}
 
     public NeuralNetwork Parse(Integer nr_of_inputs, Integer nr_of_outputs) {
         SimpleMatrix Win = new SimpleMatrix(nr_of_nodes, 1 + nr_of_inputs);
