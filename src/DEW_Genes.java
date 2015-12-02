@@ -41,7 +41,7 @@ public class DEW_Genes {
             }
         }
 
-        D = g1.N + g2.N - 2 * (N + E);
+        D = g1.N + g2.N - 2 * N - E;
     }
 
     public int getE(){ return E; }
