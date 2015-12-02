@@ -27,11 +27,12 @@ public class NodeGene {
         }
     }
 
-    NodeGene(Type type, ConnectionGene[] connections) {
+    NodeGene(Type type, ConnectionGene[] connections, List<NodeGene> potentials) {
         if (type != Type.None) {
             this.type = type;
         }
         
         this.connections = connections;
+        this.potentials = potentials;
     }
 }
