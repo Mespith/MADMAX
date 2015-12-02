@@ -12,7 +12,7 @@ public class NodeGene {
     
     public Type type = Type.Hidden;
     
-    public ConnectionGene[] connections;
+    public List<ConnectionGene> connections;
     public List<NodeGene> potentials;
     
     NodeGene(NodeGene g){
@@ -21,13 +21,11 @@ public class NodeGene {
         potentials = new ArrayList<NodeGene>(g.potentials.size);
         potentials.addAll(0, g.potentials);
         
-        ConnectionGene[] = new ConnectionGene[g.connections.size];
-        for (int i = 0; i < g.connections.size; i++){
-            connections[i] = g.connections[i];
-        }
+        connections = new ListArray<ConnectionGene>(g.connections.size);
+        connections.addAll(0, g.connections);
     }
 
-    NodeGene(Type type, ConnectionGene[] connections, List<NodeGene> potentials) {
+    NodeGene(Type type, List<ConnectionGene> connections, List<NodeGene> potentials) {
         if (type != Type.None) {
             this.type = type;
         }
