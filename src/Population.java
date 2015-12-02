@@ -133,8 +133,4 @@ public class Population {
         return (c1 * DEW.getE() + c2 * DEW.getD()) / N + c3 * DEW.getW();
     }
     
-    public int getInNodes(){ return inNodes;}
-    
-    public int getOutNodes(){return outNodes;}
-    
 }
