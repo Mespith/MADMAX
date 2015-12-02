@@ -1,6 +1,6 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import org.ejml.simple.SimpleMatrix;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -12,7 +12,35 @@ public class Parser {
 
     Parser() {}
 
-    public NeuralNetwork ParseNetworkFile(String filePath){
+    public void WriteForESN(EchoStateNet esn) {
+        File f;
+        OutputStream stream = null;
+        BufferedWriter writer;
+        String line = "";
+
+        f = new File("train_data.txt");
+        try {
+            stream = new FileOutputStream(f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        writer = new BufferedWriter(new OutputStreamWriter(stream));
+
+        // Write the line with the column dimensions.
+        try {
+            line = esn.resW.numCols() + "," + esn.inW.numCols() + "," + esn.outW.numCols() + "," + esn.leaking_rate ;
+            writer.write(line);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Write the matrices down.
+        WriteMatrixESN(esn.resW, writer);
+        WriteMatrixESN(esn.inW, writer);
+        WriteMatrixESN(esn.outW, writer);
+    }
+
+    public EchoStateNet ParseForESN(String filePath){
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(filePath));
@@ -28,15 +56,16 @@ public class Parser {
         }
         String[] dimensions = line.split(",");
 
-        Vector<Vector<Double>> W = ParseMatrixRow(reader, Integer.parseInt(dimensions[0]));
-        Vector<Vector<Double>> Win = ParseMatrixRow(reader, Integer.parseInt(dimensions[1]));
-        Vector<Vector<Double>> Wout = ParseMatrixRow(reader, Integer.parseInt(dimensions[2]));
-
-        return new NeuralNetwork(W, Win, Wout, Double.parseDouble(dimensions[3]));
+        double[][] resW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[0]));
+        double[][] inW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[1]));
+        double[][] outW = ParseMatrixRowESN(reader, Integer.parseInt(dimensions[2]));
+        double leakAlpha = Float.valueOf(dimensions[3]);
+        return new EchoStateNet(inW, resW, outW, leakAlpha);
     }
 
-    private Vector<Vector<Double>> ParseMatrixRow(BufferedReader reader, Integer length) {
-        Vector<Vector<Double>> M = new Vector<>();
+    private double[][] ParseMatrixRowESN(BufferedReader reader, Integer length) {
+
+        double[][] M = new double[length][];
         String line = "";
         for (int i = 0; i < length; i++) {
             try {
@@ -48,63 +77,35 @@ public class Parser {
             String data = line.replace("[", "");
             data = data.replace("]", "");
             String[] values = data.split(" ");
-            Vector<Double> m = new Vector<>();
-            for (int n = 0; n < values.length; n++) {
-                String value = values[n];
-                if (value.length() > 0) {
-                    m.add(Double.parseDouble(value));
+            Vector<Double> realVals = new Vector<>();
+            for (String val: values
+                    ) {
+                if (!val.isEmpty())
+                {
+                    realVals.add(Double.parseDouble(val));
                 }
             }
-            M.add(m);
+
+            double[] m = new double[realVals.size()];
+            for (int idx = 0; idx < realVals.size(); idx++) {
+                m[idx] = realVals.elementAt(idx);
+            }
+
+            M[i] = m;
         }
         return M;
     }
 
-    public TrainingData ParseTrainingFile(String dataPath) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(dataPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String line = null;
-        List<Vector<Double>> X = new ArrayList<Vector<Double>>();
-        List<Vector<Double>> Y = new ArrayList<Vector<Double>>();
-        Vector<Double> x = new Vector<Double>();
-        Vector<Double> y = new Vector<Double>();
-
-        // Read the first line
-        try {
-            line = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Read the whole file line by line
-        while (line != null) {
-            String[] data = line.split(";");
-            String[] input = data[0].split(",");
-            String[] output = data[1].split(",");
-
-            for (int i = 0; i < input.length; i++) {
-                x.add(Double.valueOf(input[i]));
-            }
-            for (int j = 0; j < output.length; j++) {
-                y.add(Double.valueOf(output[j]));
-            }
-
-            X.add(x);
-            Y.add(y);
-            x.clear();
-            y.clear();
-
+    private void WriteMatrixESN(SimpleMatrix M, BufferedWriter writer) {
+        String line = "";
+        // Write the rows of the resW matrix
+        for (int row = 0; row < M.numRows(); row++) {
             try {
-                line = reader.readLine();
+                line = M.extractVector(true, row).toString();
+                writer.write(line);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-        return new TrainingData(X, Y);
     }
 }

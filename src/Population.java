@@ -15,6 +15,7 @@ public class Population {
     private double compatibility_threshold;
     private List<Genome> Species;
     private List<Genome> Generation;
+    private ArrayList<ArrayList<Genome>> generation_species;
     
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double P_addNode, double P_addWeight, double P_mutateWeights,
@@ -34,8 +35,8 @@ public class Population {
     }
                
     // (Re)Assign species
-    public ArrayList<ArrayList<Genome>> Spieciefy() {
-        ArrayList<ArrayList<Genome>> generation_species = new ArrayList<>();
+    public void Spieciefy() {
+        generation_species = new ArrayList<>();
         Boolean added = false;
         // Loop through all the individuals of this generation.
         for (int i = 0; i < Generation.size(); i++) {
@@ -57,9 +58,9 @@ public class Population {
                 Species.add(individual);
             }
         }
-        return generation_species;
     }
 
+    // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
         for (int i = 0; i < Generation.size(); i++ ) {
             Genome individual = Generation.get(i);
@@ -68,6 +69,15 @@ public class Population {
 
     // Kill the worst performing individuals of each species.
     // Create offspring to replace the whole population.
+    public void NewGeneration() {
+
+    }
+
+    // Return the best performing individual
+    public EchoStateNet BestIndividual() {
+        return Generation.get(0).Parse(inNodes, outNodes);
+    }
+
     // - P_disabled is probability of gene being disabled if either one of parents' gene is disabled
     // - N is put to the longest genome, corresponding to the genome length of the offspring
     private Genome crossover(Genome g1, Genome g2, DEW_Genes DEW, double P_disabled) {
@@ -115,10 +125,6 @@ public class Population {
         }
 
         return new Genome(genes, this);
-
-    }
-
-    public void NewGeneration() {
 
     }
 

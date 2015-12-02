@@ -60,7 +60,7 @@ public class Genome {
 
     public ConnectionGene[] Genes() { return genes; }
 
-    public NeuralNetwork Parse(Integer nr_of_inputs, Integer nr_of_outputs) {
+    public EchoStateNet Parse(Integer nr_of_inputs, Integer nr_of_outputs) {
         SimpleMatrix Win = new SimpleMatrix(nr_of_nodes, 1 + nr_of_inputs);
         SimpleMatrix W = new SimpleMatrix(nr_of_nodes, nr_of_nodes);
         SimpleMatrix Wout = new SimpleMatrix(nr_of_outputs, 1 + nr_of_nodes + nr_of_inputs);
