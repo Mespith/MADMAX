@@ -17,7 +17,7 @@ public class Genome{
         this.parentPopulation = g.parentPopulation;
         this.fitness = g.fitness;
         this.nr_of_nodes = g.nr_of_nodes;
-        this.genes = new ArrayList<>();
+        this.genes = new ArrayList<ConnectionGene>();
         for (ConnectionGene gene : g.genes)
         {
             this.genes.add(new ConnectionGene(gene));
@@ -113,7 +113,7 @@ public class Genome{
             // Select a connection where you will put a new node in between.
             int placement = (int)(Math.random() * genes.size());
             // The old connection will be disabled.
-            genes.get(placement).expressed = false;
+            genes.get(placement).weight = 0;
             nr_of_nodes++;
             int newNodeId = parentPopulation.nodeID++;
             nodes.add(newNodeId);
