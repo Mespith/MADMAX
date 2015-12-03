@@ -1,3 +1,10 @@
+import cicontest.algorithm.abstracts.DriversUtils;
+import cicontest.torcs.client.Controller;
+import cicontest.torcs.race.Race;
+import cicontest.torcs.race.RaceResults;
+import race.TorcsConfiguration;
+
+import java.io.File;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +26,7 @@ public class Population {
     
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double P_addNode, double P_addWeight, double P_mutateWeights,
-               double P_changeWeight, double permutation, double compatibility_threshold) {
+               double P_changeWeight, double permutation, double compatibility_threshold, int pop_size) {
         this.c1 = c1;
         this.c2 = c2;
         this.c3 = c3;
@@ -32,6 +39,11 @@ public class Population {
         this.permutation = permutation;
         this.compatibility_threshold = compatibility_threshold;
         this.Innovation_nr = 0;
+
+        // Fill the population with new individuals.
+        for (int i = 0; i < pop_size; i++) {
+            Generation.add(new Genome(this, inNodes, outNodes));
+        }
     }
                
     // (Re)Assign species
@@ -62,8 +74,33 @@ public class Population {
 
     // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
-        for (int i = 0; i < Generation.size(); i++ ) {
-            Genome individual = Generation.get(i);
+        //Set path to torcs.properties
+        TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
+        DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
+        DriversUtils.registerMemory(algorithm.getDriverClass());
+
+        // Create a driver for each genome
+        for (int species = 0; species < generation_species.size(); species++ ) {
+            List<DefaultDriver> drivers = new ArrayList<>();
+            for (int i = 0; i < generation_species.get(species).size(); i++) {
+                DefaultDriver driver = new DefaultDriver(generation_species.get(species).get(i).Parse(inNodes, outNodes));
+                drivers.add(driver);
+            }
+
+            //Set-up race
+            Race race = new Race();
+            race.setTrack("road", "aalborg");
+            race.setTermination(Race.Termination.LAPS, 1);
+            race.setStage(Controller.Stage.RACE);
+            for (int j = 0; j < drivers.size(); j++) {
+                race.addCompetitor(drivers.get(j));
+            }
+            race.run();
+            // Set the fitness for each genome.
+            for (int j = 0; j < drivers.size(); j++) {
+                generation_species.get(species).get(j).fitness = drivers.get(j).position;
+            }
+            generation_species.get(species).sort(new GenomeComparator());
         }
     }
 
@@ -96,13 +133,13 @@ public class Population {
 
         //start with the shared genes, 50/50 chance of inheriting from either parent
         for (int i = 0; i < DEW.getN(); i++) {
-            if (Math.random() < P_disabled && (g1.Genes()[i].getExpressed() || g2.Genes()[i].getExpressed())) {
+            if (Math.random() < P_disabled && (g1.Genes().get(i).getExpressed() || g2.Genes().get(i).getExpressed())) {
                 disable = true;
             }
             if (Math.random() < 0.5) {
-                genes[i] = new ConnectionGene(g1.Genes()[i], disable);
+                genes[i] = new ConnectionGene(g1.Genes().get(i), disable);
             } else {
-                genes[i] = new ConnectionGene(g2.Genes()[i], disable);
+                genes[i] = new ConnectionGene(g2.Genes().get(i), disable);
             }
             disable = false;
         }
@@ -110,17 +147,17 @@ public class Population {
         for (int i = DEW.getN(); i < N; i++){ //now copy the excess and disjoint genes from most fit parent
             if (P){
                 disable = false;
-                if (Math.random() < P_disabled && g1.Genes()[i].getExpressed()){
+                if (Math.random() < P_disabled && g1.Genes().get(i).getExpressed()){
                     disable = true;
                 }
-                genes[i] = new ConnectionGene(g1.Genes()[i], disable);
+                genes[i] = new ConnectionGene(g1.Genes().get(i), disable);
             }
             else{
                 disable = false;
-                if (Math.random() < P_disabled && g2.Genes()[i].getExpressed()){
+                if (Math.random() < P_disabled && g2.Genes().get(i).getExpressed()){
                     disable = true;
                 }
-                genes[i] = new ConnectionGene(g2.Genes()[i], disable);
+                genes[i] = new ConnectionGene(g2.Genes().get(i), disable);
             }
         }
 

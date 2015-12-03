@@ -11,17 +11,15 @@ import java.io.*;
 
 public class DefaultDriver extends AbstractDriver {
 
-    //NeuralNetwork neuralNetwork;
-    EchoStateNet esn;
-    File f;
-    OutputStream stream;
-    BufferedWriter writer;
+    private EchoStateNet esn;
+    public int position;
 
     DefaultDriver() {
         initialize();
-        //neuralNetwork = neuralNetwork.loadGenome(parser);
-        //neuralNetwork = neuralNetwork.loadGenome();
-        //esn = new EchoStateNet("C:\\Users\\Frederik\\Desktop\\testRes.txt");
+    }
+
+    DefaultDriver(EchoStateNet esn) {
+        this.esn = esn;
     }
 
     public void loadGenome(IGenome genome) { }
@@ -31,22 +29,14 @@ public class DefaultDriver extends AbstractDriver {
        this.enableExtras(new AutomatedGearbox());
        this.enableExtras(new AutomatedRecovering());
        this.enableExtras(new ABS());
-
-        f = new File("train_data.txt");
-        try {
-            stream = new FileOutputStream(f);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        writer = new BufferedWriter(new OutputStreamWriter(stream));
     }
 
     @Override
     public void control(Action action, SensorModel sensors) {
-
+        position = sensors.getRacePosition();
         double[] actIn = {sensors.getSpeed(), sensors.getAngleToTrackAxis()};
 
-        double[] actOut = esn.doTimeStep(actIn);
+        double[] actOut = esn.forward_propagation(actIn);
 
         action.accelerate = actOut[0];
         action.steering = actOut[1];

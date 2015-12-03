@@ -8,14 +8,14 @@ public class ConnectionGene {
     public NodeGene in_node;
     public NodeGene out_node;
     public Double weight;
-    private Boolean expressed;
+    public Boolean expressed;
     private Integer innovation_nr;
     
-    ConnectionGene(NodeGene in_node, NodeGene out_node, double weight, boolean expressed, int innovation_nr){
-        this.weight = weight;
+    ConnectionGene(NodeGene in_node, NodeGene out_node, int innovation_nr){
+        this.weight = Math.random();
         this.in_node = in_node;
         this.out_node = out_node;
-        this.expressed = expressed;
+        this.expressed = true;
         this.innovation_nr = innovation_nr;
     }
 

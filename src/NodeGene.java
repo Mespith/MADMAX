@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jaimy on 26/11/2015.
  */
@@ -18,10 +21,10 @@ public class NodeGene {
     NodeGene(NodeGene g){
         this.type = g.type;
         
-        potentials = new ArrayList<NodeGene>(g.potentials.size);
+        potentials = new ArrayList<>(g.potentials.size());
         potentials.addAll(0, g.potentials);
         
-        connections = new ListArray<ConnectionGene>(g.connections.size);
+        connections = new ArrayList<>(g.connections.size());
         connections.addAll(0, g.connections);
     }
 
@@ -32,5 +35,9 @@ public class NodeGene {
         
         this.connections = connections;
         this.potentials = potentials;
+    }
+
+    NodeGene(Type type) {
+        this.type = type;
     }
 }

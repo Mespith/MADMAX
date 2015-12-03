@@ -1,12 +1,13 @@
 import org.ejml.simple.SimpleMatrix;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by Jaimy on 26/11/2015.
  */
-public class Genome {
+public class Genome{
     
     private Population parentPopulation;
     public double fitness;
@@ -20,8 +21,33 @@ public class Genome {
         this.genes = genes; //genes called by reference?
         this.nodeGenes = nodeGenes;
         this.fitness = 0;
-        this.N = genes.size;
-        this.numberOfNodes = numberOfNodes;
+        this.N = genes.size();
+    }
+
+    Genome(Population parentPopulation, int in_nodes, int out_nodes){
+        this.parentPopulation = parentPopulation;
+        this.genes = new ArrayList<>();
+        this.nodeGenes = new ArrayList<>();
+        this.fitness = 0;
+
+        // Create all the input and output nodes
+        for (int i = 0; i < in_nodes + out_nodes; i++) {
+            if (i < in_nodes) {
+                this.nodeGenes.add(new NodeGene(NodeGene.Type.Input));
+            }
+            else {
+                this.nodeGenes.add(new NodeGene(NodeGene.Type.Output));
+            }
+        }
+        // Create all the connections between the input and output nodes.
+        for (int in = 0; in < in_nodes; in++) {
+            for (int out = in_nodes; out < out_nodes; out++) {
+                ConnectionGene connection = new ConnectionGene(nodeGenes.get(in), nodeGenes.get(out), parentPopulation.Innovation_nr);
+                genes.add(connection);
+                nodeGenes.get(in).connections.add(connection);
+            }
+        }
+        this.N = genes.size();
     }
 
     //incomplete
@@ -41,15 +67,15 @@ public class Genome {
 
         if (Math.random() < P_addWeight) {
 
-            parentPopulation.innovationNumber++;
+            parentPopulation.Innovation_nr++;
 
             do {
-                int source = ((int) Math.random() * (nodeGenes.size - parentPopulation.outNodes) + parentPopulation.inNodes + parentPopulation.outNodes) % nodeGenes.size;
+                int source = ((int) Math.random() * (nodeGenes.size() - parentPopulation.outNodes) + parentPopulation.inNodes + parentPopulation.outNodes) % nodeGenes.size();
             } while (nodeGenes.get(source).potentials.isEmpty());
 
             int sink = (int) Math.random() * nodeGenes.get(source).potentials.size;
 
-            ConnectionGene g = new ConnectionGene(nodeGenes.get(source), nodeGenes.get(source).potentials.get(sink), Math.random()*permutation, true, parentPopulation.innovation_nr);
+            ConnectionGene g = new ConnectionGene(nodeGenes.get(source), nodeGenes.get(source).potentials.get(sink), Math.random()*permutation, true, parentPopulation.Innovation_nr);
             nodeGenes.get(source).potentials.remove(sink);
             genes.add(g);
 
@@ -57,19 +83,19 @@ public class Genome {
 
         if (Math.random() < P_addNode){
 
-            int placement = (int)Math.random()*parentPopulation.innovation_nr++;
+            int placement = (int)Math.random()*parentPopulation.Innovation_nr++;
             genes.get(placement).expressed = false;
-            List<ConnectionGene> conGen = new ListArray<ConnectionGene>(2);
-            List<NodeGene> potentials = new ListArray<NodeGene>(nodeGenes.size-2);
+            List<ConnectionGene> conGen = new ArrayList<>(2);
+            List<NodeGene> potentials = new ArrayList<>(nodeGenes.size()-2);
             NodeGene source = genes.get(placement).in_node, sink = genes.get(placement).out_node;
-            for (int i = 0; i < nodeGenes.size; i++){
+            for (int i = 0; i < nodeGenes.size(); i++){
                 if (nodeGenes.get(i) != genes.get(placement).in_node && nodeGenes.get(i) != genes.get(placement).out_node){
                     potentials.set(i, nodeGenes.get(i));
                 }
             }
-            NodeGene new_node = new NodeGene(2, conGen, potentials);
-            ConnectionGene g_in = new ConnectionGene(source, new_node, 1, true, parentPopulation.innovatoin_nr++);
-            ConnectionGene g_out = new ConnectionGene(new_node, sink, genes.get(placement).weight, true, parentPopulation.innovation_nr);
+            NodeGene new_node = new NodeGene(NodeGene.Type.Hidden, conGen, potentials);
+            ConnectionGene g_in = new ConnectionGene(source, new_node, 1, true, parentPopulation.Innovation_nr++);
+            ConnectionGene g_out = new ConnectionGene(new_node, sink, genes.get(placement).weight, true, parentPopulation.Innovation_nr);
             new_node.connections.set(0, g_in);
             new_node.connections.set(1, g_out);
             genes.add(g_in);
@@ -79,7 +105,7 @@ public class Genome {
     
     public double getFitness(){return fitness;}
 
-    public ConnectionGene[] Genes() { return genes; }
+    public List<ConnectionGene> Genes() { return genes; }
 
     public EchoStateNet Parse(Integer nr_of_inputs, Integer nr_of_outputs) {
         SimpleMatrix Win = new SimpleMatrix(nr_of_nodes, 1 + nr_of_inputs);
