@@ -130,7 +130,7 @@ public class Population {
             P = true;
         }
 
-        ConnectionGene[] genes = new ConnectionGene[N];
+        List<ConnectionGene> genes = new ListArray<ConnectionGene>(N);
         boolean disable = false; //Decides whether or not a gene is disabled (P_disabled chance of being disabled if either parent has disabled gene)
 
         //start with the shared genes, 50/50 chance of inheriting from either parent
@@ -139,9 +139,9 @@ public class Population {
                 disable = true;
             }
             if (Math.random() < 0.5) {
-                genes[i] = new ConnectionGene(g1.Genes().get(i), disable);
+                genes.set(i, new ConnectionGene(g1.Genes().get(i), disable));
             } else {
-                genes[i] = new ConnectionGene(g2.Genes().get(i), disable);
+                genes.set(i, new ConnectionGene(g2.Genes().get(i), disable));
             }
             disable = false;
         }
@@ -152,14 +152,14 @@ public class Population {
                 if (Math.random() < P_disabled && g1.Genes().get(i).getExpressed()){
                     disable = true;
                 }
-                genes[i] = new ConnectionGene(g1.Genes().get(i), disable);
+                genes.set(i, new ConnectionGene(g1.Genes().get(i), disable));
             }
             else{
                 disable = false;
                 if (Math.random() < P_disabled && g2.Genes().get(i).getExpressed()){
                     disable = true;
                 }
-                genes[i] = new ConnectionGene(g2.Genes().get(i), disable);
+                genes.set(i, new ConnectionGene(g2.Genes().get(i), disable));
             }
         }
 
