@@ -108,8 +108,38 @@ public class Population {
 
     // Kill the worst performing individuals of each species.
     // Create offspring to replace the whole population.
-    public void NewGeneration() {
-        shrink_species();
+    public void NewGeneration(double kill_rate, double mutation_rate) { //kill_rate should be around 0.6, mutation_rate around 0.25
+        for (int i = 0; i < generation_species.size; i++) {
+            int individuals = generation_species.get(i).size;
+            switch (individuals) {
+                case 1: {
+                    generation_species.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
+                    break;
+                }
+                case 2: {
+                    DEW_Genes DEW = new DEW_Genes(generation_species.get(i).get(0), generation_species.get(i).get(1));
+                    generation_species.get(i).set(1, crossover(generation_species.get(i).get(0), generation_species.get(i).get(1), DEW, P_disabled))
+                    generation_species.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
+                    break;
+                }
+                default: {
+                    int survive_index = (int) Math.round((1 - kill_rate) * individuals);
+                    List<Genome> survivors = new ArrayList<Genome>(generation_species.get(i).subList(0, survive_index));
+                    int mutation_index = (int)Math.round(mutation_rate*individuals);
+                    for (int j = mutation_index; j < individuals; j++){
+                        int mom = (int)(Math.random()*survive_index), dad = (int)(Math.random()*survive_index);
+                        DEW_Genes DEW = new DEW_Genes(survivors.get(mom), survivors.get(dad));
+                        generation_species.get(i).set(j, crossover(survivors.get(mom), survivors.get(dad), DEW, P_disabled));
+                    }
+                    for (int j = 0; j < mutation_index; j++){
+                        int mutant = (int)(Math.random()*survive_index);
+                        generation_species.get(i).set(j, survivors.get(mutant));
+                        generation_species.get(i).get(j).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     // Return the best performing individual
