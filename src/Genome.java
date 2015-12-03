@@ -138,8 +138,8 @@ public class Genome{
         List<ConnectionGene> hidden_hidden = new ArrayList<>();
 
         // Categorize the genes.
-        for (int i = 0; i < genes.length; i++) {
-            ConnectionGene gene = genes[i];
+        for (int i = 0; i < genes.size(); i++) {
+            ConnectionGene gene = genes.get(i);
             if (gene.in_node.type == NodeGene.Type.Input) {
                 if (gene.out_node.type == NodeGene.Type.Output) {
                     Wout.set(gene.out_node.id - nr_of_inputs - 1);

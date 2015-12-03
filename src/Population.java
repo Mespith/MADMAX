@@ -109,8 +109,8 @@ public class Population {
     // Kill the worst performing individuals of each species.
     // Create offspring to replace the whole population.
     public void NewGeneration(double kill_rate, double mutation_rate) { //kill_rate should be around 0.6, mutation_rate around 0.25
-        for (int i = 0; i < generation_species.size; i++) {
-            int individuals = generation_species.get(i).size;
+        for (int i = 0; i < generation_species.size(); i++) {
+            int individuals = generation_species.get(i).size();
             switch (individuals) {
                 case 1: {
                     generation_species.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
@@ -118,7 +118,7 @@ public class Population {
                 }
                 case 2: {
                     DEW_Genes DEW = new DEW_Genes(generation_species.get(i).get(0), generation_species.get(i).get(1));
-                    generation_species.get(i).set(1, crossover(generation_species.get(i).get(0), generation_species.get(i).get(1), DEW, P_disabled))
+                    generation_species.get(i).set(1, crossover(generation_species.get(i).get(0), generation_species.get(i).get(1), DEW, P_disabled));
                     generation_species.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
                     break;
                 }
@@ -160,18 +160,18 @@ public class Population {
             P = true;
         }
 
-        List<ConnectionGene> genes = new ListArray<ConnectionGene>(N);
+        List<ConnectionGene> genes = new ArrayList<>(N);
         boolean disable = false; //Decides whether or not a gene is disabled (P_disabled chance of being disabled if either parent has disabled gene)
 
         //start with the shared genes, 50/50 chance of inheriting from either parent
         for (int i = 0; i < DEW.getN(); i++) {
-            if (Math.random() < P_disabled && (g1.Genes().get(i).getExpressed() || g2.Genes().get(i).getExpressed())) {
+            if (Math.random() < P_disabled && (g1.getGenes().get(i).getExpressed() || g2.getGenes().get(i).getExpressed())) {
                 disable = true;
             }
             if (Math.random() < 0.5) {
-                genes.set(i, new ConnectionGene(g1.Genes().get(i), disable));
+                genes.set(i, new ConnectionGene(g1.getGenes().get(i), disable));
             } else {
-                genes.set(i, new ConnectionGene(g2.Genes().get(i), disable));
+                genes.set(i, new ConnectionGene(g2.getGenes().get(i), disable));
             }
             disable = false;
         }
@@ -179,17 +179,17 @@ public class Population {
         for (int i = DEW.getN(); i < N; i++){ //now copy the excess and disjoint genes from most fit parent
             if (P){
                 disable = false;
-                if (Math.random() < P_disabled && g1.Genes().get(i).getExpressed()){
+                if (Math.random() < P_disabled && g1.getGenes().get(i).getExpressed()){
                     disable = true;
                 }
-                genes.set(i, new ConnectionGene(g1.Genes().get(i), disable));
+                genes.set(i, new ConnectionGene(g1.getGenes().get(i), disable));
             }
             else{
                 disable = false;
-                if (Math.random() < P_disabled && g2.Genes().get(i).getExpressed()){
+                if (Math.random() < P_disabled && g2.getGenes().get(i).getExpressed()){
                     disable = true;
                 }
-                genes.set(i, new ConnectionGene(g2.Genes().get(i), disable));
+                genes.set(i, new ConnectionGene(g2.getGenes().get(i), disable));
             }
         }
 
