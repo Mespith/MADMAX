@@ -48,7 +48,7 @@ public class Population {
                
     // (Re)Assign species
     public void Spieciefy() {
-        generation_species = new ArrayList<List<Genome>>();
+        generation_species = new ArrayList<>();
         Boolean added = false;
         // Loop through all the individuals of this generation.
         for (int i = 0; i < Generation.size(); i++) {
@@ -67,7 +67,7 @@ public class Population {
             }
             // If the individual was nog assigned to any species, it is a new species.
             if (!added) {
-                ArrayList<Genome> new_species = new ArrayList<Genome>();
+                ArrayList<Genome> new_species = new ArrayList<>();
                 new_species.add(individual);
                 generation_species.add(new_species);
             }
