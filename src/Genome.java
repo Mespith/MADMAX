@@ -42,7 +42,7 @@ public class Genome{
         // Create all the connections between the input and output nodes.
         for (int in = 0; in < in_nodes; in++) {
             for (int out = in_nodes; out < out_nodes; out++) {
-                ConnectionGene connection = new ConnectionGene(nodeGenes.get(in), nodeGenes.get(out), parentPopulation.Innovation_nr);
+                ConnectionGene connection = new ConnectionGene(nodeGenes.get(in), nodeGenes.get(out), parentPopulation.Innovation_nr++);
                 genes.add(connection);
                 nodeGenes.get(in).connections.add(connection);
             }
@@ -53,7 +53,7 @@ public class Genome{
     //incomplete
     public void mutate(double P_addNode, double P_addWeight, double P_mutateWeights,
                        double P_permuteWeight, double permutation){
-
+        // Mutate a weight.
         if (Math.random() < P_mutateWeights) {
             for (int i = 0; i < N; i++) {
                 if (Math.random() < P_permuteWeight) {
@@ -65,41 +65,59 @@ public class Genome{
             }
         }
 
+        // Adding a weight.
         if (Math.random() < P_addWeight) {
-
             parentPopulation.Innovation_nr++;
+            int source;
 
+            // Select a node that has potential nodes to connect to.
             do {
-                int source = ((int) Math.random() * (nodeGenes.size() - parentPopulation.outNodes) + parentPopulation.inNodes + parentPopulation.outNodes) % nodeGenes.size();
+                source = ((int) (Math.random() * (nodeGenes.size() - parentPopulation.outNodes) + parentPopulation.inNodes + parentPopulation.outNodes) % nodeGenes.size());
             } while (nodeGenes.get(source).potentials.isEmpty());
+            // Select a random node from the potential connections of you source node.
+            int sink = (int) (Math.random() * nodeGenes.get(source).potentials.size());
+            // Create the new connection
+            ConnectionGene g = new ConnectionGene(nodeGenes.get(source), nodeGenes.get(source).potentials.get(sink), parentPopulation.Innovation_nr);
 
-            int sink = (int) Math.random() * nodeGenes.get(source).potentials.size;
-
-            ConnectionGene g = new ConnectionGene(nodeGenes.get(source), nodeGenes.get(source).potentials.get(sink), Math.random()*permutation, true, parentPopulation.Innovation_nr);
+            // Remove the newly connected node from the potential nodes.
             nodeGenes.get(source).potentials.remove(sink);
+            // Add the connection to the connections of the source node.
+            nodeGenes.get(source).connections.add(g);
+            // Add the connection to the genes.
             genes.add(g);
-
         }
 
+        // Adding a node.
         if (Math.random() < P_addNode){
-
-            int placement = (int)Math.random()*parentPopulation.Innovation_nr++;
+            // Select a connection where you will put a new node in between.
+            int placement = (int)(Math.random() * parentPopulation.Innovation_nr++);
+            // The old connection will be disabled.
             genes.get(placement).expressed = false;
-            List<ConnectionGene> conGen = new ArrayList<>(2);
-            List<NodeGene> potentials = new ArrayList<>(nodeGenes.size()-2);
-            NodeGene source = genes.get(placement).in_node, sink = genes.get(placement).out_node;
-            for (int i = 0; i < nodeGenes.size(); i++){
-                if (nodeGenes.get(i) != genes.get(placement).in_node && nodeGenes.get(i) != genes.get(placement).out_node){
-                    potentials.set(i, nodeGenes.get(i));
-                }
+
+            // Create the connection list for the new node.
+            List<ConnectionGene> connections = new ArrayList<>(1);
+            List<NodeGene> potentials = new ArrayList<>(nodeGenes.size());
+            for (int i = 0; i < nodeGenes.size(); i++) {
+                potentials.set(i, nodeGenes.get(i));
             }
-            NodeGene new_node = new NodeGene(NodeGene.Type.Hidden, conGen, potentials);
-            ConnectionGene g_in = new ConnectionGene(source, new_node, 1, true, parentPopulation.Innovation_nr++);
-            ConnectionGene g_out = new ConnectionGene(new_node, sink, genes.get(placement).weight, true, parentPopulation.Innovation_nr);
-            new_node.connections.set(0, g_in);
-            new_node.connections.set(1, g_out);
+
+            // The source node is the in_node of the original connection and the sink is the output_node.
+            NodeGene source = genes.get(placement).in_node, sink = genes.get(placement).out_node;
+            // Remove the out_node because the new node will be connected to it.
+            potentials.remove(sink);
+
+            // Create the new node.
+            NodeGene new_node = new NodeGene(NodeGene.Type.Hidden, connections, potentials);
+            // Create the new connections.
+            ConnectionGene g_in = new ConnectionGene(source, new_node, parentPopulation.Innovation_nr++);
+            ConnectionGene g_out = new ConnectionGene(new_node, sink, genes.get(placement).weight, parentPopulation.Innovation_nr);
+            // Add the new connection to the source node and the new node.
+            source.connections.add(g_in);
+            new_node.connections.set(0, g_out);
+            // Add the new connections and nodes to the genome.
             genes.add(g_in);
             genes.add(g_out);
+            nodeGenes.add(new_node);
         }
     }
     

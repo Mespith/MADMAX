@@ -164,7 +164,6 @@ public class Population {
         }
 
         return new Genome(genes, this);
-
     }
 
     private double compatibility(int N, DEW_Genes DEW) //N should be passed as Math.max(g1.N(), g2.N()), DEW as DEW_Genes(g1, g2)

@@ -19,6 +19,14 @@ public class ConnectionGene {
         this.innovation_nr = innovation_nr;
     }
 
+    ConnectionGene(NodeGene in_node, NodeGene out_node, double weight, int innovation_nr){
+        this.weight = weight;
+        this.in_node = in_node;
+        this.out_node = out_node;
+        this.expressed = true;
+        this.innovation_nr = innovation_nr;
+    }
+
     ConnectionGene(ConnectionGene g, boolean disable){ //boolean sets expressed to false if disable is true
         this.weight = g.getWeight();
         this.innovation_nr = g.getInnovation_nr();
