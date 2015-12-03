@@ -123,7 +123,9 @@ public class Genome{
     
     public double getFitness(){return fitness;}
 
-    public List<ConnectionGene> Genes() { return genes; }
+    public List<ConnectionGene> getGenes() { return genes; }
+
+    public List<NodeGene> getNodes() { return nodeGenes; }
 
     public EchoStateNet Parse(Integer nr_of_inputs, Integer nr_of_outputs) {
         SimpleMatrix Win = new SimpleMatrix(nr_of_nodes, 1 + nr_of_inputs);
