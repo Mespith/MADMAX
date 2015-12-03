@@ -16,6 +16,16 @@ public class Genome{
     private List<ConnectionGene> genes;
     private List<NodeGene> nodeGenes;
 
+    Genome(Genome g){
+        this.parentPopulation = g.parentPopulation;
+        this.fitness = g.fitness;
+        this.N = g.N;
+        this.nr_of_nodes = g.nr_of_nodes;
+        this.genes = new ArrayList<>();
+        this.genes.addAll(g.genes);
+        this.nodeGenes = new ArrayList<>();
+        this.nodeGenes.addAll(g.nodeGenes);
+    }
     Genome(List<ConnectionGene> genes, List<NodeGene> nodeGenes, Population parentPopulation){
         this.parentPopulation = parentPopulation;
         this.genes = genes; //genes called by reference?
@@ -123,7 +133,7 @@ public class Genome{
     
     public double getFitness(){return fitness;}
 
-    public List<ConnectionGene> getGenes() { return genes; }
+    public List<ConnectionGene> getConnections() { return genes; }
 
     public List<NodeGene> getNodes() { return nodeGenes; }
 

@@ -1,5 +1,4 @@
 import java.lang.Math;
-
 import org.ejml.data.MatrixIterator64F;
 import org.ejml.simple.SimpleMatrix;
 
