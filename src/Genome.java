@@ -75,7 +75,7 @@ public class Genome{
                     genes.get(i).weight = permutation*genes.get(i).weight;
                 }
                 else{
-                    genes.get(i).weight = Math.random();
+                    genes.get(i).weight = Math.random().nextGaussian();
                 }
             }
         }
