@@ -5,7 +5,7 @@ public class ConnectionGene {
     public double weight;
     private int innovation_nr;
     ConnectionGene(int in_node, int out_node, int innovation_nr){
-        this.weight = Math.random();
+        this.weight = Math.random().nextGaussian();
         this.in_node = in_node;
         this.out_node = out_node;
         this.innovation_nr = innovation_nr;
