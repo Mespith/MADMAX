@@ -48,7 +48,7 @@ public class Population {
                
     // (Re)Assign species
     public void Spieciefy() {
-        generation_species = new ArrayList<>();
+        generation_species = new ArrayList<List<Genome>>();
         Boolean added = false;
         // Loop through all the individuals of this generation.
         for (int i = 0; i < Generation.size(); i++) {
@@ -67,7 +67,7 @@ public class Population {
             }
             // If the individual was nog assigned to any species, it is a new species.
             if (!added) {
-                ArrayList<Genome> new_species = new ArrayList<>();
+                ArrayList<Genome> new_species = new ArrayList<Genome>();
                 new_species.add(individual);
                 generation_species.add(new_species);
             }
@@ -122,7 +122,7 @@ public class Population {
     private Genome crossover(Genome g1, Genome g2, DEW_Genes DEW, double P_disabled) {
         int N;
         boolean P; //probability of offspring inheriting disjoint and excess genes from g1 or g2
-        if (g1.getFitness() < g2.getFitness()) {
+        if (g1.fitness < g2.fitness {
             N = g2.N;
             P = false;
         } else {
