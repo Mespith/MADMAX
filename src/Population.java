@@ -117,59 +117,58 @@ public class Population {
         return Generation.get(0).Parse(inNodes, outNodes);
     }
 
-    // - P_disabled is probability of gene being disabled if either one of parents' gene is disabled
+//Still need to create potentials nested list of integers, and if we want to keep nodes as a hashset then it needs to be changed everywhere else
     // - N is put to the longest genome, corresponding to the genome length of the offspring
-    private Genome crossover(Genome g1, Genome g2, DEW_Genes DEW, double P_disabled) {
+    private Genome crossover(Genome g1, Genome g2, DEW_Genes DEW) {
         int N;
         boolean P; //probability of offspring inheriting disjoint and excess genes from g1 or g2
-        if (g1.fitness < g2.fitness {
-            N = g2.N;
+        if (g1.fitness < g2.fitness) {
+            N = g2.getConnections().size();
             P = false;
         } else {
-            N = g1.N;
+            N = g1.getConnections().size();
             P = true;
         }
 
-        List<ConnectionGene> genes = new ListArray<ConnectionGene>(N);
-        boolean disable = false; //Decides whether or not a gene is disabled (P_disabled chance of being disabled if either parent has disabled gene)
+        List<ConnectionGene> genes = new ArrayList<ConnectionGene>(N);
+        HashSet<Integer> nodes = new HashSet<Integer>();
+        List<List<Integer>> potentials = new ArrayList<List<Integer>>();
 
         //start with the shared genes, 50/50 chance of inheriting from either parent
-        for (int i = 0; i < DEW.getN(); i++) {
-            if (Math.random() < P_disabled && (g1.Genes().get(i).getExpressed() || g2.Genes().get(i).getExpressed())) {
-                disable = true;
-            }
+        for (int i = 0; i < DEW.N; i++) {
             if (Math.random() < 0.5) {
-                genes.set(i, new ConnectionGene(g1.Genes().get(i), disable));
+                genes.set(i, new ConnectionGene(g1.getConnections().get(i)));
+                nodes.add(g1.getConnections().get(i).in_node);
+                nodes.add(g1.getConnections().get(i).out_node);
+
             } else {
-                genes.set(i, new ConnectionGene(g2.Genes().get(i), disable));
+                genes.set(i, new ConnectionGene(g2.getConnections().get(i)));
+                nodes.add(g2.getConnections().get(i).in_node);
+                nodes.add(g2.getConnections().get(i).out_node);
             }
-            disable = false;
         }
 
-        for (int i = DEW.getN(); i < N; i++){ //now copy the excess and disjoint genes from most fit parent
+        for (int i = DEW.N; i < N; i++){ //now copy the excess and disjoint genes from most fit parent
             if (P){
-                disable = false;
-                if (Math.random() < P_disabled && g1.Genes().get(i).getExpressed()){
-                    disable = true;
-                }
-                genes.set(i, new ConnectionGene(g1.Genes().get(i), disable));
+                genes.set(i, new ConnectionGene(g1.getConnections().get(i)));
+                nodes.add(g1.getConnections().get(i).in_node);
+                nodes.add(g1.getConnections().get(i).out_node);
             }
             else{
-                disable = false;
-                if (Math.random() < P_disabled && g2.Genes().get(i).getExpressed()){
-                    disable = true;
-                }
-                genes.set(i, new ConnectionGene(g2.Genes().get(i), disable));
+                genes.set(i, new ConnectionGene(g2.getConnections().get(i)));
+                nodes.add(g2.getConnections().get(i).in_node);
+                nodes.add(g2.getConnections().get(i).out_node);
             }
         }
 
-        return new Genome(genes, this);
+        return new Genome(genes, nodes, potentials, this);
     }
 
     private double compatibility(int N, DEW_Genes DEW) //N should be passed as Math.max(g1.N(), g2.N()), DEW as DEW_Genes(g1, g2)
     {
-        return (c1 * DEW.getE() + c2 * DEW.getD()) / N + c3 * DEW.getW();
+        return (c1 * DEW.E + c2 * DEW.D) / N + c3 * DEW.W;
     }
+
 
     // Method to get one genome to represent the species for the next generation.
     private void shrink_species() {
