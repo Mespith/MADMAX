@@ -32,6 +32,7 @@ public class ConnectionGene {
         this.innovation_nr = g.getInnovation_nr();
         this.in_node = new NodeGene(g.getIn_node());
         this.out_node = new NodeGene(g.getOut_node());
+        this.expressed = g.expressed;
         if (disable){
             this.expressed = false;
         }
