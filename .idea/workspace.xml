@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="add049f7-9fc6-4525-a9a0-6d2cd97eca91" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GenomeComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ConnectionGene.java" afterPath="$PROJECT_DIR$/src/ConnectionGene.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DefaultDriver.java" afterPath="$PROJECT_DIR$/src/DefaultDriver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DefaultDriverAlgorithm.java" afterPath="$PROJECT_DIR$/src/DefaultDriverAlgorithm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Evolution.java" afterPath="$PROJECT_DIR$/src/Evolution.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Genome.java" afterPath="$PROJECT_DIR$/src/Genome.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NodeGene.java" afterPath="$PROJECT_DIR$/src/NodeGene.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Population.java" afterPath="$PROJECT_DIR$/src/Population.java" />
     </list>
     <ignored path="MadMaxDriver.iws" />
@@ -46,10 +38,9 @@
         <entry file="file://$PROJECT_DIR$/src/Evolution.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
               <folding>
                 <element signature="method#initialize_population#0;class#Evolution#0" expanded="false" />
-                <element signature="method#evolve#0;class#Evolution#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -58,10 +49,16 @@
       <file leaf-file-name="Population.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Population.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.18644068">
-              <caret line="102" column="73" selection-start-line="102" selection-start-column="73" selection-end-line="102" selection-end-column="73" />
+            <state vertical-scroll-proportion="0.6038136">
+              <caret line="111" column="25" selection-start-line="111" selection-start-column="25" selection-end-line="111" selection-end-column="25" />
               <folding>
                 <element signature="method#Spieciefy#0;class#Population#0" expanded="false" />
+                <element signature="method#TestGeneration#0;class#Population#0" expanded="false" />
+                <element signature="e#4636#4637#0" expanded="true" />
+                <element signature="e#4668#4669#0" expanded="true" />
+                <element signature="method#crossover#0;class#Population#0" expanded="false" />
+                <element signature="method#compatibility#0;class#Population#0" expanded="false" />
+                <element signature="method#shrink_species#0;class#Population#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -165,8 +162,8 @@
         <option value="$PROJECT_DIR$/src/DefaultDriver.java" />
         <option value="$PROJECT_DIR$/src/Genome.java" />
         <option value="$PROJECT_DIR$/src/GenomeComparator.java" />
-        <option value="$PROJECT_DIR$/src/Population.java" />
         <option value="$PROJECT_DIR$/src/Evolution.java" />
+        <option value="$PROJECT_DIR$/src/Population.java" />
       </list>
     </option>
   </component>
@@ -647,6 +644,12 @@
           <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
           <folding>
             <element signature="method#Spieciefy#0;class#Population#0" expanded="false" />
+            <element signature="method#TestGeneration#0;class#Population#0" expanded="false" />
+            <element signature="e#4636#4637#0" expanded="true" />
+            <element signature="e#4668#4669#0" expanded="true" />
+            <element signature="method#crossover#0;class#Population#0" expanded="false" />
+            <element signature="method#compatibility#0;class#Population#0" expanded="false" />
+            <element signature="method#shrink_species#0;class#Population#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1005,20 +1008,25 @@
     <entry file="file://$PROJECT_DIR$/src/Evolution.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
           <folding>
             <element signature="method#initialize_population#0;class#Evolution#0" expanded="false" />
-            <element signature="method#evolve#0;class#Evolution#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Population.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18644068">
-          <caret line="102" column="73" selection-start-line="102" selection-start-column="73" selection-end-line="102" selection-end-column="73" />
+        <state vertical-scroll-proportion="0.6038136">
+          <caret line="111" column="25" selection-start-line="111" selection-start-column="25" selection-end-line="111" selection-end-column="25" />
           <folding>
             <element signature="method#Spieciefy#0;class#Population#0" expanded="false" />
+            <element signature="method#TestGeneration#0;class#Population#0" expanded="false" />
+            <element signature="e#4636#4637#0" expanded="true" />
+            <element signature="e#4668#4669#0" expanded="true" />
+            <element signature="method#crossover#0;class#Population#0" expanded="false" />
+            <element signature="method#compatibility#0;class#Population#0" expanded="false" />
+            <element signature="method#shrink_species#0;class#Population#0" expanded="false" />
           </folding>
         </state>
       </provider>

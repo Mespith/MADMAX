@@ -67,7 +67,9 @@ public class Population {
             }
             // If the individual was nog assigned to any species, it is a new species.
             if (!added) {
-                Species.add(individual);
+                ArrayList<Genome> new_species = new ArrayList<>();
+                new_species.add(individual);
+                generation_species.add(new_species);
             }
         }
     }
@@ -107,7 +109,7 @@ public class Population {
     // Kill the worst performing individuals of each species.
     // Create offspring to replace the whole population.
     public void NewGeneration() {
-
+        shrink_species();
     }
 
     // Return the best performing individual
@@ -169,5 +171,17 @@ public class Population {
     {
         return (c1 * DEW.getE() + c2 * DEW.getD()) / N + c3 * DEW.getW();
     }
-    
+
+    // Method to get one genome to represent the species for the next generation.
+    private void shrink_species() {
+        for (int i = 0; i < generation_species.size(); i++) {
+            if (i < Species.size()) {
+                Species.set(i, generation_species.get(i).get((int)(Math.random() * 10)));
+            }
+            else {
+                Species.add(generation_species.get(i).get((int)(Math.random() * 10)));
+            }
+        }
+        generation_species.clear();
+    }
 }
