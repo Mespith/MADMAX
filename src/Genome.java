@@ -14,7 +14,7 @@ public class Genome{
     public int N;
     public Integer nr_of_nodes;
     private List<ConnectionGene> genes;
-    private List<NodeGene> nodeGenes;
+    private List<Integer> nodes;
 
     Genome(Genome g){
         this.parentPopulation = g.parentPopulation;
@@ -22,14 +22,21 @@ public class Genome{
         this.N = g.N;
         this.nr_of_nodes = g.nr_of_nodes;
         this.genes = new ArrayList<>();
-        this.genes.addAll(g.genes);
-        this.nodeGenes = new ArrayList<>();
-        this.nodeGenes.addAll(g.nodeGenes);
+        for (ConnectionGene gene : g.genes)
+        {
+            this.genes.add(new ConnectionGene(gene));
+        }
+        this.nodes = new ArrayList<>();
+        for (int node : g.nodes)
+        {
+            this.nodes.add(node);
+        }
     }
-    Genome(List<ConnectionGene> genes, List<NodeGene> nodeGenes, Population parentPopulation){
+
+    Genome(List<ConnectionGene> genes, List<Integer> nodeGenes, Population parentPopulation){
         this.parentPopulation = parentPopulation;
         this.genes = genes; //genes called by reference?
-        this.nodeGenes = nodeGenes;
+        this.nodes = nodeGenes;
         this.fitness = 0;
         this.N = genes.size();
     }
@@ -37,13 +44,13 @@ public class Genome{
     Genome(Population parentPopulation, int in_nodes, int out_nodes){
         this.parentPopulation = parentPopulation;
         this.genes = new ArrayList<>();
-        this.nodeGenes = new ArrayList<>();
+        this.nodes = new ArrayList<>();
         this.fitness = 0;
 
         // Create all the input and output nodes
         for (int i = 0; i < in_nodes + out_nodes; i++) {
             if (i < in_nodes) {
-                this.nodeGenes.add(new NodeGene(NodeGene.Type.Input));
+                this.nodes.add(new NodeGene(NodeGene.Type.Input));
             }
             else {
                 this.nodeGenes.add(new NodeGene(NodeGene.Type.Output));
