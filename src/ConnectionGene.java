@@ -17,7 +17,7 @@ public class ConnectionGene {
         this.innovation_nr = innovation_nr;
     }
     ConnectionGene(ConnectionGene g){ //boolean sets expressed to false if disable is true
-        this.weight = g.getWeight();
+        this.weight = g.weight;
         this.innovation_nr = g.getInnovation_nr();
         this.in_node = g.in_node;
         this.out_node = g.out_node;

@@ -19,6 +19,56 @@ public class EchoStateNet {
         this.leaking_rate = leaking_rate;
     }
 
+    public EchoStateNet(Genome gene, double leakAlpha)
+    {
+        // 1: find numbers of nodes TODO adjust to Genome specifications
+        ConnectionGene[] connections = null; // gene.getNodes() or so...
+        int nNodes = 5; //gene.parent.getNumNodes()
+        int inSize = 5; //gene.parent.getNumInNodes()
+        int outSize = 5; //gene.parent.getNumOutNodes()
+        int hidSize = nNodes - inSize - outSize;
+
+        // make weight arrays. adopt ordering from nodes list. this being [in]+[out]+[hid]
+        double[][] inW = new double[hidSize][inSize];
+        double[][] hidW = new double[hidSize][hidSize];
+        double[][] outW = new double[outSize][hidSize + inSize]; // first come the hidden then the in connections
+        // 2: go through connectionslist, set each one if expressed
+
+        for (ConnectionGene con: connections)
+        {
+            // get source
+            int source = con.in_node;
+            // get target
+            int target = con.out_node;
+            // set source and target
+            if (target >= inSize && target < inSize + outSize) //nodes to out layer
+            {
+                if(source < inSize) // in nodes to out layer
+                {
+                    outW[target  - inSize][source + hidSize] = con.weight;
+                }
+                else                // hid nodes to out layer
+                {
+                    outW[target  - inSize][source - (inSize + outSize)] = con.weight;
+                }
+            }
+            else if (source > inSize) //nodes from in to hidden layer
+            {
+                inW[target - (inSize + outSize)][source] = con.weight;
+            }
+            else //nodes in recurrent layer
+            {
+                hidW[target - (inSize + outSize)][source - (inSize + outSize)] = con.weight;
+            }
+        }
+
+        this.inW = new SimpleMatrix(inW);
+        this.resW = new SimpleMatrix(hidW);
+        this.outW = new SimpleMatrix(outW);
+        this.x_prev = new SimpleMatrix(hidSize, 1);
+        this.leaking_rate = leakAlpha;
+    }
+
     // This is method takes in a matrix of the sensor values and returns the values of the actuators.
     public SimpleMatrix forward_propagation(SimpleMatrix U)
     {
