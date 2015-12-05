@@ -17,7 +17,7 @@ public class Genome{
         this.parentPopulation = g.parentPopulation;
         this.fitness = g.fitness;
         this.nr_of_nodes = g.nr_of_nodes;
-        this.genes = new ArrayList<ConnectionGene>();
+        this.genes = new ArrayList<>();
         for (ConnectionGene gene : g.genes)
         {
             this.genes.add(new ConnectionGene(gene));
@@ -35,6 +35,7 @@ public class Genome{
     }
 
     Genome(List<ConnectionGene> genes, List<Integer> nodeGenes, List<List<Integer>> potentials, Population parentPopulation){
+        this.nr_of_nodes = nodeGenes.size();
         this.parentPopulation = parentPopulation;
         this.genes = genes;
         this.nodes = nodeGenes;
@@ -42,28 +43,28 @@ public class Genome{
         this.fitness = 0;
     }
 
-    Genome(Population parentPopulation, int in_nodes, int out_nodes){
-
+    Genome(Population parentPopulation){
         this.parentPopulation = parentPopulation;
-        this.genes = new ArrayList<ConnectionGene>(in_nodes*out_nodes);
-        this.nodes = new ArrayList<Integer>(in_nodes + out_nodes);
-        this.potentials = new ArrayList<List<Integer>>(in_nodes);
+        this.nr_of_nodes = parentPopulation.inNodes + parentPopulation.outNodes;
+        this.genes = new ArrayList<ConnectionGene>(parentPopulation.inNodes*parentPopulation.outNodes);
+        this.nodes = new ArrayList<Integer>(nr_of_nodes);
+        this.potentials = new ArrayList<List<Integer>>(parentPopulation.inNodes);
         this.fitness = 0;
 
         // Create all the input and output nodes
-        for (int i = 0; i < in_nodes + out_nodes; i++) {
+        int innovationCounter = 0;
+        for (int i = 0; i < nr_of_nodes; i++) {
             this.nodes.set(i, i);
-            if (i < in_nodes){
+            if (i < parentPopulation.inNodes){
                 potentials.set(i, new ArrayList<Integer>());
-                for (int j = in_nodes; j < out_nodes; j++) {
-                    this.genes.set(parentPopulation.innovation_nr, new ConnectionGene(i, j, parentPopulation.innovation_nr));
-                    parentPopulation.innovation_nr++;
+                for (int j = parentPopulation.inNodes; j < parentPopulation.outNodes; j++) {
+                    this.genes.set(innovationCounter, new ConnectionGene(i, j, innovationCounter));
+                    innovationCounter++;
                 }
             }
         }
-
     }
-
+    
     //incomplete
     public void mutate(double P_addNode, double P_addWeight, double P_mutateWeights,
                        double P_permuteWeight, double permutation){
