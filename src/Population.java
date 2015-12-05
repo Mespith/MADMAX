@@ -20,9 +20,12 @@ public class Population {
 
     private double c1, c2, c3;
     private double compatibility_threshold;
+    
     private List<Genome> Species;
     private List<Genome> Generation;
+    private List<Genome> OldGeneration;
     private ArrayList<ArrayList<Genome>> generation_species;
+    
 
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double P_addNode, double P_addWeight, double P_mutateWeights,
