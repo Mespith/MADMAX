@@ -15,7 +15,7 @@ import java.util.List;
 public class Population {
     
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
-    public int Innovation_nr, inNodes, outNodes;
+    public int innovation_nr, nodeID, inNodes, outNodes;
     private double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation;
 
     private double c1, c2, c3;
@@ -23,7 +23,7 @@ public class Population {
     private List<Genome> Species;
     private List<Genome> Generation;
     private ArrayList<ArrayList<Genome>> generation_species;
-    
+
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double P_addNode, double P_addWeight, double P_mutateWeights,
                double P_changeWeight, double permutation, double compatibility_threshold, int pop_size) {
@@ -38,14 +38,14 @@ public class Population {
         this.P_changeWeight = P_changeWeight;
         this.permutation = permutation;
         this.compatibility_threshold = compatibility_threshold;
-        this.Innovation_nr = 0;
+        this.innovation_nr = inNodes*outNodes;
+        this.nodeID = 0;
 
         // Fill the population with new individuals.
         for (int i = 0; i < pop_size; i++) {
-            Generation.add(new Genome(this, inNodes, outNodes));
+            Generation.add(new Genome(this));
         }
     }
-               
     // (Re)Assign species
     public void Spieciefy() {
         generation_species = new ArrayList<>();
