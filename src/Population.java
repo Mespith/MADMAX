@@ -15,16 +15,16 @@ import java.util.List;
 public class Population {
     
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
-    public int innovation_nr, nodeID, inNodes, outNodes;
+    public int innovation_nr, nodeId, inNodes, outNodes;
     private double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation;
 
     private double c1, c2, c3;
     private double compatibility_threshold;
     
-    private List<Genome> Species;
-    private List<Genome> Generation;
-    private List<Genome> OldGeneration;
-    private ArrayList<ArrayList<Genome>> generation_species;
+    private List<Genome> species;
+    private List<Genome> generation;
+    private List<Genome> oldGeneration;
+    private ArrayList<ArrayList<Genome>> generationSpecies;
     
 
     //temporary constructor:
@@ -42,7 +42,7 @@ public class Population {
         this.permutation = permutation;
         this.compatibility_threshold = compatibility_threshold;
         this.innovation_nr = inNodes*outNodes;
-        this.nodeID = 0;
+        this.nodeId = 0;
 
         // Fill the population with new individuals.
         for (int i = 0; i < pop_size; i++) {
@@ -51,7 +51,7 @@ public class Population {
     }
     // (Re)Assign species
     public void Spieciefy() {
-        generation_species = new ArrayList<>();
+        generationSpecies = new ArrayList<>();
         Boolean added = false;
         // Loop through all the individuals of this generation.
         for (int i = 0; i < Generation.size(); i++) {
@@ -63,7 +63,7 @@ public class Population {
                 Double comp = compatibility(Math.max(individual.N, species.N), comp_analysis);
                 // If the individual is compatible with the species, it is assigned to it.
                 if (comp < compatibility_threshold) {
-                    generation_species.get(j).add(individual);
+                    generationSpecies.get(j).add(individual);
                     added = true;
                     break;
                 }
@@ -72,7 +72,7 @@ public class Population {
             if (!added) {
                 ArrayList<Genome> new_species = new ArrayList<>();
                 new_species.add(individual);
-                generation_species.add(new_species);
+                generationSpecies.add(new_species);
             }
         }
     }
@@ -85,10 +85,10 @@ public class Population {
         DriversUtils.registerMemory(algorithm.getDriverClass());
 
         // Create a driver for each genome
-        for (int species = 0; species < generation_species.size(); species++ ) {
+        for (int species = 0; species < generationSpecies.size(); species++ ) {
             List<DefaultDriver> drivers = new ArrayList<>();
-            for (int i = 0; i < generation_species.get(species).size(); i++) {
-                DefaultDriver driver = new DefaultDriver(generation_species.get(species).get(i).Parse(inNodes, outNodes));
+            for (int i = 0; i < generationSpecies.get(species).size(); i++) {
+                DefaultDriver driver = new DefaultDriver(generationSpecies.get(species).get(i).Parse(inNodes, outNodes));
                 drivers.add(driver);
             }
 
@@ -103,58 +103,57 @@ public class Population {
             race.run();
             // Set the fitness for each genome.
             for (int j = 0; j < drivers.size(); j++) {
-                generation_species.get(species).get(j).fitness = drivers.get(j).position;
+                generationSpecies.get(species).get(j).fitness = drivers.get(j).position;
             }
-            generation_species.get(species).sort(new GenomeComparator());
+            generationSpecies.get(species).sort(new GenomeComparator());
         }
     }
 
 
     // Kill the worst performing individuals of each species.
     // Create offspring to replace the whole population.
-    public void NewGeneration(double kill_rate, double mutation_rate) { //kill_rate should be around 0.6, mutation_rate around 0.25
+    public void NewGeneration(double killRate, double mutationRate) { //killRate should be around 0.6, mutationRate around 0.25
         //store parent generation in OldGeneration variable
         int genomeCounter = 0;
         OldGeneration = new ArrayList<Genome>(Generation.size());
-        for (int i = 0; i < generation_species.size(); i++){
-            for (int j = 0; j < generation_species.get(i).size(); j++){
-                OldGeneration.set(genomeCounter++, new Genome(generation_species.get(i).get(j)));
+        for (int i = 0; i < generationSpecies.size(); i++){
+            for (int j = 0; j < generationSpecies.get(i).size(); j++){
+                OldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
             }
         }
-        //Change the offspring generation in place
+        //Go through species in generationSpecies, select the best individuals within every species for breeding and self-cloning.
+        //Changes happen in place.
         genomeCounter = 0;
-        for (int i = 0; i < generation_species.size(); i++) {
-            int individuals = generation_species.get(i).size();
+        for (int i = 0; i < generationSpecies.size(); i++) {
+            int individuals = generationSpecies.get(i).size();
             switch (individuals) {
                 case 1: {
-                    generation_species.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
-                    genomeCounter++;
+                    generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
                     break;
                 }
                 case 2: {
-                    DEW_Genes DEW = new DEW_Genes(generation_species.get(i).get(0), generation_species.get(i).get(1));
-                    generation_species.get(i).set(1, crossover(generation_species.get(i).get(0), generation_species.get(i).get(1), DEW));
-                    generation_species.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
-                    genomeCounter += 2;
+                    DEW_Genes DEW = new DEWGenes(generationSpecies.get(i).get(0), generationSpecies.get(i).get(1));
+                    generationSpecies.get(i).set(1, crossover(generationSpecies.get(i).get(0), generationSpecies.get(i).get(1), DEW));
+                    generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
                     break;
                 }
                 default: {
-                    int survive_index = (int) Math.round((1 - kill_rate) * individuals);
-                    int mutation_index = (int)Math.round(mutation_rate*individuals);
-                    for (int j = mutation_index; j < individuals; j++){
+                    int survive_index = (int) Math.round((1 - killRate) * individuals);
+                    int mutationIndex = (int)Math.round(mutationRate*individuals);
+                    for (int j = mutationIndex; j < individuals; j++){
                         int mom = (int)(Math.random()*survive_index), dad = (int)(Math.random()*survive_index);
                         DEW_Genes DEW = new DEW_Genes(OldGeneration.get(genomeCounter + mom), OldGeneration.get(genomeCounter + dad));
-                        generation_species.get(i).set(j, crossover(OldGeneration.get(genomeCounter + mom), OldGeneration.get(genomeCounter + dad), DEW));
+                        generationSpecies.get(i).set(j, crossover(OldGeneration.get(genomeCounter + mom), OldGeneration.get(genomeCounter + dad), DEW));
                     }
-                    for (int j = 0; j < mutation_index; j++){
+                    for (int j = 0; j < mutationIndex; j++){
                         int mutant = (int)(Math.random()*survive_index);
-                        generation_species.get(i).set(j, new Genome(OldGeneration.get(genomeCounter + mutant)));
-                        generation_species.get(i).get(j).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
+                        generationSpecies.get(i).set(j, new Genome(OldGeneration.get(genomeCounter + mutant)));
+                        generationSpecies.get(i).get(j).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
                     }
-                    genomeCounter += individuals;
                     break;
                 }
             }
+            genomeCounter += individuals;
         }
     }
 
@@ -218,14 +217,14 @@ public class Population {
 
     // Method to get one genome to represent the species for the next generation.
     private void shrink_species() {
-        for (int i = 0; i < generation_species.size(); i++) {
+        for (int i = 0; i < generationSpecies.size(); i++) {
             if (i < Species.size()) {
-                Species.set(i, generation_species.get(i).get((int)(Math.random() * 10)));
+                Species.set(i, generationSpecies.get(i).get((int)(Math.random() * 10)));
             }
             else {
-                Species.add(generation_species.get(i).get((int)(Math.random() * 10)));
+                Species.add(generationSpecies.get(i).get((int)(Math.random() * 10)));
             }
         }
-        generation_species.clear();
+        generationSpecies.clear();
     }
 }
