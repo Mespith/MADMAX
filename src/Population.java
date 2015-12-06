@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by Jaimy on 26/11/2015.
- */
-
 public class Population {
     
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
@@ -22,7 +18,7 @@ public class Population {
 
     private double c1, c2, c3;
     private double compatibility_threshold;
-    
+
     private List<Genome> species;
     private List<Genome> generation;
     private List<Genome> oldGeneration;
@@ -52,31 +48,50 @@ public class Population {
             generation.add(new Genome(this));
         }
     }
+
     // (Re)Assign species
     public void Spieciefy() {
         generationSpecies = new ArrayList<>();
-        Boolean added = false;
         // Loop through all the individuals of this generation.
         for (int i = 0; i < generation.size(); i++) {
+            boolean added = false;
             Genome individual = generation.get(i);
-            // Loop through all the known species.
-            for (int j = 0; j < species.size(); j++) {
-                Genome species = species.get(j);
-                DEW_Genes comp_analysis = new DEW_Genes(individual, species);
-                Double comp = compatibility(Math.max(individual.getN(), species.getN()), comp_analysis);
-                // If the individual is compatible with the species, it is assigned to it.
-                if (comp < compatibility_threshold) {
-                    generationSpecies.get(j).add(individual);
-                    added = true;
-                    break;
+            double compatibility = compatibility_threshold;
+            //first check the speciesHint variable to see if the old species still applies to the individual
+            if (individual.speciesHint != -1){
+                DEW_Genes comp_analysis = new DEW_Genes(individual, species.get(individual.speciesHint));
+                compatibility = compatibility(Math.max(individual.getN(), species.get(individual.speciesHint).getN()), comp_analysis);
+            }
+            // and add it to the list generationSpecies if it's still compatible.
+            if (compatibility < compatibility_threshold) {
+                generationSpecies.get(individual.speciesHint).add(individual);
+                added = true;
+            }
+            // Or loop through all the known species if not.
+            else {
+                for (int j = 0; j < species.size(); j++) {
+                    Genome speciesPrototype = species.get(j);
+                    DEW_Genes comp_analysis = new DEW_Genes(individual, speciesPrototype);
+                    compatibility = compatibility(Math.max(individual.getN(), speciesPrototype.getN()), comp_analysis);
+                    // If the individual is compatible with the species, it is assigned to it.
+                    if (compatibility < compatibility_threshold) {
+                        individual.speciesHint = j;
+                        generationSpecies.get(j).add(individual);
+                        added = true;
+                        break;
+                    }
                 }
             }
-            // If the individual was nog assigned to any species, it is a new species.
+            // If the individual was not assigned to any species, it is a new species.
             if (!added) {
                 ArrayList<Genome> new_species = new ArrayList<>();
                 new_species.add(individual);
                 generationSpecies.add(new_species);
             }
+        }
+        GenomeFitnessComparator compare = new GenomeFitnessComparator();
+        for (int i = 0; i < generationSpecies.size(); i++){
+            java.util.Collections.sort(generationSpecies.get(i), compare);
         }
     }
 

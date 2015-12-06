@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Genome {
 
+    public int speciesHint;
     private Population parentPopulation;
     public double fitness;
     public int nr_of_nodes;
@@ -11,7 +12,9 @@ public class Genome {
     private List<ConnectionGene> genes;
     private List<Integer> nodes;
 
+
     Genome(Genome g) {
+        this.speciesHint = g.speciesHint;
         this.parentPopulation = g.parentPopulation;
         this.fitness = g.fitness;
         this.nr_of_nodes = g.nr_of_nodes;
@@ -32,6 +35,7 @@ public class Genome {
 
     Genome(Population parentPopulation) {
         this.parentPopulation = parentPopulation;
+        this.speciesHint = -1;
         this.nr_of_nodes = parentPopulation.inNodes + parentPopulation.outNodes;
         this.genes = new ArrayList<ConnectionGene>(parentPopulation.inNodes * parentPopulation.outNodes);
         this.nodes = new ArrayList<Integer>(nr_of_nodes);
