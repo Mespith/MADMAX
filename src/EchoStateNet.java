@@ -1,4 +1,6 @@
 import java.lang.Math;
+import java.util.List;
+
 import org.ejml.data.MatrixIterator64F;
 import org.ejml.simple.SimpleMatrix;
 
@@ -19,13 +21,15 @@ public class EchoStateNet {
         this.leaking_rate = leaking_rate;
     }
 
+    public EchoStateNet(Genome gene){ this(gene, 0.3); }
+
     public EchoStateNet(Genome gene, double leakAlpha)
     {
-        // 1: find numbers of nodes TODO adjust to Genome specifications
-        ConnectionGene[] connections = null; // gene.getNodes() or so...
-        int nNodes = 5; //gene.parent.getNumNodes()
-        int inSize = 5; //gene.parent.getNumInNodes()
-        int outSize = 5; //gene.parent.getNumOutNodes()
+        // 1: find numbers of nodes
+        List<ConnectionGene> connections = gene.getConnections(); // gene.getNodes() or so...
+        int nNodes = gene.nr_of_nodes; //gene.parent.getNumNodes()
+        int inSize = gene.getParentPopulation().inNodes; //gene.parent.getNumInNodes()
+        int outSize = gene.getParentPopulation().outNodes; //gene.parent.getNumOutNodes()
         int hidSize = nNodes - inSize - outSize;
 
         // make weight arrays. adopt ordering from nodes list. this being [in]+[out]+[hid]

@@ -9,32 +9,32 @@ public class DEW_Genes {
         N = 0; //# of shared genes
         W = 0.;
 
-        int i1 = g1.genes.get(0).getInnovation_nr();
-        int i2 = g2.genes.get(0).getInnovation_nr();
+        int i1 = g1.getConnections().get(0).getInnovation_nr();
+        int i2 = g2.getConnections().get(0).getInnovation_nr();
 
         while (i1 == i2 && N < g1.N && N < g2.N) {
-            W += Math.abs(g1.genes.get(N).weight() - g2.genes.get(N).weight());
+            W += Math.abs(g1.getConnections().get(N).weight - g2.getConnections().get(N).weight);
             N++;
             if (N < g1.N && N < g2.N) {
-                i1 = g1.genes.get(N).getInnovation_nr();
-                i2 = g2.genes.get(N).getInnovation_nr();
+                i1 = g1.getConnections().get(N).getInnovation_nr();
+                i2 = g2.getConnections().get(N).getInnovation_nr();
             }
         }
 
         W /= N;
 
-        i1 = g1.genes.get(g1.N - 1).getInnovation_nr();
-        i2 = g2.genes.get(g2.N - 1).getInnovation_nr();
+        i1 = g1.getConnections().get(g1.N - 1).getInnovation_nr();
+        i2 = g2.getConnections().get(g2.N - 1).getInnovation_nr();
 
         if (i1 < i2) {
             while (i1 < i2) {
                 E++;
-                i2 = g2.genes.get(g2.N - 1 - E).getInnovation_nr();
+                i2 = g2.getConnections().get(g2.N - 1 - E).getInnovation_nr();
             }
         } else if (i2 < i1) {
             while (i2 < i1) {
                 E++;
-                i1 = g1.genes.get(g1.N - 1 - E).getInnovation_nr();
+                i1 = g1.getConnections().get(g1.N - 1 - E).getInnovation_nr();
             }
         }
 
