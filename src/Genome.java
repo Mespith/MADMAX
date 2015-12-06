@@ -30,15 +30,6 @@ public class Genome {
         }
     }
 
-    Genome(List<ConnectionGene> genes, List<Integer> nodeGenes, List<List<Integer>> potentials, Population parentPopulation) {
-        this.nr_of_nodes = nodeGenes.size();
-        this.parentPopulation = parentPopulation;
-        this.genes = genes;
-        this.nodes = nodeGenes;
-        this.potentials = potentials;
-        this.fitness = 0;
-    }
-
     Genome(Population parentPopulation) {
         this.parentPopulation = parentPopulation;
         this.nr_of_nodes = parentPopulation.inNodes + parentPopulation.outNodes;
