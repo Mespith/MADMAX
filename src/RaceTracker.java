@@ -23,8 +23,8 @@ public class RaceTracker {
     private static int MEM_SIZE = 1;                    //default size of past timesteps to keep track of.
     private double temporaryFitness;                    // keeps track of events during the race
     private double finalFitness;                        // final fitness value. computed once.
-    private LinkedList<double[]> sensorMemory;                // list of n past sensor parameters
-    private LinkedList<double[]> actionMemory;                // list of n past action parameters
+    private LinkedList<double[]> sensorMemory;          // list of n past sensor parameters
+    private LinkedList<double[]> actionMemory;          // list of n past action parameters
     private static long TIMELIMIT = Long.MAX_VALUE;     // number of time steps after which the race is terminated
     private long raceTime;                              // number of past timesteps in current race
     private boolean stopRace;                           // driver will terminate race if set to true
@@ -55,7 +55,7 @@ public class RaceTracker {
             actionMemory.remove(0);
         }
 
-        evalTimestep(actions); // evaluate temporary fitness. set stopRace
+        evalTimestep(); // evaluate temporary fitness. set stopRace
 
         if (stopRace || raceTime > TIMELIMIT) //
         {
@@ -73,9 +73,9 @@ public class RaceTracker {
     }
 
     /**
+     * above: keep
      *
-     * basic setup returns
-     *
+     * below: overwrite
      */
 
     private double[] fetchSensors(SensorModel sensors)
@@ -90,7 +90,7 @@ public class RaceTracker {
         return a;
     }
 
-    private void evalTimestep(Action actions)
+    private void evalTimestep()
     {
         if (actionMemory.getLast()[0] > 0.5 && actionMemory.getLast()[1] > 0.5)
         {
