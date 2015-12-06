@@ -1,8 +1,6 @@
 import org.ejml.simple.SimpleMatrix;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+
+import java.util.*;
 
 public class Genome {
 
@@ -73,7 +71,7 @@ public class Genome {
                 if (Math.random() < P_permuteWeight) {
                     genes.get(i).weight = permutation * genes.get(i).weight;
                 } else {
-                    genes.get(i).weight = Math.random().nextGaussian();
+                    genes.get(i).weight = new Random().nextGaussian();
                 }
             }
         }
@@ -149,4 +147,5 @@ public class Genome {
         return parentPopulation;
     }
 
+    public int getN(){ return genes.size(); }
 }
