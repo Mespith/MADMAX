@@ -14,6 +14,7 @@ public class DefaultDriver extends AbstractDriver {
 
     private EchoStateNet esn;
     public int position;
+    public RaceTracker tracker;
 
     DefaultDriver() {
         initialize();
@@ -21,6 +22,7 @@ public class DefaultDriver extends AbstractDriver {
 
     DefaultDriver(EchoStateNet esn) {
         this.esn = esn;
+        this.tracker = new RaceTracker();
     }
 
     public void loadGenome(IGenome genome) { }
@@ -43,6 +45,8 @@ public class DefaultDriver extends AbstractDriver {
         action.steering = actOut.get(1);
         action.brake = actOut.get(2);
 
+        tracker.doTimestep(sensors, action); // collects data on race. may set action.abandonRace = True
+                                        // if temporary fitness is too bad or time-limit is reached
     }
 
     public String getDriverName() {
