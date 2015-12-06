@@ -43,45 +43,6 @@ public class DefaultDriver extends AbstractDriver {
         action.steering = actOut.get(1);
         action.brake = actOut.get(2);
 
-        // Example of a bot that drives pretty well; you can use this to generate data
-//        action.steering = DriversUtils.alignToTrackAxis(sensors, 0.5);
-//        if(sensors.getSpeed() > 60.0D) {
-//            action.accelerate = 0.0D;
-//            action.brake = 0.0D;
-//        }
-//
-//        if(sensors.getSpeed() > 70.0D) {
-//            action.accelerate = 0.0D;
-//            action.brake = -1.0D;
-//        }
-//
-//        if(sensors.getSpeed() <= 60.0D) {
-//            action.accelerate = (80.0D - sensors.getSpeed()) / 80.0D;
-//            action.brake = 0.0D;
-//        }
-//
-//        if(sensors.getSpeed() < 30.0D) {
-//            action.accelerate = 1.0D;
-//            action.brake = 0.0D;
-//        }
-//        System.out.println(action.steering +"steering");
-//        System.out.println(action.accelerate + "acceleration");
-//        System.out.println(action.brake + "brake");
-//
-//        String data = sensors.getSpeed() + "," + sensors.getAngleToTrackAxis() + ";" + action.accelerate + "," + action.steering + "," + action.brake;
-//        byte[] dataBytes = data.getBytes();
-//        for (int i = 0; i < data.length(); i++) {
-//            try {
-//                writer.write(dataBytes[i]);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        try {
-//            writer.newLine();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public String getDriverName() {

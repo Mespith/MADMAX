@@ -117,10 +117,10 @@ public class Population {
     public void NewGeneration(double kill_rate, double mutation_rate) { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
         int genomeCounter = 0;
-        OldGeneration = new ArrayList<Genome>(Generation.size());
+        oldGeneration = new ArrayList<Genome>(generation.size());
         for (int i = 0; i < generationSpecies.size(); i++){
             for (int j = 0; j < generationSpecies.get(i).size(); j++){
-                OldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
+                oldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
             }
         }
         //Change the offspring generation in place
@@ -142,11 +142,11 @@ public class Population {
                     int mutation_index = (int)Math.round(mutation_rate*individuals);
                     for (int j = mutation_index; j < individuals; j++){
                         int mom = (int)(Math.random()*survive_index), dad = (int)(Math.random()*survive_index);
-                        generationSpecies.get(i).set(j, crossover(OldGeneration.get(genomeCounter + mom), OldGeneration.get(genomeCounter + dad)));
+                        generationSpecies.get(i).set(j, crossover(oldGeneration.get(genomeCounter + mom), oldGeneration.get(genomeCounter + dad)));
                     }
                     for (int j = 0; j < mutation_index; j++){
                         int mutant = (int)(Math.random()*survive_index);
-                        generationSpecies.get(i).set(j, new Genome(OldGeneration.get(genomeCounter + mutant)));
+                        generationSpecies.get(i).set(j, new Genome(oldGeneration.get(genomeCounter + mutant)));
                         generationSpecies.get(i).get(j).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
                     }
                     break;
