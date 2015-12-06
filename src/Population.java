@@ -112,20 +112,18 @@ public class Population {
         }
     }
 
-
     // Kill the worst performing individuals of each species.
     // Create offspring to replace the whole population.
-    public void NewGeneration(double killRate, double mutationRate) { //killRate should be around 0.6, mutationRate around 0.25
+    public void NewGeneration(double kill_rate, double mutation_rate) { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
         int genomeCounter = 0;
-        oldGeneration = new ArrayList<Genome>(generation.size());
+        OldGeneration = new ArrayList<Genome>(Generation.size());
         for (int i = 0; i < generationSpecies.size(); i++){
             for (int j = 0; j < generationSpecies.get(i).size(); j++){
-                oldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
+                OldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
             }
         }
-        //Go through species in generationSpecies, select the best individuals within every species for breeding and self-cloning.
-        //Changes happen in place.
+        //Change the offspring generation in place
         genomeCounter = 0;
         for (int i = 0; i < generationSpecies.size(); i++) {
             int individuals = generationSpecies.get(i).size();
@@ -135,22 +133,20 @@ public class Population {
                     break;
                 }
                 case 2: {
-                    DEW_Genes DEW = new DEW_Genes(generationSpecies.get(i).get(0), generationSpecies.get(i).get(1));
-                    generationSpecies.get(i).set(1, crossover(generationSpecies.get(i).get(0), generationSpecies.get(i).get(1), DEW));
+                    generationSpecies.get(i).set(1, crossover(generationSpecies.get(i).get(0), generationSpecies.get(i).get(1)));
                     generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
                     break;
                 }
                 default: {
-                    int survive_index = (int) Math.round((1 - killRate) * individuals);
-                    int mutationIndex = (int)Math.round(mutationRate*individuals);
-                    for (int j = mutationIndex; j < individuals; j++){
+                    int survive_index = (int) Math.round((1 - kill_rate) * individuals);
+                    int mutation_index = (int)Math.round(mutation_rate*individuals);
+                    for (int j = mutation_index; j < individuals; j++){
                         int mom = (int)(Math.random()*survive_index), dad = (int)(Math.random()*survive_index);
-                        DEW_Genes DEW = new DEW_Genes(oldGeneration.get(genomeCounter + mom), oldGeneration.get(genomeCounter + dad));
-                        generationSpecies.get(i).set(j, crossover(oldGeneration.get(genomeCounter + mom), oldGeneration.get(genomeCounter + dad), DEW));
+                        generationSpecies.get(i).set(j, crossover(OldGeneration.get(genomeCounter + mom), OldGeneration.get(genomeCounter + dad)));
                     }
-                    for (int j = 0; j < mutationIndex; j++){
+                    for (int j = 0; j < mutation_index; j++){
                         int mutant = (int)(Math.random()*survive_index);
-                        generationSpecies.get(i).set(j, new Genome(oldGeneration.get(genomeCounter + mutant)));
+                        generationSpecies.get(i).set(j, new Genome(OldGeneration.get(genomeCounter + mutant)));
                         generationSpecies.get(i).get(j).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
                     }
                     break;
@@ -165,53 +161,42 @@ public class Population {
         return new EchoStateNet(generation.get(0));
     }
 
-//Still need to create potentials nested list of integers, and if we want to keep nodes as a hashset then it needs to be changed everywhere else
-    // - N is put to the longest genome, corresponding to the genome length of the offspring
-    private Genome crossover(Genome g1, Genome g2, DEW_Genes DEW) {
-        int N;
-        boolean P; //probability of offspring inheriting disjoint and excess genes from g1 or g2
-        if (g1.fitness < g2.fitness) {
-            N = g2.getConnections().size();
-            P = false;
-        } else {
-            N = g1.getConnections().size();
-            P = true;
-        }
+    private Genome crossover(Genome g1, Genome g2) {
 
-        List<ConnectionGene> genes = new ArrayList<ConnectionGene>(N);
-        List<Integer> nodes = new ArrayList<>();
-        List<List<Integer>> potentials = new ArrayList<List<Integer>>();
+        //find the # of shared genes
+        int nSharedGenes = 0;
+        int i1 = g1.getConnections().get(0).getInnovation_nr();
+        int i2 = g2.getConnections().get(0).getInnovation_nr();
 
-        //start with the shared genes, 50/50 chance of inheriting from either parent
-        for (int i = 0; i < DEW.N; i++) {
-            if (Math.random() < 0.5) {
-                genes.set(i, new ConnectionGene(g1.getConnections().get(i)));
-                nodes.add(g1.getConnections().get(i).in_node);
-                nodes.add(g1.getConnections().get(i).out_node);
-
-            } else {
-                genes.set(i, new ConnectionGene(g2.getConnections().get(i)));
-                nodes.add(g2.getConnections().get(i).in_node);
-                nodes.add(g2.getConnections().get(i).out_node);
+        while (i1 == i2 && nSharedGenes < g1.getN() && nSharedGenes < g2.getN()) {
+            nSharedGenes++;
+            if (nSharedGenes < g1.getN() && nSharedGenes < g2.getN()) {
+                i1 = g1.getConnections().get(nSharedGenes).getInnovation_nr();
+                i2 = g2.getConnections().get(nSharedGenes).getInnovation_nr();
             }
         }
 
-        for (int i = DEW.N; i < N; i++){ //now copy the excess and disjoint genes from most fit parent
-            if (P){
-                genes.set(i, new ConnectionGene(g1.getConnections().get(i)));
-                nodes.add(g1.getConnections().get(i).in_node);
-                nodes.add(g1.getConnections().get(i).out_node);
+        //create offspring as a copy of most fit parent
+        Genome offspring = null;
+        if (g1.fitness < g2.fitness) {
+            offspring = new Genome(g1);
+        } else {
+            offspring = new Genome(g2);
+        }
+
+        //alter the shared genes, 50/50 chance of inheriting from either parent
+        for (int i = 0; i < nSharedGenes; i++) {
+            if(Math.random() < 0.5) {
+                offspring.getConnections().set(i, new ConnectionGene(g1.getConnections().get(i)));
             }
             else{
-                genes.set(i, new ConnectionGene(g2.getConnections().get(i)));
-                nodes.add(g2.getConnections().get(i).in_node);
-                nodes.add(g2.getConnections().get(i).out_node);
+                offspring.getConnections().set(i, new ConnectionGene(g2.getConnections().get(i)));
             }
         }
 
-        return new Genome(genes, nodes, potentials, this);
+        return offspring;
     }
-
+    
     private double compatibility(int N, DEW_Genes DEW) //N should be passed as Math.max(g1.N(), g2.N()), DEW as DEW_Genes(g1, g2)
     {
         return (c1 * DEW.E + c2 * DEW.D) / N + c3 * DEW.W;
