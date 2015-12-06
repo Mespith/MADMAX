@@ -60,7 +60,7 @@ public class Genome {
         if (randomUniform() < P_mutateWeights) {
             for (int i = 0; i < genes.size(); i++) {
                 if (randomUniform() < P_permuteWeight) {
-                    genes.get(i).weight = permutation * genes.get(i).weight;
+                    genes.get(i).weight = genes.get(i).weight + permutation*(2*Math.random() - 1);
                 } else {
                     genes.get(i).weight = randomGaussian();
                 }
