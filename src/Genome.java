@@ -66,20 +66,20 @@ public class Genome {
                        double P_permuteWeight, double permutation) {
 
         // Mutate a weight.
-        if (Math.random() < P_mutateWeights) {
+        if (randomUniform() < P_mutateWeights) {
             for (int i = 0; i < genes.size(); i++) {
-                if (Math.random() < P_permuteWeight) {
+                if (randomUniform() < P_permuteWeight) {
                     genes.get(i).weight = permutation * genes.get(i).weight;
                 } else {
-                    genes.get(i).weight = new Random().nextGaussian();
+                    genes.get(i).weight = randomGaussian();
                 }
             }
         }
 
         // Adding a weight.
-        if (Math.random() < P_addWeight) {
+        if (randomUniform() < P_addWeight) {
 
-            int random_nr = (int) Math.random() * ((nr_of_nodes - parentPopulation.outNodes) * (nr_of_nodes - parentPopulation.inNodes) - genes.size());
+            int random_nr = (int) randomUniform() * ((nr_of_nodes - parentPopulation.outNodes) * (nr_of_nodes - parentPopulation.inNodes) - genes.size());
 
             // Select a node that has potential nodes to connect to.
             // Select a random node from the potential connections of you source node.
@@ -104,9 +104,9 @@ public class Genome {
         }
 
         // Adding a node.
-        if (Math.random() < P_addNode) {
+        if (randomUniform() < P_addNode) {
             // Select a connection where you will put a new node in between.
-            int placement = (int) (Math.random() * genes.size());
+            int placement = (int) (randomUniform() * genes.size());
             // The old connection will be disabled.
             genes.get(placement).weight = 0;
             nr_of_nodes++;
