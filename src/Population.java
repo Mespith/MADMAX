@@ -8,10 +8,12 @@ import java.io.File;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Jaimy on 26/11/2015.
  */
+
 public class Population {
     
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
@@ -25,11 +27,12 @@ public class Population {
     private List<Genome> generation;
     private List<Genome> oldGeneration;
     private ArrayList<ArrayList<Genome>> generationSpecies;
-    
+
+    public Random rng;
 
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double P_addNode, double P_addWeight, double P_mutateWeights,
-               double P_changeWeight, double permutation, double compatibility_threshold, int pop_size) {
+               double P_changeWeight, double permutation, double compatibility_threshold, int pop_size, Random rng) {
         this.c1 = c1;
         this.c2 = c2;
         this.c3 = c3;
@@ -43,7 +46,7 @@ public class Population {
         this.compatibility_threshold = compatibility_threshold;
         this.innovation_nr = inNodes*outNodes;
         this.nodeId = 0;
-
+        this.rng = rng;
         // Fill the population with new individuals.
         for (int i = 0; i < pop_size; i++) {
             generation.add(new Genome(this));
@@ -60,7 +63,7 @@ public class Population {
             for (int j = 0; j < species.size(); j++) {
                 Genome species = species.get(j);
                 DEW_Genes comp_analysis = new DEW_Genes(individual, species);
-                Double comp = compatibility(Math.max(individual.N, species.N), comp_analysis);
+                Double comp = compatibility(Math.max(individual.getN(), species.getN()), comp_analysis);
                 // If the individual is compatible with the species, it is assigned to it.
                 if (comp < compatibility_threshold) {
                     generationSpecies.get(j).add(individual);
@@ -176,7 +179,7 @@ public class Population {
         }
 
         List<ConnectionGene> genes = new ArrayList<ConnectionGene>(N);
-        HashSet<Integer> nodes = new HashSet<Integer>();
+        List<Integer> nodes = new ArrayList<>();
         List<List<Integer>> potentials = new ArrayList<List<Integer>>();
 
         //start with the shared genes, 50/50 chance of inheriting from either parent

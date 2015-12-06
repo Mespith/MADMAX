@@ -1,12 +1,16 @@
+import java.util.Random;
+
 /**
  * Created by Jaimy on 02/12/2015.
  * This class represents the loop of the evolution process.
  */
 public class Evolution {
-
+    private static long SEED = 42;
     private static Population population;
+    private static Random rng;
 
     public static void main() {
+        rng = new Random(SEED);
         population = initialize_population();
         evolve(1);
     }
@@ -29,7 +33,7 @@ public class Evolution {
         double permutation = 0.6;
 
         return new Population(c1, c2, c3, nr_of_inputs, nr_of_outputs, p_new_node, p_new_connection,
-                p_mutate_weight, p_random_weight, permutation, comp_threshold, population_size);
+                p_mutate_weight, p_random_weight, permutation, comp_threshold, population_size, rng);
     }
 
     private static void evolve(int nr_of_generations) {

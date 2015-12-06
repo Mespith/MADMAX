@@ -52,7 +52,7 @@ public class Genome {
         for (int i = 0; i < nr_of_nodes; i++) {
             this.nodes.set(i, i);
             if (i < parentPopulation.inNodes) {
-                potentials.set(i, new ArrayList<Integer>());
+                potentials.set(i, new ArrayList<>());
                 for (int j = parentPopulation.inNodes; j < parentPopulation.outNodes; j++) {
                     this.genes.set(innovationCounter, new ConnectionGene(i, j, innovationCounter));
                     innovationCounter++;
@@ -148,4 +148,8 @@ public class Genome {
     }
 
     public int getN(){ return genes.size(); }
+
+    private double randomUniform(){ return parentPopulation.rng.nextDouble(); }
+
+    private double randomGaussian(){ return parentPopulation.rng.nextGaussian(); }
 }
