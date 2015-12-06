@@ -5,7 +5,7 @@ import java.util.Random;
  * This class represents the loop of the evolution process.
  */
 public class Evolution {
-    private static long SEED = 42;
+    private static long SEED = 54;
     private static Population population;
     private static Random rng;
 
