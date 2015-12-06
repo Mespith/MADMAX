@@ -14,7 +14,7 @@ public class Population {
     
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
     public int innovation_nr, nodeId, inNodes, outNodes;
-    private double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation;
+    private double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation, kill_rate, mutation_rate;
 
     private double c1, c2, c3;
     private double compatibility_threshold;
@@ -27,7 +27,7 @@ public class Population {
     public Random rng;
 
     //temporary constructor:
-    Population(double c1, double c2, double c3, int inNodes, int outNodes, double P_addNode, double P_addWeight, double P_mutateWeights,
+    Population(double c1, double c2, double c3, int inNodes, int outNodes, double kill_rate, double mutation_rate, double P_addNode, double P_addWeight, double P_mutateWeights,
                double P_changeWeight, double permutation, double compatibility_threshold, int pop_size, Random rng) {
         this.c1 = c1;
         this.c2 = c2;
@@ -43,6 +43,8 @@ public class Population {
         this.innovation_nr = inNodes*outNodes;
         this.nodeId = 0;
         this.rng = rng;
+        this.kill_rate = kill_rate;
+        this.mutation_rate = mutation_rate;
         // Fill the population with new individuals.
         for (int i = 0; i < pop_size; i++) {
             generation.add(new Genome(this));
@@ -50,11 +52,15 @@ public class Population {
     }
 
     // (Re)Assign species
-    public void Spieciefy() {
-        generationSpecies = new ArrayList<>();
+    public void Speciefy() {
+        //make a list of lists of genomes for every specie, making sure the ordering of the lists is the same as in the class variable species
+        generationSpecies = new ArrayList<>(species.size());
+        for (int i = 0; i < species.size(); i++){
+            generationSpecies.set(i, new ArrayList<Genome>());
+        }
         // Loop through all the individuals of this generation.
         for (int i = 0; i < generation.size(); i++) {
-            boolean added = false;
+            boolean added = false; //keeps track of whether individual i has been added to a specie or not
             Genome individual = generation.get(i);
             double compatibility = compatibility_threshold;
             //first check the speciesHint variable to see if the old species still applies to the individual
@@ -84,11 +90,15 @@ public class Population {
             }
             // If the individual was not assigned to any species, it is a new species.
             if (!added) {
-                ArrayList<Genome> new_species = new ArrayList<>();
-                new_species.add(individual);
-                generationSpecies.add(new_species);
+                individual.speciesHint = species.size();
+                ArrayList<Genome> newSpecie = new ArrayList<>(1);
+                newSpecie.set(0, individual);
+                species.add(individual);
+                generationSpecies.add(newSpecie);
             }
         }
+
+        //sort the individuals in every specie by fitness
         GenomeFitnessComparator compare = new GenomeFitnessComparator();
         for (int i = 0; i < generationSpecies.size(); i++){
             java.util.Collections.sort(generationSpecies.get(i), compare);
@@ -129,7 +139,7 @@ public class Population {
 
     // Kill the worst performing individuals of each species.
     // Create offspring to replace the whole population.
-    public void NewGeneration(double kill_rate, double mutation_rate) { //kill_rate should be around 0.6, mutation_rate around 0.25
+    public void newGeneration() { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
         int genomeCounter = 0;
         oldGeneration = new ArrayList<Genome>(generation.size());
@@ -222,10 +232,10 @@ public class Population {
     private void shrink_species() {
         for (int i = 0; i < generationSpecies.size(); i++) {
             if (i < species.size()) {
-                species.set(i, generationSpecies.get(i).get((int)(Math.random() * 10)));
+                species.set(i, generationSpecies.get(i).get(0));
             }
             else {
-                species.add(generationSpecies.get(i).get((int)(Math.random() * 10)));
+                species.add(generationSpecies.get(i).get(0));
             }
         }
         generationSpecies.clear();
