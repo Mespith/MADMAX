@@ -71,9 +71,10 @@ public class Genome {
         }
 
         // Adding a weight.
-        if (randomUniform() < P_addWeight) {
+        int potential_connections = (nr_of_nodes - parentPopulation.outNodes) * (nr_of_nodes - parentPopulation.inNodes) - genes.size();
+        if (randomUniform() < P_addWeight && potential_connections > 0) {
 
-            int random_nr = (int) randomUniform() * ((nr_of_nodes - parentPopulation.outNodes) * (nr_of_nodes - parentPopulation.inNodes) - genes.size());
+            int random_nr = (int) (randomUniform() * potential_connections);
 
             // Select a node that has potential nodes to connect to.
             // Select a random node from the potential connections of you source node.
@@ -104,7 +105,7 @@ public class Genome {
             // The old connection will be disabled.
             genes.get(placement).weight = 0;
             nr_of_nodes++;
-            int newNodeId = parentPopulation.nodeId++;
+            int newNodeId = ++parentPopulation.nodeId;
             nodes.add(newNodeId);
             List<Integer> p = new ArrayList<Integer>();
             for (int i = parentPopulation.inNodes; i < nodes.size(); i++) {
@@ -112,13 +113,13 @@ public class Genome {
                     p.add(nodes.get(i));
                 }
             }
+            potentials.add(p);
             for (int i = 0; i < nodes.size() - parentPopulation.outNodes; i++) {
                 int idx = i < parentPopulation.inNodes ? i : i + parentPopulation.outNodes;
                 if (nodes.get(idx) != genes.get(placement).in_node) {
-                    potentials.get(idx).add(newNodeId);
+                    potentials.get(i).add(newNodeId);
                 }
             }
-            potentials.add(p);
 
             // Create the new connections.
             ConnectionGene g_in = new ConnectionGene(genes.get(placement).in_node, newNodeId, 1, parentPopulation.innovation_nr++);

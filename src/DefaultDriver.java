@@ -36,11 +36,11 @@ public class DefaultDriver extends AbstractDriver {
 
     @Override
     public void control(Action action, SensorModel sensors) {
-        position = sensors.getRacePosition();
-        double[][] actIn = {{ sensors.getSpeed(), sensors.getAngleToTrackAxis(), sensors.getTrackEdgeSensors()[0], sensors.getTrackEdgeSensors()[6],
-            sensors.getTrackEdgeSensors()[9], sensors.getTrackEdgeSensors()[12], sensors.getTrackEdgeSensors()[18], sensors.getOpponentSensors()[0],
-            sensors.getOpponentSensors()[6], sensors.getOpponentSensors()[12], sensors.getOpponentSensors()[18], sensors.getOpponentSensors()[24],
-            sensors.getOpponentSensors()[30], sensors.getLateralSpeed(), sensors.getTrackPosition() }};
+
+        double[][] actIn = {{ sensors.getSpeed() }, { sensors.getAngleToTrackAxis() }, { sensors.getTrackEdgeSensors()[0] }, { sensors.getTrackEdgeSensors()[6] },
+                { sensors.getTrackEdgeSensors()[9] }, { sensors.getTrackEdgeSensors()[12] }, { sensors.getTrackEdgeSensors()[18] }, { sensors.getOpponentSensors()[0] },
+                { sensors.getOpponentSensors()[6] }, { sensors.getOpponentSensors()[12] }, { sensors.getOpponentSensors()[18] }, { sensors.getOpponentSensors()[24] },
+                { sensors.getOpponentSensors()[30] }, { sensors.getLateralSpeed() }, { sensors.getTrackPosition() }};
         SimpleMatrix actInMat = new SimpleMatrix(actIn);
         SimpleMatrix actOut = esn.forward_propagation(actInMat);
 

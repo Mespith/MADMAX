@@ -34,15 +34,15 @@ public class EchoStateNet {
 
         // make weight arrays. adopt ordering from nodes list. this being [in]+[out]+[hid]
 
-        double[][] inW = new double[hidSize][inSize];
-        double[][] hidW = new double[hidSize][hidSize];
-        double[][] outW = new double[outSize][hidSize + inSize]; // first come the hidden then the in connections
 
         if (hidSize == 0) // create placeholder only if hidden layer is empty
         {
-            inW = new double[1][inSize];
-            hidW = new double[1][hidSize];
+            hidSize = 1;
         }
+
+        double[][] inW = new double[hidSize][inSize];
+        double[][] hidW = new double[hidSize][hidSize];
+        double[][] outW = new double[outSize][hidSize + inSize]; // first come the hidden then the in connections
 
         // 2: go through connectionslist, set each one if expressed
         for (ConnectionGene con: connections) {

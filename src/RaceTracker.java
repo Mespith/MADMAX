@@ -47,7 +47,7 @@ public class RaceTracker {
         double[] actionData = fetchActions(actions);
 
         sensorMemory.add(sensorData);
-        sensorMemory.add(actionData);
+        actionMemory.add(actionData);
 
         if (sensorMemory.size() > MEM_SIZE) // delete old values
         {
@@ -59,7 +59,7 @@ public class RaceTracker {
 
         if (stopRace || raceTime > TIMELIMIT) //
         {
-            actions.abandonRace = true;
+            //actions.abandonRace = true;
         }
     }
 

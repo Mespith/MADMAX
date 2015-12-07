@@ -5,6 +5,7 @@ import cicontest.torcs.race.RaceResults;
 import race.TorcsConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class Population {
         this.c3 = c3;
         this.inNodes = inNodes;
         this.outNodes = outNodes;
+        this.nodeId = inNodes + outNodes - 1;
         this.P_addNode = P_addNode;
         this.P_addWeight = P_addWeight;
         this.P_mutateWeights = P_mutateWeights;
@@ -41,7 +43,6 @@ public class Population {
         this.permutation = permutation;
         this.compatibility_threshold = compatibility_threshold;
         this.innovation_nr = inNodes*outNodes;
-        this.nodeId = 0;
         this.rng = rng;
         this.kill_rate = kill_rate;
         this.mutation_rate = mutation_rate;
@@ -116,6 +117,11 @@ public class Population {
         TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
         DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
         DriversUtils.registerMemory(algorithm.getDriverClass());
+        try {
+            Runtime.getRuntime().exec("cmd /c start StartTORCS.bat");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Create a driver for each genome
         for (int species = 0; species < generationSpecies.size(); species++ ) {
@@ -148,7 +154,7 @@ public class Population {
     public void newGeneration() { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
         int genomeCounter = 0;
-        oldGeneration = new ArrayList<Genome>(generation.size());
+        oldGeneration = new ArrayList<>(generation.size());
         for (int i = 0; i < generationSpecies.size(); i++){
             for (int j = 0; j < generationSpecies.get(i).size(); j++){
                 oldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
