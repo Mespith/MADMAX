@@ -118,7 +118,8 @@ public class Population {
         // Create a driver for each genome
         for (int species = 0; species < generationSpecies.size(); species++ ) {
             List<DefaultDriver> drivers = new ArrayList<>();
-            for (int i = 0; i < generationSpecies.get(species).size(); i++) {
+            int species_index = 0;
+            for (int i = species_index; i < species_index + 1; i++) {
                 DefaultDriver driver = new DefaultDriver(new EchoStateNet(generationSpecies.get(species).get(i)));
                 drivers.add(driver);
             }
@@ -134,11 +135,9 @@ public class Population {
             race.run();
             // Set the fitness for each genome.
             for (int j = 0; j < drivers.size(); j++) {
-                generationSpecies.get(species).get(j).fitness = drivers.get(j).position;
-                generationSpecies.get(species).get(j).fitness = drivers.get(j).tracker.getFitness(); // TODO insert
+                generationSpecies.get(species).get(j).fitness = drivers.get(j).tracker.getFitness();
             }
-            generationSpecies.get(species).sort(new GenomeComparator());
-            generationSpecies.get(species).sort(new GenomeFitnessComparator()); // TODO insert
+            generationSpecies.get(species).sort(new GenomeFitnessComparator());
         }
     }
 

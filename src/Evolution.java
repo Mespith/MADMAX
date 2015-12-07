@@ -20,8 +20,8 @@ public class Evolution {
         double c1 = 1.0;
         double c2 = 1.0;
         double c3 = 3.0;
-        int nr_of_inputs = 19;
-        int nr_of_outputs = 7;
+        int nr_of_inputs = 15;
+        int nr_of_outputs = 3;
         int population_size = 100;
         double p_new_node = 0.03;
         double p_new_connection = 0.05;
