@@ -59,7 +59,7 @@ public class RaceTracker {
 
         if (stopRace || raceTime > TIMELIMIT) //
         {
-            //actions.abandonRace = true;
+            actions.abandonRace = true;
         }
     }
 
@@ -95,7 +95,7 @@ public class RaceTracker {
         if (actionMemory.getLast()[0] > 0.5 && actionMemory.getLast()[1] > 0.5)
         {
             //don't brake and accelerate at the same time!
-            temporaryFitness -= 1; // note that only the final fitness has to be positive.
+            temporaryFitness += 1; // note that only the final fitness has to be positive.
         }
     }
 

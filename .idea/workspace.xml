@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="add049f7-9fc6-4525-a9a0-6d2cd97eca91" name="Default" comment="">
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StartTORCS.bat" afterPath="$PROJECT_DIR$/StartTORCS.bat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Evolution.java" afterPath="$PROJECT_DIR$/src/Evolution.java" />
+=======
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/EJML.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MADMAX.iml" afterPath="$PROJECT_DIR$/MADMAX.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StartTORCS.bat" afterPath="$PROJECT_DIR$/StartTORCS.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Evolution.java" afterPath="$PROJECT_DIR$/src/Evolution.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Genome.java" afterPath="$PROJECT_DIR$/src/Genome.java" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Population.java" afterPath="$PROJECT_DIR$/src/Population.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RaceTracker.java" afterPath="$PROJECT_DIR$/src/RaceTracker.java" />
     </list>
@@ -32,14 +42,17 @@
         <entry file="file://$PROJECT_DIR$/src/Genome.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="95" column="53" selection-start-line="95" selection-start-column="53" selection-end-line="95" selection-end-column="53" />
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#Genome#0;class#Genome#0" expanded="false" />
+<<<<<<< HEAD
                 <element signature="e#5380#5381#0" expanded="true" />
                 <element signature="e#5408#5409#0" expanded="true" />
                 <element signature="e#5447#5448#0" expanded="true" />
                 <element signature="e#5475#5476#0" expanded="true" />
+=======
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
               </folding>
             </state>
           </provider>
@@ -59,16 +72,14 @@
         <entry file="file://$PROJECT_DIR$/src/DefaultDriver.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
               <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+=======
+              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
               <folding>
                 <element signature="e#2218#2219#0" expanded="true" />
                 <element signature="e#2259#2260#0" expanded="true" />
-                <element signature="e#2479#2480#0" expanded="true" />
-                <element signature="e#2503#2504#0" expanded="true" />
-                <element signature="e#2579#2580#0" expanded="true" />
-                <element signature="e#2603#2604#0" expanded="true" />
-                <element signature="e#2659#2660#0" expanded="true" />
-                <element signature="e#2683#2684#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -78,7 +89,11 @@
         <entry file="file://$PROJECT_DIR$/src/DefaultDriverAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
               <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+=======
+              <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,11 +101,29 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="RaceTracker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/RaceTracker.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+=======
+      <file leaf-file-name="Race.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/CIContest-driver.jar!/cicontest/torcs/race/Race.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-32.482143">
+              <caret line="151" column="9" selection-start-line="151" selection-start-column="9" selection-end-line="151" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RaceTracker.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/RaceTracker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.21411192">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
               <folding />
             </state>
           </provider>
@@ -100,7 +133,11 @@
         <entry file="file://$PROJECT_DIR$/StartTORCS.bat">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.0">
+<<<<<<< HEAD
               <caret line="0" column="117" selection-start-line="0" selection-start-column="117" selection-end-line="0" selection-end-column="117" />
+=======
+              <caret line="0" column="53" selection-start-line="0" selection-start-column="53" selection-end-line="0" selection-end-column="53" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
               <folding />
             </state>
           </provider>
@@ -110,7 +147,11 @@
         <entry file="file://$PROJECT_DIR$/src/Evolution.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
               <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+=======
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -121,8 +162,13 @@
       <file leaf-file-name="Population.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Population.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.88621795">
               <caret line="140" column="33" selection-start-line="140" selection-start-column="33" selection-end-line="140" selection-end-column="33" />
+=======
+            <state vertical-scroll-proportion="0.0">
+              <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,22 +215,29 @@
         <option value="$PROJECT_DIR$/src/DefaultDriverAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/NeuralNetwork.java" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/Genome.java" />
         <option value="$PROJECT_DIR$/src/EchoStateNet.java" />
         <option value="$PROJECT_DIR$/src/DefaultDriver.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/Evolution.java" />
         <option value="$PROJECT_DIR$/StartTORCS.bat" />
         <option value="$PROJECT_DIR$/src/Population.java" />
         <option value="$PROJECT_DIR$/src/RaceTracker.java" />
         <option value="$PROJECT_DIR$/src/ProperDriving.java" />
+=======
+        <option value="$PROJECT_DIR$/src/Population.java" />
+        <option value="$PROJECT_DIR$/src/Genome.java" />
+        <option value="$PROJECT_DIR$/src/Evolution.java" />
+        <option value="$PROJECT_DIR$/StartTORCS.bat" />
+        <option value="$PROJECT_DIR$/src/RaceTracker.java" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1320" />
+    <option name="height" value="784" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -211,8 +264,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -248,6 +299,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -544,6 +597,11 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SbtLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
     <configuration />
@@ -625,8 +683,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
+=======
+    <frame x="-8" y="-8" width="1320" height="784" extended-state="6" />
+    <editor active="true" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -635,10 +698,14 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24846625" sideWeight="0.07604167" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.116564415" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32921812" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32668713" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23072916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23015873" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -651,6 +718,30 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22546013" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261317" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24846625" sideWeight="0.07604167" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.116564415" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32668713" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23015873" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22546013" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2489712" sideWeight="0.92395836" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -687,24 +778,40 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Evolution.java</url>
+<<<<<<< HEAD
           <line>17</line>
+=======
+          <line>18</line>
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
           <properties />
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Evolution.java</url>
+<<<<<<< HEAD
           <line>40</line>
+=======
+          <line>46</line>
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Evolution.java</url>
+<<<<<<< HEAD
           <line>47</line>
+=======
+          <line>53</line>
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
+<<<<<<< HEAD
       <option name="time" value="44" />
+=======
+      <option name="time" value="42" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -713,6 +820,51 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/src/RaceTracker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Evolution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="29" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Population.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DefaultDriver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TrainingData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
     <entry file="file://$PROJECT_DIR$/src/NeuralNetwork.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -948,6 +1100,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$USER_HOME$/Downloads/Example 2/DefaultDriver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.16346154">
@@ -962,6 +1115,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
     <entry file="file://$PROJECT_DIR$/src/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -975,6 +1130,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Genome.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1009,21 +1165,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16346154">
           <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
+=======
     <entry file="jar://$PROJECT_DIR$/CIContest-driver.jar!/cicontest/torcs/controller/Driver.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-11.814815">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/CIContest-driver.jar!/cicontest/torcs/client/CiClient.class">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.962963">
+          <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/torcs.properties">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state vertical-scroll-proportion="0.0">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+=======
+        <state vertical-scroll-proportion="0.16346154">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/CIContest-driver.jar!/cicontest/torcs/race/Race.class">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.0">
           <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
+=======
+        <state vertical-scroll-proportion="-32.482143">
+          <caret line="151" column="9" selection-start-line="151" selection-start-column="9" selection-end-line="151" selection-end-column="9" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
           <folding />
         </state>
       </provider>
@@ -1053,6 +1232,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="jar://$PROJECT_DIR$/CIContest-driver.jar!/cicontest/torcs/race/Race.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.9396985">
@@ -1066,12 +1246,34 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="117" selection-start-line="0" selection-start-column="117" selection-end-line="0" selection-end-column="117" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/src/DefaultDriver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding>
+            <element signature="e#2218#2219#0" expanded="true" />
+            <element signature="e#2259#2260#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Evolution.java">
+    <entry file="file://$PROJECT_DIR$/src/Genome.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Genome#0;class#Genome#0" expanded="false" />
+          </folding>
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StartTORCS.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1093,14 +1295,52 @@
           <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
+=======
+          <caret line="0" column="53" selection-start-line="0" selection-start-column="53" selection-end-line="0" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DefaultDriverAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Evolution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Population.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/RaceTracker.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.0">
           <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+=======
+        <state vertical-scroll-proportion="0.21411192">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+>>>>>>> fea9f97d35c0b445adb21e814d0d9ce82b3b9941
           <folding />
         </state>
       </provider>

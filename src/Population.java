@@ -115,7 +115,7 @@ public class Population {
     public void TestGeneration() {
         //Set path to torcs.properties
         try {
-            Runtime.getRuntime().exec("cmd /c start StartTORCS.bat");
+            Runtime.getRuntime().exec("cmd /c start StartTORCS.bat exit");
         } catch (IOException e) {
             e.printStackTrace();
         }
