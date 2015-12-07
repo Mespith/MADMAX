@@ -37,19 +37,19 @@ public class Genome {
         this.parentPopulation = parentPopulation;
         this.speciesHint = -1;
         this.nr_of_nodes = parentPopulation.inNodes + parentPopulation.outNodes;
-        this.genes = new ArrayList<ConnectionGene>(parentPopulation.inNodes * parentPopulation.outNodes);
-        this.nodes = new ArrayList<Integer>(nr_of_nodes);
-        this.potentials = new ArrayList<List<Integer>>(parentPopulation.inNodes);
+        this.genes = new ArrayList<>(parentPopulation.inNodes * parentPopulation.outNodes);
+        this.nodes = new ArrayList<>(nr_of_nodes);
+        this.potentials = new ArrayList<>(parentPopulation.inNodes);
         this.fitness = 0;
 
         // Create all the input and output nodes
         int innovationCounter = 0;
         for (int i = 0; i < nr_of_nodes; i++) {
-            this.nodes.set(i, i);
+            this.nodes.add(i);
             if (i < parentPopulation.inNodes) {
-                potentials.set(i, new ArrayList<>());
-                for (int j = parentPopulation.inNodes; j < parentPopulation.outNodes; j++) {
-                    this.genes.set(innovationCounter, new ConnectionGene(i, j, innovationCounter));
+                potentials.add(new ArrayList<>());
+                for (int j = parentPopulation.inNodes; j < parentPopulation.inNodes + parentPopulation.outNodes; j++) {
+                    this.genes.add(new ConnectionGene(i, j, innovationCounter));
                     innovationCounter++;
                 }
             }
