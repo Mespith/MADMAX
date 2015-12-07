@@ -1,11 +1,10 @@
-import org.ejml.simple.SimpleMatrix;
-
+import java.io.Serializable;
 import java.util.*;
 
-public class Genome {
+public class Genome implements Serializable{
 
     public int speciesHint;
-    private Population parentPopulation;
+    private transient Population parentPopulation;
     public double fitness;
     public int nr_of_nodes;
     public List<List<Integer>> potentials;
@@ -147,4 +146,6 @@ public class Genome {
     private double randomUniform(){ return parentPopulation.rng.nextDouble(); }
 
     private double randomGaussian(){ return parentPopulation.rng.nextGaussian(); }
+
+    public void setParentPopulation(Population p){ this.parentPopulation = p; }
 }

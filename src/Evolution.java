@@ -1,7 +1,8 @@
 import cicontest.algorithm.abstracts.DriversUtils;
 import race.TorcsConfiguration;
 
-import java.io.File;
+import java.io.*;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -23,7 +24,9 @@ public class Evolution {
         TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
         DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
         DriversUtils.registerMemory(algorithm.getDriverClass());
-        evolve(10);
+
+
+        evolve(1);
 
 
     }
@@ -35,7 +38,7 @@ public class Evolution {
         double c3 = 3.0;
         int nr_of_inputs = 15;
         int nr_of_outputs = 3;
-        int population_size = 100;
+        int population_size = 5;
         double p_new_node = 0.03;
         double p_new_connection = 0.05;
         double p_mutate_weight = 0.8;
@@ -60,7 +63,13 @@ public class Evolution {
         population.Speciefy();
         population.TestGeneration();
 
+        Population.storePopulation(population, "C:\\Users\\Frederik\\Desktop\\population.ser");
         Parser p = new Parser();
         p.WriteForESN(population.BestIndividual());
+
+        Population loadedPop = Population.loadPopulation("C:\\Users\\Frederik\\Desktop\\population.ser");
+        System.out.println(loadedPop.getGeneration().get(0).fitness);
     }
+
+
 }

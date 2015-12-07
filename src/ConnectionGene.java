@@ -1,10 +1,13 @@
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Random;
-public class ConnectionGene {
+public class ConnectionGene implements Serializable{
+
     public int in_node;
     public int out_node;
     public double weight;
     private int innovation_nr;
+
     ConnectionGene(int in_node, int out_node, int innovation_nr){
         this.weight = new Random().nextGaussian(); // should really use one central Random object for all calls.
         this.in_node = in_node;
