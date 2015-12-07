@@ -12,6 +12,9 @@ public class Evolution {
     public static void main() {
         rng = new Random(SEED);
         population = initialize_population();
+        for (Genome g : population.getGeneration()){
+            g.mutate(population.P_addNode, population.P_addWeight, population.P_mutateWeights, population.P_permuteWeight, population.permutation);
+        }
         evolve(1);
     }
 

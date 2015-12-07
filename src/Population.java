@@ -14,7 +14,7 @@ public class Population {
     
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
     public int innovation_nr, nodeId, inNodes, outNodes;
-    private double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation, kill_rate, mutation_rate;
+    public double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation, kill_rate, mutation_rate;
 
     private double c1, c2, c3;
     private double compatibility_threshold;
@@ -53,6 +53,8 @@ public class Population {
             generation.add(gen);
         }
     }
+
+    public List<Genome> getGeneration(){return generation;}
 
     // (Re)Assign species
     public void Speciefy() {
