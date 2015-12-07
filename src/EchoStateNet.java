@@ -21,7 +21,7 @@ public class EchoStateNet {
         this.leaking_rate = leaking_rate;
     }
 
-    public EchoStateNet(Genome gene){ this(gene, 0.3); }
+    public EchoStateNet(Genome gene) { this(gene, 0.3); }
 
     public EchoStateNet(Genome gene, double leakAlpha)
     {

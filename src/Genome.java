@@ -45,12 +45,11 @@ public class Genome {
         // Create all the input and output nodes
         int innovationCounter = 0;
         for (int i = 0; i < nr_of_nodes; i++) {
-            this.nodes.set(i, i);
+            this.nodes.add(i);
             if (i < parentPopulation.inNodes) {
-                potentials.set(i, new ArrayList<>());
-                for (int j = parentPopulation.inNodes; j < parentPopulation.outNodes; j++) {
-                    this.genes.set(innovationCounter, new ConnectionGene(i, j, innovationCounter));
-                    innovationCounter++;
+                potentials.add(new ArrayList<>());
+                for (int j = parentPopulation.inNodes; j < parentPopulation.inNodes + parentPopulation.outNodes; j++) {
+                    this.genes.add( new ConnectionGene(i, j, innovationCounter++));
                 }
             }
         }
