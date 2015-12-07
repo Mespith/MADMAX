@@ -27,7 +27,7 @@ public class Evolution {
         double p_new_connection = 0.05;
         double p_mutate_weight = 0.8;
         double p_random_weight = 0.1;
-        double comp_threshold = 3.0;
+        double comp_threshold = 5.0;
         double kill_rate = 0.6;
         double mutation_rate = 0.25;
 

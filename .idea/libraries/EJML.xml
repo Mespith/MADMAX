@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="EJML">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/EJML" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/EJML" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/EJML" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/EJML" recursive="false" type="SOURCES" />
+  </library>
+</component>

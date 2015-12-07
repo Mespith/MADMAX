@@ -144,7 +144,7 @@ public class NeuralNetwork implements Serializable {
 			 e.printStackTrace();
 		 }
 
-		 return parser.ParseNetworkFile("OutputWeights.txt");
+		 return null;
 	 }
 
 	private String[] readFile(String inFile) throws IOException

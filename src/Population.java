@@ -45,18 +45,21 @@ public class Population {
         this.rng = rng;
         this.kill_rate = kill_rate;
         this.mutation_rate = mutation_rate;
+        this.generation = new ArrayList<>(pop_size);
+        this.species = new ArrayList<>();
         // Fill the population with new individuals.
         for (int i = 0; i < pop_size; i++) {
-            generation.add(new Genome(this));
+            Genome gen = new Genome(this);
+            generation.add(gen);
         }
     }
 
     // (Re)Assign species
     public void Speciefy() {
         //make a list of lists of genomes for every specie, making sure the ordering of the lists is the same as in the class variable species
-        generationSpecies = new ArrayList<>(species.size());
+        this.generationSpecies = new ArrayList<>(species.size());
         for (int i = 0; i < species.size(); i++){
-            generationSpecies.add(new ArrayList<Genome>());
+            generationSpecies.add(new ArrayList<>());
         }
         // Loop through all the individuals of this generation.
         for (int i = 0; i < generation.size(); i++) {

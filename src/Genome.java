@@ -37,9 +37,9 @@ public class Genome {
         this.parentPopulation = parentPopulation;
         this.speciesHint = -1;
         this.nr_of_nodes = parentPopulation.inNodes + parentPopulation.outNodes;
-        this.genes = new ArrayList<ConnectionGene>(parentPopulation.inNodes * parentPopulation.outNodes);
-        this.nodes = new ArrayList<Integer>(nr_of_nodes);
-        this.potentials = new ArrayList<List<Integer>>(parentPopulation.inNodes);
+        this.genes = new ArrayList<>(parentPopulation.inNodes * parentPopulation.outNodes);
+        this.nodes = new ArrayList<>(nr_of_nodes);
+        this.potentials = new ArrayList<>(parentPopulation.inNodes);
         this.fitness = 0;
 
         // Create all the input and output nodes
