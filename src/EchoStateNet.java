@@ -33,13 +33,19 @@ public class EchoStateNet {
         int hidSize = nNodes - inSize - outSize;
 
         // make weight arrays. adopt ordering from nodes list. this being [in]+[out]+[hid]
+
         double[][] inW = new double[hidSize][inSize];
         double[][] hidW = new double[hidSize][hidSize];
         double[][] outW = new double[outSize][hidSize + inSize]; // first come the hidden then the in connections
-        // 2: go through connectionslist, set each one if expressed
 
-        for (ConnectionGene con: connections)
+        if (hidSize == 0) // create placeholder only if hidden layer is empty
         {
+            inW = new double[1][inSize];
+            hidW = new double[1][hidSize];
+        }
+
+        // 2: go through connectionslist, set each one if expressed
+        for (ConnectionGene con: connections) {
             // get source
             int source = con.in_node;
             // get target
@@ -47,20 +53,17 @@ public class EchoStateNet {
             // set source and target
             if (target >= inSize && target < inSize + outSize) //nodes to out layer
             {
-                if(source < inSize) // in nodes to out layer
+                if (source < inSize) // in nodes to out layer
                 {
-                    outW[target  - inSize][source + hidSize] = con.weight;
-                }
-                else                // hid nodes to out layer
+                    outW[target - inSize][source + hidSize] = con.weight;
+                } else                // hid nodes to out layer
                 {
-                    outW[target  - inSize][source - (inSize + outSize)] = con.weight;
+                    outW[target - inSize][source - (inSize + outSize)] = con.weight;
                 }
-            }
-            else if (source > inSize) //nodes from in to hidden layer
+            } else if (source > inSize) //nodes from in to hidden layer
             {
                 inW[target - (inSize + outSize)][source] = con.weight;
-            }
-            else //nodes in recurrent layer
+            } else //nodes in recurrent layer
             {
                 hidW[target - (inSize + outSize)][source - (inSize + outSize)] = con.weight;
             }
