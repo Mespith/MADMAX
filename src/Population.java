@@ -100,12 +100,6 @@ public class Population {
                 generationSpecies.add(newSpecie);
             }
         }
-
-        //sort the individuals in every specie by fitness
-        GenomeFitnessComparator compare = new GenomeFitnessComparator();
-        for (int i = 0; i < generationSpecies.size(); i++){
-            java.util.Collections.sort(generationSpecies.get(i), compare);
-        }
     }
 
     // Parse every genome to a NN and use it to race.
@@ -136,7 +130,7 @@ public class Population {
             for (int j = 0; j < drivers.size(); j++) {
                 generationSpecies.get(species).get(j).fitness = drivers.get(j).position;
             }
-            generationSpecies.get(species).sort(new GenomeComparator());
+            generationSpecies.get(species).sort(new GenomeFitnessComparator());
         }
     }
 
@@ -144,15 +138,14 @@ public class Population {
     // Create offspring to replace the whole population.
     public void newGeneration() { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
-        int genomeCounter = 0;
         oldGeneration = new ArrayList<Genome>(generation.size());
         for (int i = 0; i < generationSpecies.size(); i++){
             for (int j = 0; j < generationSpecies.get(i).size(); j++){
-                oldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
+                oldGeneration.add(new Genome(generationSpecies.get(i).get(j)));
             }
         }
         //Change the offspring generation in place
-        genomeCounter = 0;
+        int genomeCounter = 0;
         for (int i = 0; i < generationSpecies.size(); i++) {
             int individuals = generationSpecies.get(i).size();
             switch (individuals) {

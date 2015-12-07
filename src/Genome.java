@@ -49,8 +49,7 @@ public class Genome {
             if (i < parentPopulation.inNodes) {
                 potentials.add(new ArrayList<>());
                 for (int j = parentPopulation.inNodes; j < parentPopulation.inNodes + parentPopulation.outNodes; j++) {
-                    this.genes.add(new ConnectionGene(i, j, innovationCounter));
-                    innovationCounter++;
+                    this.genes.add( new ConnectionGene(i, j, innovationCounter++));
                 }
             }
         }
