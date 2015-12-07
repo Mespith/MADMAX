@@ -95,7 +95,7 @@ public class Population {
             if (!added) {
                 individual.speciesHint = species.size();
                 ArrayList<Genome> newSpecie = new ArrayList<>(1);
-                newSpecie.set(0, individual);
+                newSpecie.add(individual);
                 species.add(individual);
                 generationSpecies.add(newSpecie);
             }
