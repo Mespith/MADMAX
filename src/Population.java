@@ -114,9 +114,6 @@ public class Population {
     // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
         //Set path to torcs.properties
-        TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
-        DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
-        DriversUtils.registerMemory(algorithm.getDriverClass());
         try {
             Runtime.getRuntime().exec("cmd /c start StartTORCS.bat");
         } catch (IOException e) {
@@ -125,27 +122,29 @@ public class Population {
 
         // Create a driver for each genome
         for (int species = 0; species < generationSpecies.size(); species++ ) {
-            List<DefaultDriver> drivers = new ArrayList<>();
             int species_index = 0;
-            for (int i = species_index; i < species_index + 1; i++) {
-                DefaultDriver driver = new DefaultDriver(new EchoStateNet(generationSpecies.get(species).get(i)));
-                drivers.add(driver);
-            }
+            while (species_index < generationSpecies.get(species).size()) {
+                List<DefaultDriver> drivers = new ArrayList<>();
+                for (int i = species_index; i < species_index + 10; i++) {
+                    DefaultDriver driver = new DefaultDriver(new EchoStateNet(generationSpecies.get(species).get(i)));
+                    drivers.add(driver);
+                }
 
-            //Set-up race
-            Race race = new Race();
-            race.setTrack("road", "aalborg");
-            race.setTermination(Race.Termination.LAPS, 1);
-            race.setStage(Controller.Stage.RACE);
-            for (int j = 0; j < drivers.size(); j++) {
-                race.addCompetitor(drivers.get(j));
+                //Set-up race
+                Race race = new Race();
+                race.setTrack("road", "aalborg");
+                race.setTermination(Race.Termination.LAPS, 1);
+                race.setStage(Controller.Stage.RACE);
+                for (int j = 0; j < drivers.size(); j++) {
+                    race.addCompetitor(drivers.get(j));
+                }
+                race.runWithGUI();
+                // Set the fitness for each genome.
+                for (int j = 0; j < drivers.size(); j++) {
+                    generationSpecies.get(species).get(j).fitness = drivers.get(j).tracker.getFitness();
+                }
+                generationSpecies.get(species).sort(new GenomeFitnessComparator());
             }
-            race.run();
-            // Set the fitness for each genome.
-            for (int j = 0; j < drivers.size(); j++) {
-                generationSpecies.get(species).get(j).fitness = drivers.get(j).tracker.getFitness();
-            }
-            generationSpecies.get(species).sort(new GenomeFitnessComparator());
         }
     }
 
@@ -153,15 +152,14 @@ public class Population {
     // Create offspring to replace the whole population.
     public void newGeneration() { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
-        int genomeCounter = 0;
         oldGeneration = new ArrayList<>(generation.size());
         for (int i = 0; i < generationSpecies.size(); i++){
             for (int j = 0; j < generationSpecies.get(i).size(); j++){
-                oldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
+                oldGeneration.add(new Genome(generationSpecies.get(i).get(j)));
             }
         }
         //Change the offspring generation in place
-        genomeCounter = 0;
+        int genomeCounter = 0;
         for (int i = 0; i < generationSpecies.size(); i++) {
             int individuals = generationSpecies.get(i).size();
             switch (individuals) {

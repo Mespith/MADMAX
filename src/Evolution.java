@@ -1,3 +1,6 @@
+import race.TorcsConfiguration;
+
+import java.io.File;
 import java.util.Random;
 
 /**
@@ -15,6 +18,7 @@ public class Evolution {
         for (Genome g : population.getGeneration()){
             g.mutate(population.P_addNode, population.P_addWeight, population.P_mutateWeights, population.P_permuteWeight, population.permutation);
         }
+        TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
         evolve(1);
     }
 
