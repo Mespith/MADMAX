@@ -94,11 +94,17 @@ public class Population {
             // If the individual was not assigned to any species, it is a new species.
             if (!added) {
                 individual.speciesHint = species.size();
-                ArrayList<Genome> newSpecie = new ArrayList<>();
-                newSpecie.add(individual);
+                ArrayList<Genome> newSpecie = new ArrayList<>(1);
+                newSpecie.set(0, individual);
                 species.add(individual);
                 generationSpecies.add(newSpecie);
             }
+        }
+
+        //sort the individuals in every specie by fitness
+        GenomeFitnessComparator compare = new GenomeFitnessComparator();
+        for (int i = 0; i < generationSpecies.size(); i++){
+            java.util.Collections.sort(generationSpecies.get(i), compare);
         }
     }
 
@@ -129,8 +135,10 @@ public class Population {
             // Set the fitness for each genome.
             for (int j = 0; j < drivers.size(); j++) {
                 generationSpecies.get(species).get(j).fitness = drivers.get(j).position;
+                generationSpecies.get(species).get(j).fitness = drivers.get(j).tracker.getFitness(); // TODO insert
             }
-            generationSpecies.get(species).sort(new GenomeFitnessComparator());
+            generationSpecies.get(species).sort(new GenomeComparator());
+            generationSpecies.get(species).sort(new GenomeFitnessComparator()); // TODO insert
         }
     }
 
@@ -138,14 +146,15 @@ public class Population {
     // Create offspring to replace the whole population.
     public void newGeneration() { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
+        int genomeCounter = 0;
         oldGeneration = new ArrayList<Genome>(generation.size());
         for (int i = 0; i < generationSpecies.size(); i++){
             for (int j = 0; j < generationSpecies.get(i).size(); j++){
-                oldGeneration.add(new Genome(generationSpecies.get(i).get(j)));
+                oldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
             }
         }
         //Change the offspring generation in place
-        int genomeCounter = 0;
+        genomeCounter = 0;
         for (int i = 0; i < generationSpecies.size(); i++) {
             int individuals = generationSpecies.get(i).size();
             switch (individuals) {
