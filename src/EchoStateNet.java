@@ -38,7 +38,7 @@ public class EchoStateNet {
         double[][] hidW = new double[hidSize][hidSize];
         double[][] outW = new double[outSize][hidSize + inSize]; // first come the hidden then the in connections
 
-        if (hidSize == 0) // create placeholder if hidden layer is empty
+        if (hidSize == 0) // create placeholder only if hidden layer is empty
         {
             inW = new double[1][inSize];
             hidW = new double[1][hidSize];
