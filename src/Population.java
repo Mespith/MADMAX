@@ -4,7 +4,8 @@ import cicontest.torcs.race.Race;
 import cicontest.torcs.race.RaceResults;
 import race.TorcsConfiguration;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,9 +114,6 @@ public class Population implements Serializable{
     // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
         //Set path to torcs.properties
-        //TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
-        //DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
-        //DriversUtils.registerMemory(algorithm.getDriverClass());
         try {
             Runtime.getRuntime().exec("cmd /c start StartTORCS.bat exit");
         } catch (IOException e) {
@@ -297,56 +295,5 @@ public class Population implements Serializable{
             }
         }
         generationSpecies.clear();
-    }
-
-    public static Population loadPopulation(String path)
-    {
-        Population pop = null;
-        try
-        {
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream in = new ObjectInputStream(fis);
-            pop = (Population) in.readObject();
-            in.close();
-            fis.close();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }catch (ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        // now that pop is retrieved, reset fields: fill transient lists, set parentpopulations.
-
-        pop.species = new ArrayList<>();
-        pop.generation = new ArrayList<>();
-        pop.oldGeneration = new ArrayList<>();
-
-        for (List<Genome> spec : pop.generationSpecies)
-        {
-            pop.species.add(spec.get(0));
-            pop.generation.addAll(spec);
-        }
-        for (Genome gene: pop.species)
-        {
-            gene.setParentPopulation(pop);
-        }
-        return pop;
-    }
-
-    public static int storePopulation(Population pop, String path)
-    {
-        try
-        {
-            FileOutputStream fos = new FileOutputStream(path);
-            ObjectOutputStream out = new ObjectOutputStream(fos);
-            out.writeObject(pop);
-            out.close();
-            fos.close();
-        }catch (IOException e)
-        {
-            e.printStackTrace();
-            return 1;
-        }
-        return 0;
     }
 }

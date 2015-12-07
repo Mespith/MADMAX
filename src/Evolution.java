@@ -24,9 +24,7 @@ public class Evolution {
         TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
         DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
         DriversUtils.registerMemory(algorithm.getDriverClass());
-
-
-        evolve(1);
+        evolve(10);
 
 
     }
@@ -63,13 +61,7 @@ public class Evolution {
         population.Speciefy();
         population.TestGeneration();
 
-        Population.storePopulation(population, "C:\\Users\\Frederik\\Desktop\\population.ser");
         Parser p = new Parser();
         p.WriteForESN(population.BestIndividual());
-
-        Population loadedPop = Population.loadPopulation("C:\\Users\\Frederik\\Desktop\\population.ser");
-        System.out.println(loadedPop.getGeneration().get(0).fitness);
     }
-
-
 }
