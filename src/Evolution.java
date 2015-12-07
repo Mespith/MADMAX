@@ -1,3 +1,7 @@
+import cicontest.algorithm.abstracts.DriversUtils;
+import race.TorcsConfiguration;
+
+import java.io.File;
 import java.util.Random;
 
 /**
@@ -15,7 +19,13 @@ public class Evolution {
         for (Genome g : population.getGeneration()){
             g.mutate(population.P_addNode, population.P_addWeight, population.P_mutateWeights, population.P_permuteWeight, population.permutation);
         }
-        evolve(1);
+
+        TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
+        DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
+        DriversUtils.registerMemory(algorithm.getDriverClass());
+        evolve(10);
+
+
     }
 
     private static Population initialize_population() {

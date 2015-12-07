@@ -41,7 +41,6 @@ public class Genome {
         this.nodes = new ArrayList<>(nr_of_nodes);
         this.potentials = new ArrayList<>(parentPopulation.inNodes);
         this.fitness = 0;
-
         // Create all the input and output nodes
         int innovationCounter = 0;
         for (int i = 0; i < nr_of_nodes; i++) {
@@ -79,11 +78,12 @@ public class Genome {
             // Select a node that has potential nodes to connect to.
             // Select a random node from the potential connections of you source node.
             int source = 0, target = 0, targetIdx = 0;
-            while (random_nr > 0) {
+            while (true) {
                 random_nr -= potentials.get(source).size();
-                if (random_nr <= 0) {
+                if (random_nr < 0) {
                     targetIdx = random_nr + potentials.get(source).size();
                     target = potentials.get(source).get(targetIdx);
+                    break;
                 } else {
                     source++;
                 }

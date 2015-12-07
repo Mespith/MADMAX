@@ -114,11 +114,11 @@ public class Population {
     // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
         //Set path to torcs.properties
-        TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
-        DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
-        DriversUtils.registerMemory(algorithm.getDriverClass());
+        //TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
+        //DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
+        //DriversUtils.registerMemory(algorithm.getDriverClass());
         try {
-            Runtime.getRuntime().exec("cmd /c start StartTORCS.bat");
+            Runtime.getRuntime().exec("cmd /c start StartTORCS.bat exit");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -153,15 +153,15 @@ public class Population {
     // Create offspring to replace the whole population.
     public void newGeneration() { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
-        int genomeCounter = 0;
+
         oldGeneration = new ArrayList<>(generation.size());
         for (int i = 0; i < generationSpecies.size(); i++){
             for (int j = 0; j < generationSpecies.get(i).size(); j++){
-                oldGeneration.set(genomeCounter++, new Genome(generationSpecies.get(i).get(j)));
+                oldGeneration.add(new Genome(generationSpecies.get(i).get(j)));
             }
         }
         //Change the offspring generation in place
-        genomeCounter = 0;
+        int genomeCounter = 0;
         for (int i = 0; i < generationSpecies.size(); i++) {
             int individuals = generationSpecies.get(i).size();
             switch (individuals) {
