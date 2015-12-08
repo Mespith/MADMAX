@@ -173,28 +173,41 @@ public class Population implements Serializable {
         //Change the offspring generation in place
         int genomeCounter = 0;
         for (int i = 0; i < generationSpecies.size(); i++) {
-            int individuals = generationSpecies.get(i).size();
+            ArrayList<Genome> s = generationSpecies.get(i);
+            int individuals = s.size();
             switch (individuals) {
                 case 1: {
-                    generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, P_randomizeWeight, permutation);
+                    s.get(0).mutate();
                     break;
                 }
                 case 2: {
-                    generationSpecies.get(i).set(1, crossover(generationSpecies.get(i).get(0), generationSpecies.get(i).get(1)));
-                    generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, P_randomizeWeight, permutation);
+                    // If the best individual is way better than the other one, just kill the other.
+                    if (s.get(0).fitness - s.get(1).fitness > 5) {
+                        Genome copy = new Genome(s.get(0));
+                        copy.mutate();
+                        s.set(1, copy);
+
+                        s.get(0).mutate();
+                    }
+                    else {
+                        s.set(1, crossover(s.get(0), s.get(1)));
+                        s.get(0).mutate();
+                    }
                     break;
                 }
                 default: {
                     int survive_index = (int) Math.round((1 - kill_rate) * individuals);
-                    int mutation_index = (int)Math.round(mutation_rate*individuals);
-                    for (int j = mutation_index; j < individuals; j++){
-                        int mom = (int)(Math.random()*survive_index), dad = (int)(Math.random()*survive_index);
-                        generationSpecies.get(i).set(j, crossover(oldGeneration.get(genomeCounter + mom), oldGeneration.get(genomeCounter + dad)));
-                    }
-                    for (int j = 0; j < mutation_index; j++){
-                        int mutant = (int)(Math.random()*survive_index);
+                    int mutation_index = (int) Math.round(mutation_rate * individuals);
+                    // If there are more than 5 individuals in the species, the best one should be left untouched
+                    int start_index = individuals > 5 ? 1 : 0;
+                    for (int j = start_index; j < mutation_index; j++) {
+                        int mutant = (int) (Math.random() * survive_index);
                         generationSpecies.get(i).set(j, new Genome(oldGeneration.get(genomeCounter + mutant)));
-                        generationSpecies.get(i).get(j).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, P_randomizeWeight, permutation);
+                        generationSpecies.get(i).get(j).mutate();
+                    }
+                    for (int j = mutation_index; j < individuals; j++) {
+                        int mom = (int) (Math.random() * survive_index), dad = (int) (Math.random() * survive_index);
+                        generationSpecies.get(i).set(j, crossover(oldGeneration.get(genomeCounter + mom), oldGeneration.get(genomeCounter + dad)));
                     }
                     break;
                 }

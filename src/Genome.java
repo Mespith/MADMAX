@@ -51,15 +51,14 @@ public class Genome implements Serializable{
     }
 
     //incomplete
-    public void mutate(double P_addNode, double P_addWeight, double P_mutateWeights,
-                       double P_permuteWeight, double P_randomizeWeight, double permutation) {
+    public void mutate() {
 
         // Mutate a weight.
-        if (randomUniform() < P_mutateWeights) {
+        if (randomUniform() < parentPopulation.P_mutateWeights) {
             for (int i = 0; i < genes.size(); i++) {
-                if (randomUniform() < P_permuteWeight) {
-                    genes.get(i).weight = genes.get(i).weight + permutation*(2*Math.random() - 1);
-                } else if (randomUniform() < P_randomizeWeight)
+                if (randomUniform() < parentPopulation.P_permuteWeight) {
+                    genes.get(i).weight = genes.get(i).weight + parentPopulation.permutation*(2*Math.random() - 1);
+                } else if (randomUniform() < parentPopulation.P_randomizeWeight)
                 {
                     genes.get(i).weight = randomGaussian();
                 }
@@ -69,7 +68,7 @@ public class Genome implements Serializable{
         // Adding a weight.
         int potential_connections = (getNrNodes() - parentPopulation.outNodes) *
                                     (getNrNodes() - parentPopulation.inNodes) - getN();
-        if (randomUniform() < P_addWeight && potential_connections > 0) {
+        if (randomUniform() < parentPopulation.P_addWeight && potential_connections > 0) {
 
             int random_nr = (int) (randomUniform() * potential_connections);
 
@@ -97,7 +96,7 @@ public class Genome implements Serializable{
         }
 
         // Adding a node.
-        if (randomUniform() < P_addNode) {
+        if (randomUniform() < parentPopulation.P_addNode) {
             // Select a connection where you will put a new node in between.
             int placement = (int) (randomUniform() * genes.size());
             // The old connection will be disabled.
