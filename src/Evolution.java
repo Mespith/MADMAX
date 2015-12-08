@@ -13,25 +13,26 @@ public class Evolution {
     private static long SEED = 54;
     private static Population population;
     private static Random rng;
-    public static String popSource = "";
-    public static String popTarget = "";
+    public static String popSource = "populations/10gen50ind_2.ser";
+    public static String popTarget = "populations/10gen50ind_3.ser";
 
     public static void main() {
         rng = new Random(SEED);
         if (popSource.equals(""))
         {
             population = initialize_population();
-        } else
+            for (Genome g : population.getGeneration()){
+                g.mutate();
+            }
+        }
+        else
         {
             population = Population.loadPopulation(popSource);
-        }
-        for (Genome g : population.getGeneration()){
-            g.mutate();
         }
 
         startTorcs();
 
-        evolve(40);
+        evolve(1);
 
         if (!popTarget.equals(""))
         {
@@ -61,13 +62,13 @@ public class Evolution {
         int nr_of_inputs = 15;
         int nr_of_outputs = 3;
         int population_size = 50;
-        double p_new_node = 0.03;
-        double p_new_connection = 0.05;
+        double p_new_node = 0.3;
+        double p_new_connection = 0.2;
         double p_mutate_weight = 0.8;
-        double p_changeWeight = 0.1;
-        double P_randomizeWeight = 0.01; // another wild guess!!
+        double p_changeWeight = 0.9;
+        double P_randomizeWeight = 1; // another wild guess!!
         double comp_threshold = 4.0;
-        double kill_rate = 0.6;
+        double kill_rate = 0.8;
         double mutation_rate = 0.25;
 
         // This one I guessed

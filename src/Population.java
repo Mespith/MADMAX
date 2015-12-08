@@ -99,17 +99,13 @@ public class Population implements Serializable {
             }
         }
 
-        //sort the individuals in every specie by fitness
-        GenomeFitnessComparator compare = new GenomeFitnessComparator();
-        for (int i = 0; i < generationSpecies.size(); i++){
-            java.util.Collections.sort(generationSpecies.get(i), compare);
-        }
+        shrink_species();
     }
 
     // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
 
-        int racers = 1; // number of simultaneously tested genomes
+        int racers = 5; // number of simultaneously tested genomes
         List<DefaultDriver> driverList = new ArrayList<>();
 
         for (int genomeIdx = 0; genomeIdx < generation.size();)
@@ -130,7 +126,7 @@ public class Population implements Serializable {
                 genomeIdx++;
             }
             // start race
-            race.run();
+            race.runWithGUI();
 
             int offset = driverList.size() - racers;
             for (int competitors = 0; competitors < racers; competitors++)
@@ -153,8 +149,7 @@ public class Population implements Serializable {
         // print out best example of every species.
         for (int idx = 0; idx < generationSpecies.size(); idx++)
         {
-            int lastIdx = generationSpecies.get(idx).size() - 1;
-            System.out.println("Best fitness of species " + idx + ": " + generationSpecies.get(idx).get(lastIdx).fitness);
+            System.out.println("Best fitness of species " + idx + ": " + generationSpecies.get(idx).get(0).fitness);
         }
 
     }
@@ -164,58 +159,66 @@ public class Population implements Serializable {
     public void newGeneration() { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
 
-        List<Genome> oldGeneration = new ArrayList<>(generation.size());
-        for (int i = 0; i < generationSpecies.size(); i++){
-            for (int j = 0; j < generationSpecies.get(i).size(); j++){
-                oldGeneration.add(new Genome(generationSpecies.get(i).get(j)));
-            }
-        }
+//        List<Genome> oldGeneration = new ArrayList<>(generation.size());
+//        for (int i = 0; i < generationSpecies.size(); i++){
+//            for (int j = 0; j < generationSpecies.get(i).size(); j++){
+//                oldGeneration.add(new Genome(generationSpecies.get(i).get(j)));
+//            }
+//        }
+        generation.clear();
         //Change the offspring generation in place
-        int genomeCounter = 0;
+//        int genomeCounter = 0;
         for (int i = 0; i < generationSpecies.size(); i++) {
             ArrayList<Genome> s = generationSpecies.get(i);
             int individuals = s.size();
             switch (individuals) {
                 case 1: {
-                    s.get(0).mutate();
+                    Genome child = new Genome(s.get(0));
+                    child.mutate();
+                    generation.add(child);
                     break;
                 }
                 case 2: {
+                    Genome child = new Genome(s.get(0));
+                    child.mutate();
+                    generation.add(child);
                     // If the best individual is way better than the other one, just kill the other.
                     if (s.get(0).fitness - s.get(1).fitness > 5) {
-                        Genome copy = new Genome(s.get(0));
-                        copy.mutate();
-                        s.set(1, copy);
-
-                        s.get(0).mutate();
+                        Genome child2 = new Genome(s.get(0));
+                        child2.mutate();
+                        generation.add(child2);
                     }
                     else {
-                        s.set(1, crossover(s.get(0), s.get(1)));
-                        s.get(0).mutate();
+                        generation.add(crossover(s.get(0), s.get(1)));
                     }
                     break;
                 }
                 default: {
                     int survive_index = (int) Math.round((1 - kill_rate) * individuals);
-                    int mutation_index = (int) Math.round(mutation_rate * individuals);
+//                    int mutation_index = (int) Math.round(mutation_rate * individuals);
                     // If there are more than 5 individuals in the species, the best one should be left untouched
-                    int start_index = individuals > 5 ? 1 : 0;
+//                    int start_index = individuals > 5 ? 1 : 0;
                     for (int j = survive_index; j < individuals; j++) {
-                        int mom = (int) (Math.random() * survive_index), dad = (int) (Math.random() * survive_index);
-                        generationSpecies.get(i).set(j, crossover(oldGeneration.get(genomeCounter + mom), oldGeneration.get(genomeCounter + dad)));
-                    }
-                    for (int j = start_index; j < survive_index; j++) {
-                        //int mutant = (int) (Math.random() * survive_index);
                         if (rng.nextDouble() < mutation_rate) {
-                            generationSpecies.get(i).set(j, new Genome(oldGeneration.get(i)));
-                            generationSpecies.get(i).get(j).mutate();
+                            int parent = (int) (Math.random() * survive_index);
+                            Genome child = new Genome(s.get(parent));
+                            child.mutate();
+                            generation.add(child);
                         }
+                        else {
+                            int mom = (int) (Math.random() * survive_index), dad = (int) (Math.random() * survive_index);
+                            generation.add(crossover(s.get(mom), s.get(dad)));
+                        }
+                    }
+                    for (int j = 0; j < survive_index; j++) {
+                        generation.add(new Genome(s.get(j)));
                     }
                     break;
                 }
             }
-            genomeCounter += individuals;
+//            genomeCounter += individuals;
         }
+        generationSpecies.clear();
     }
 
     // Return the best performing individual
@@ -269,13 +272,12 @@ public class Population implements Serializable {
     private void shrink_species() {
         for (int i = 0; i < generationSpecies.size(); i++) {
             if (i < species.size()) {
-                species.set(i, generationSpecies.get(i).get(0));
+                species.set(i, new Genome(generationSpecies.get(i).get(0)));
             }
             else {
-                species.add(generationSpecies.get(i).get(0));
+                species.add(new Genome(generationSpecies.get(i).get(0)));
             }
         }
-        generationSpecies.clear();
     }
 
     public static Population loadPopulation(String path)

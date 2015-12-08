@@ -60,7 +60,12 @@ public class EchoStateNet {
                     outW[target - inSize][source + hidSize] = con.weight;
                 } else                // hid nodes to out layer
                 {
-                    outW[target - inSize][source - (inSize + outSize)] = con.weight;
+                    try {
+                        outW[target - inSize][source - (inSize + outSize)] = con.weight;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(target);
+                        System.out.println(source);
+                    }
                 }
             } else if (source < inSize) //nodes from in to hidden layer
             {
