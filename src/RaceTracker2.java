@@ -17,6 +17,40 @@ public class RaceTracker2 extends RaceTracker {
         lapDist = 0;
     }
 
+    public void doTimestep(SensorModel sensors, Action actions)
+    {
+        raceTime++; // count raceTime
+
+        // get relevant sensor and action parameters and store them
+        double[] sensorData = fetchSensors(sensors);
+        double[] actionData = fetchActions(actions);
+
+        sensorMemory.add(sensorData);
+        actionMemory.add(actionData);
+
+        if (sensorMemory.size() > MEM_SIZE) // delete old values
+        {
+            sensorMemory.remove(0);
+            actionMemory.remove(0);
+        }
+
+        evalTimestep(); // evaluate temporary fitness. set stopRace
+
+        if (stopRace || raceTime > TIMELIMIT) //
+        {
+            actions.abandonRace = true;
+        }
+    }
+
+    public double getFitness()
+    {
+        if (finalFitness == -1) // calculate finalFitness
+        {
+            finalFitness = computeFitness();
+        }
+        return finalFitness;
+    }
+
     private double[] fetchSensors(SensorModel sensors)
     {
         double[] s = {sensors.getDistanceFromStartLine(),sensors.getLastLapTime(),
