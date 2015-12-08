@@ -11,10 +11,13 @@ public class RaceTracker2 extends RaceTracker {
 
     static int MEM_SIZE = 2;
     double lapDist;
+    int lapCount;
+    int MAX_LAPS = 2;
 
     public RaceTracker2(){
         super();
         lapDist = 0;
+        lapCount = 0;
     }
 
     public void doTimestep(SensorModel sensors, Action actions)
@@ -36,7 +39,7 @@ public class RaceTracker2 extends RaceTracker {
 
         evalTimestep(); // evaluate temporary fitness. set stopRace
 
-        if (stopRace || raceTime > TIMELIMIT) //
+        if (lapCount > MAX_LAPS || raceTime > TIMELIMIT) //
         {
             actions.abandonRace = true;
         }
@@ -70,6 +73,7 @@ public class RaceTracker2 extends RaceTracker {
         if (sensorMemory.getFirst()[1] != sensorMemory.getLast()[1])
         {
             lapDist += sensorMemory.getFirst()[0];
+            lapCount++;
         }
 
         if (actionMemory.getLast()[0] > 0.5 && actionMemory.getLast()[1] > 0.5)
