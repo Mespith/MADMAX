@@ -14,7 +14,7 @@ public class Evolution {
     private static Population population;
     private static Random rng;
     public static String popSource = "";
-    public static String popTarget = "C:\\Users\\Frederik\\Desktop\\pop1.ser";
+    public static String popTarget = "";
 
     public static void main() {
         rng = new Random(SEED);
