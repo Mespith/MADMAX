@@ -32,7 +32,7 @@ public class Evolution {
 
         startTorcs();
 
-        evolve(1);
+        evolve(10);
 
         if (!popTarget.equals(""))
         {
@@ -72,7 +72,7 @@ public class Evolution {
         double mutation_rate = 0.25;
 
         // This one I guessed
-        double permutation = 0.2;
+        double permutation = 0.1;
 
         return new Population(c1, c2, c3, nr_of_inputs, nr_of_outputs, kill_rate, mutation_rate, p_new_node, p_new_connection,
                 p_mutate_weight, p_changeWeight, P_randomizeWeight, permutation, comp_threshold, population_size, rng);

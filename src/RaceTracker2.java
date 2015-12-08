@@ -4,38 +4,17 @@ import cicontest.torcs.client.SensorModel;
 import java.util.LinkedList;
 
 /**
- * part of a driver that evaluates performance throughout the race, may stop the race and finally returns fitness.
- *
- * This class does a basic evaluation and should be extended for further fitness functions.
- * Extension will require the following overwrites:
- *      fetchSensors()
- *      fetchActions()   fill either with desired parameters
- *      evalTimestep()   for online evaluation. and early termination. may be left empty
- *      computeFitness() for final fitness function. factor in temporaryFitness if it was used
- *
- * the rest should be pretty universal.
- *
- * Created by Frederik on 06.12.2015.
+ * Created by Frederik on 08.12.2015.
  */
-public class RaceTracker {
+public class RaceTracker2 extends RaceTracker {
 
 
-    static int MEM_SIZE = 1;                    //default size of past timesteps to keep track of.
-    double temporaryFitness;                    // keeps track of events during the race
-    double finalFitness;                        // final fitness value. computed once.
-    LinkedList<double[]> sensorMemory;          // list of n past sensor parameters
-    LinkedList<double[]> actionMemory;          // list of n past action parameters
-    static long TIMELIMIT = 600; //Long.MAX_VALUE-1;     // number of time steps after which the race is terminated
-    long raceTime;                              // number of past timesteps in current race
-    boolean stopRace;                           // driver will terminate race if set to true
+    static int MEM_SIZE = 2;
+    double lapDist;
 
-    public  RaceTracker()
-    {
-        this.temporaryFitness = 0;
-        this.finalFitness = -1;
-        this.sensorMemory = new LinkedList<>();
-        this.actionMemory = new LinkedList<>();
-        this.stopRace = false;
+    public RaceTracker2(){
+        super();
+        lapDist = 0;
     }
 
     public void doTimestep(SensorModel sensors, Action actions)
@@ -72,15 +51,10 @@ public class RaceTracker {
         return finalFitness;
     }
 
-    /**
-     * above: keep
-     *
-     * below: overwrite
-     */
-
     private double[] fetchSensors(SensorModel sensors)
     {
-        double[] s = {sensors.getDistanceRaced(), sensors.getAngleToTrackAxis()};
+        double[] s = {sensors.getDistanceFromStartLine(),sensors.getLastLapTime(),
+                      sensors.getDistanceRaced(), sensors.getAngleToTrackAxis()};
         return s;
     }
 
@@ -92,6 +66,12 @@ public class RaceTracker {
 
     private void evalTimestep()
     {
+        // see if lap was completed
+        if (sensorMemory.getFirst()[1] != sensorMemory.getLast()[1])
+        {
+            lapDist += sensorMemory.getFirst()[0];
+        }
+
         if (actionMemory.getLast()[0] > 0.5 && actionMemory.getLast()[1] > 0.5)
         {
             //don't brake and accelerate at the same time!
@@ -105,9 +85,8 @@ public class RaceTracker {
 
     private double computeFitness()
     {
-        double f = sensorMemory.getLast()[0]; // distance travelled
+        double f = sensorMemory.getLast()[0] + lapDist; // distance travelled
         f *= (raceTime - temporaryFitness)/raceTime; // factor in time spent pressing all pedals at once
         return f;
     }
-
 }

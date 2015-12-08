@@ -53,6 +53,7 @@ public class Genome implements Serializable{
     //incomplete
     public void mutate() {
 
+
         // Mutate a weight.
         if (randomUniform() < parentPopulation.P_mutateWeights) {
             for (int i = 0; i < genes.size(); i++) {
