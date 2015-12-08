@@ -13,20 +13,44 @@ public class Evolution {
     private static long SEED = 54;
     private static Population population;
     private static Random rng;
+    public static String popSource = "";
+    public static String popTarget = "C:\\Users\\Frederik\\Desktop\\pop1.ser";
 
     public static void main() {
         rng = new Random(SEED);
-        population = initialize_population();
+        if (popSource.equals(""))
+        {
+            population = initialize_population();
+        } else
+        {
+            population = Population.loadPopulation(popSource);
+        }
         for (Genome g : population.getGeneration()){
             g.mutate(population.P_addNode, population.P_addWeight, population.P_mutateWeights, population.P_permuteWeight, population.permutation);
         }
 
+        startTorcs();
+
+        evolve(10);
+
+        if (!popTarget.equals(""))
+        {
+            Population.storePopulation(population, popTarget);
+        }
+    }
+
+    private static void startTorcs()
+    {
         TorcsConfiguration.getInstance().initialize(new File("torcs.properties"));
         DefaultDriverAlgorithm algorithm = new DefaultDriverAlgorithm();
         DriversUtils.registerMemory(algorithm.getDriverClass());
-        evolve(10);
 
-
+        //Set path to torcs.properties
+        try {
+            Runtime.getRuntime().exec("cmd /c start StartTORCS.bat exit");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Population initialize_population() {
@@ -36,7 +60,7 @@ public class Evolution {
         double c3 = 3.0;
         int nr_of_inputs = 15;
         int nr_of_outputs = 3;
-        int population_size = 5;
+        int population_size = 100;
         double p_new_node = 0.03;
         double p_new_connection = 0.05;
         double p_mutate_weight = 0.8;

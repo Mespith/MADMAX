@@ -60,7 +60,7 @@ public class EchoStateNet {
                 {
                     outW[target - inSize][source - (inSize + outSize)] = con.weight;
                 }
-            } else if (source > inSize) //nodes from in to hidden layer
+            } else if (source < inSize) //nodes from in to hidden layer
             {
                 inW[target - (inSize + outSize)][source] = con.weight;
             } else //nodes in recurrent layer

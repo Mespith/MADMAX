@@ -4,14 +4,13 @@ import cicontest.torcs.race.Race;
 import cicontest.torcs.race.RaceResults;
 import race.TorcsConfiguration;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Population implements Serializable{
+public class Population implements Serializable {
     
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
     public int innovation_nr, nodeId, inNodes, outNodes;
@@ -113,12 +112,6 @@ public class Population implements Serializable{
 
     // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
-        //Set path to torcs.properties
-        try {
-            Runtime.getRuntime().exec("cmd /c start StartTORCS.bat exit");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         int racers = 1; // number of simultaneously tested genomes
         List<DefaultDriver> driverList = new ArrayList<>();
@@ -141,9 +134,8 @@ public class Population implements Serializable{
                 genomeIdx++;
             }
             // start race
-            System.out.println("NOTICE: race beginning");
             race.run();
-            System.out.println("NOTICE: race ended");
+
         }
         // calculate fitness for all genomes.
         for (int idx = 0; idx < generation.size(); idx++)
@@ -164,33 +156,6 @@ public class Population implements Serializable{
             System.out.println("Best fitness of species " + idx + ": " + generationSpecies.get(idx).get(lastIdx).fitness);
         }
 
-        //temporarily preserve previous version (switch not meant to be used)
-        if (false){
-            // Create a driver for each genome
-            for (int speciesIdx = 0; speciesIdx < generationSpecies.size(); speciesIdx++ ) {
-                List<DefaultDriver> drivers = new ArrayList<>();
-                int species_index = 0;
-                for (int i = species_index; i < species_index + 1; i++) {
-                    DefaultDriver driver = new DefaultDriver(new EchoStateNet(generationSpecies.get(speciesIdx).get(i)));
-                    drivers.add(driver);
-                }
-
-                //Set-up race
-                Race race = new Race();
-                race.setTrack("road", "aalborg");
-                race.setTermination(Race.Termination.LAPS, 1);
-                race.setStage(Controller.Stage.RACE);
-                for (int j = 0; j < drivers.size(); j++) {
-                    race.addCompetitor(drivers.get(j));
-                }
-                race.run();
-                // Set the fitness for each genome.
-                for (int j = 0; j < drivers.size(); j++) {
-                    generationSpecies.get(speciesIdx).get(j).fitness = drivers.get(j).tracker.getFitness();
-                }
-                generationSpecies.get(speciesIdx).sort(new GenomeFitnessComparator());
-            }
-        }
     }
 
     // Kill the worst performing individuals of each species.
@@ -295,5 +260,56 @@ public class Population implements Serializable{
             }
         }
         generationSpecies.clear();
+    }
+
+    public static Population loadPopulation(String path)
+    {
+        Population pop = null;
+        try
+        {
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream in = new ObjectInputStream(fis);
+            pop = (Population) in.readObject();
+            in.close();
+            fis.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        // now that pop is retrieved, reset fields: fill transient lists, set parentpopulations.
+
+        pop.species = new ArrayList<>();
+        pop.generation = new ArrayList<>();
+        pop.oldGeneration = new ArrayList<>();
+
+        for (List<Genome> spec : pop.generationSpecies)
+        {
+            pop.species.add(spec.get(0));
+            pop.generation.addAll(spec);
+        }
+        for (Genome gene: pop.species)
+        {
+            gene.setParentPopulation(pop);
+        }
+        return pop;
+    }
+
+    public static int storePopulation(Population pop, String path)
+    {
+        try
+        {
+            FileOutputStream fos = new FileOutputStream(path);
+            ObjectOutputStream out = new ObjectOutputStream(fos);
+            out.writeObject(pop);
+            out.close();
+            fos.close();
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+            return 1;
+        }
+        return 0;
     }
 }

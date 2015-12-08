@@ -80,7 +80,7 @@ public class RaceTracker {
 
     private double[] fetchSensors(SensorModel sensors)
     {
-        double[] s = {sensors.getDistanceFromStartLine(), sensors.getRacePosition()};
+        double[] s = {sensors.getDistanceRaced(), sensors.getAngleToTrackAxis()};
         return s;
     }
 
@@ -96,6 +96,10 @@ public class RaceTracker {
         {
             //don't brake and accelerate at the same time!
             temporaryFitness += 1; // note that only the final fitness has to be positive.
+        }
+        else if (Math.abs(sensorMemory.getLast()[1]) > 1.5)
+        {
+            temporaryFitness += 1; //don't go parallel to the track.
         }
     }
 
