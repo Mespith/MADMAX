@@ -31,7 +31,7 @@ public class Evolution {
 
         startTorcs();
 
-        evolve(10);
+        evolve(40);
 
         if (!popTarget.equals(""))
         {
@@ -60,7 +60,7 @@ public class Evolution {
         double c3 = 3.0;
         int nr_of_inputs = 15;
         int nr_of_outputs = 3;
-        int population_size = 100;
+        int population_size = 50;
         double p_new_node = 0.03;
         double p_new_connection = 0.05;
         double p_mutate_weight = 0.8;

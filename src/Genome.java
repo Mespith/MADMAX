@@ -8,7 +8,7 @@ public class Genome implements Serializable{
     public double fitness;
     public List<List<Integer>> potentials;
     private List<ConnectionGene> genes;
-    private List<Integer> nodes;
+    public List<Integer> nodes;
 
 
     Genome(Genome g) {

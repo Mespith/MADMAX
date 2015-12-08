@@ -49,9 +49,9 @@ public class EchoStateNet {
         // 2: go through connectionslist, set each one if expressed
         for (ConnectionGene con: connections) {
             // get source
-            int source = con.in_node;
+            int source = gene.nodes.indexOf(con.in_node);
             // get target
-            int target = con.out_node;
+            int target = gene.nodes.indexOf(con.out_node);
             // set source and target
             if (target >= inSize && target < inSize + outSize) //nodes to out layer
             {

@@ -21,7 +21,6 @@ public class Population implements Serializable {
 
     private transient List<Genome> species;
     private transient List<Genome> generation;
-    private transient List<Genome> oldGeneration;
     private ArrayList<ArrayList<Genome>> generationSpecies;
 
     public Random rng;
@@ -163,7 +162,7 @@ public class Population implements Serializable {
     public void newGeneration() { //kill_rate should be around 0.6, mutation_rate around 0.25
         //store parent generation in OldGeneration variable
 
-        oldGeneration = new ArrayList<>(generation.size());
+        List<Genome> oldGeneration = new ArrayList<>(generation.size());
         for (int i = 0; i < generationSpecies.size(); i++){
             for (int j = 0; j < generationSpecies.get(i).size(); j++){
                 oldGeneration.add(new Genome(generationSpecies.get(i).get(j)));
@@ -282,7 +281,6 @@ public class Population implements Serializable {
 
         pop.species = new ArrayList<>();
         pop.generation = new ArrayList<>();
-        pop.oldGeneration = new ArrayList<>();
 
         for (List<Genome> spec : pop.generationSpecies)
         {
