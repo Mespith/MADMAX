@@ -119,7 +119,7 @@ public class Population implements Serializable {
         {
             // set up race (just copied at this point)
             Race race = new Race();
-            race.setTrack("road", "aalborg");
+            race.setTrack("road", "alpine-1");
             race.setTermination(Race.Termination.LAPS, 1);
             race.setStage(Controller.Stage.RACE);
 
