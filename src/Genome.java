@@ -52,14 +52,15 @@ public class Genome implements Serializable{
 
     //incomplete
     public void mutate(double P_addNode, double P_addWeight, double P_mutateWeights,
-                       double P_permuteWeight, double permutation) {
+                       double P_permuteWeight, double P_randomizeWeight, double permutation) {
 
         // Mutate a weight.
         if (randomUniform() < P_mutateWeights) {
             for (int i = 0; i < genes.size(); i++) {
                 if (randomUniform() < P_permuteWeight) {
                     genes.get(i).weight = genes.get(i).weight + permutation*(2*Math.random() - 1);
-                } else {
+                } else if (randomUniform() < P_randomizeWeight)
+                {
                     genes.get(i).weight = randomGaussian();
                 }
             }

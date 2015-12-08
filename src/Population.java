@@ -1,11 +1,7 @@
-import cicontest.algorithm.abstracts.DriversUtils;
 import cicontest.torcs.client.Controller;
 import cicontest.torcs.race.Race;
-import cicontest.torcs.race.RaceResults;
-import race.TorcsConfiguration;
 
 import java.io.*;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +10,7 @@ public class Population implements Serializable {
     
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
     public int innovation_nr, nodeId, inNodes, outNodes;
-    public double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_permuteWeight, permutation, kill_rate, mutation_rate;
+    public double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_randomizeWeight, P_permuteWeight, permutation, kill_rate, mutation_rate;
 
     private double c1, c2, c3;
     private double compatibility_threshold;
@@ -27,7 +23,7 @@ public class Population implements Serializable {
 
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double kill_rate, double mutation_rate, double P_addNode, double P_addWeight, double P_mutateWeights,
-               double P_changeWeight, double permutation, double compatibility_threshold, int pop_size, Random rng) {
+               double P_changeWeight, double P_randomizeWeight, double permutation, double compatibility_threshold, int pop_size, Random rng) {
         this.c1 = c1;
         this.c2 = c2;
         this.c3 = c3;
@@ -38,6 +34,7 @@ public class Population implements Serializable {
         this.P_addWeight = P_addWeight;
         this.P_mutateWeights = P_mutateWeights;
         this.P_changeWeight = P_changeWeight;
+        this.P_randomizeWeight = P_randomizeWeight;
         this.permutation = permutation;
         this.compatibility_threshold = compatibility_threshold;
         this.innovation_nr = inNodes*outNodes;
@@ -135,6 +132,11 @@ public class Population implements Serializable {
             // start race
             race.run();
 
+            int offset = driverList.size() - racers;
+            for (int competitors = 0; competitors < racers; competitors++)
+            {
+                System.out.println("Fitness of competitor"+(competitors+1)+": "+driverList.get(offset+competitors).tracker.getFitness());
+            }
         }
         // calculate fitness for all genomes.
         for (int idx = 0; idx < generation.size(); idx++)
@@ -174,12 +176,12 @@ public class Population implements Serializable {
             int individuals = generationSpecies.get(i).size();
             switch (individuals) {
                 case 1: {
-                    generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
+                    generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, P_randomizeWeight, permutation);
                     break;
                 }
                 case 2: {
                     generationSpecies.get(i).set(1, crossover(generationSpecies.get(i).get(0), generationSpecies.get(i).get(1)));
-                    generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
+                    generationSpecies.get(i).get(0).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, P_randomizeWeight, permutation);
                     break;
                 }
                 default: {
@@ -192,7 +194,7 @@ public class Population implements Serializable {
                     for (int j = 0; j < mutation_index; j++){
                         int mutant = (int)(Math.random()*survive_index);
                         generationSpecies.get(i).set(j, new Genome(oldGeneration.get(genomeCounter + mutant)));
-                        generationSpecies.get(i).get(j).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, permutation);
+                        generationSpecies.get(i).get(j).mutate(P_addNode, P_addWeight, P_mutateWeights, P_permuteWeight, P_randomizeWeight, permutation);
                     }
                     break;
                 }
@@ -273,9 +275,11 @@ public class Population implements Serializable {
             fis.close();
         }catch (IOException e) {
             e.printStackTrace();
+            return null;
         }catch (ClassNotFoundException e)
         {
             e.printStackTrace();
+            return null;
         }
         // now that pop is retrieved, reset fields: fill transient lists, set parentpopulations.
 
@@ -287,7 +291,7 @@ public class Population implements Serializable {
             pop.species.add(spec.get(0));
             pop.generation.addAll(spec);
         }
-        for (Genome gene: pop.species)
+        for (Genome gene: pop.generation)
         {
             gene.setParentPopulation(pop);
         }
