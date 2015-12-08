@@ -26,7 +26,7 @@ public class Evolution {
             population = Population.loadPopulation(popSource);
         }
         for (Genome g : population.getGeneration()){
-            g.mutate(population.P_addNode, population.P_addWeight, population.P_mutateWeights, population.P_permuteWeight, population.P_randomizeWeight, population.permutation);
+            g.mutate();
         }
 
         startTorcs();
@@ -66,7 +66,7 @@ public class Evolution {
         double p_mutate_weight = 0.8;
         double p_changeWeight = 0.1;
         double P_randomizeWeight = 0.01; // another wild guess!!
-        double comp_threshold = 5.0;
+        double comp_threshold = 4.0;
         double kill_rate = 0.6;
         double mutation_rate = 0.25;
 

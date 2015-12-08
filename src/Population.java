@@ -200,14 +200,16 @@ public class Population implements Serializable {
                     int mutation_index = (int) Math.round(mutation_rate * individuals);
                     // If there are more than 5 individuals in the species, the best one should be left untouched
                     int start_index = individuals > 5 ? 1 : 0;
-                    for (int j = start_index; j < mutation_index; j++) {
-                        int mutant = (int) (Math.random() * survive_index);
-                        generationSpecies.get(i).set(j, new Genome(oldGeneration.get(genomeCounter + mutant)));
-                        generationSpecies.get(i).get(j).mutate();
-                    }
-                    for (int j = mutation_index; j < individuals; j++) {
+                    for (int j = survive_index; j < individuals; j++) {
                         int mom = (int) (Math.random() * survive_index), dad = (int) (Math.random() * survive_index);
                         generationSpecies.get(i).set(j, crossover(oldGeneration.get(genomeCounter + mom), oldGeneration.get(genomeCounter + dad)));
+                    }
+                    for (int j = start_index; j < survive_index; j++) {
+                        //int mutant = (int) (Math.random() * survive_index);
+                        if (rng.nextDouble() < mutation_rate) {
+                            generationSpecies.get(i).set(j, new Genome(oldGeneration.get(i)));
+                            generationSpecies.get(i).get(j).mutate();
+                        }
                     }
                     break;
                 }
