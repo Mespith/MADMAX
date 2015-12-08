@@ -20,14 +20,14 @@ import java.util.LinkedList;
 public class RaceTracker {
 
 
-    private static int MEM_SIZE = 1;                    //default size of past timesteps to keep track of.
-    private double temporaryFitness;                    // keeps track of events during the race
-    private double finalFitness;                        // final fitness value. computed once.
-    private LinkedList<double[]> sensorMemory;          // list of n past sensor parameters
-    private LinkedList<double[]> actionMemory;          // list of n past action parameters
-    private static long TIMELIMIT = 600; //Long.MAX_VALUE-1;     // number of time steps after which the race is terminated
-    private long raceTime;                              // number of past timesteps in current race
-    private boolean stopRace;                           // driver will terminate race if set to true
+    static int MEM_SIZE = 1;                    //default size of past timesteps to keep track of.
+    double temporaryFitness;                    // keeps track of events during the race
+    double finalFitness;                        // final fitness value. computed once.
+    LinkedList<double[]> sensorMemory;          // list of n past sensor parameters
+    LinkedList<double[]> actionMemory;          // list of n past action parameters
+    static long TIMELIMIT = 600; //Long.MAX_VALUE-1;     // number of time steps after which the race is terminated
+    long raceTime;                              // number of past timesteps in current race
+    boolean stopRace;                           // driver will terminate race if set to true
 
     public  RaceTracker()
     {

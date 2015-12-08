@@ -153,8 +153,8 @@ public class Population implements Serializable {
         // print out best example of every species.
         for (int idx = 0; idx < generationSpecies.size(); idx++)
         {
-            int lastIdx = generationSpecies.get(idx).size() - 1;
-            System.out.println("Best fitness of species " + idx + ": " + generationSpecies.get(idx).get(lastIdx).fitness);
+            //int lastIdx = generationSpecies.get(idx).size() - 1;
+            System.out.println("Best fitness of species " + idx + ": " + generationSpecies.get(idx).get(0).fitness);
         }
 
     }

@@ -31,7 +31,7 @@ public class Evolution {
 
         startTorcs();
 
-        evolve(40);
+        evolve(10);
 
         if (!popTarget.equals(""))
         {
@@ -60,10 +60,10 @@ public class Evolution {
         double c3 = 3.0;
         int nr_of_inputs = 15;
         int nr_of_outputs = 3;
-        int population_size = 50;
+        int population_size = 10;
         double p_new_node = 0.03;
         double p_new_connection = 0.05;
-        double p_mutate_weight = 0.8;
+        double p_mutate_weight = 0.5;
         double p_changeWeight = 0.1;
         double P_randomizeWeight = 0.01; // another wild guess!!
         double comp_threshold = 4.0;
@@ -71,7 +71,7 @@ public class Evolution {
         double mutation_rate = 0.25;
 
         // This one I guessed
-        double permutation = 0.2;
+        double permutation = 0.1;
 
         return new Population(c1, c2, c3, nr_of_inputs, nr_of_outputs, kill_rate, mutation_rate, p_new_node, p_new_connection,
                 p_mutate_weight, p_changeWeight, P_randomizeWeight, permutation, comp_threshold, population_size, rng);
