@@ -27,10 +27,11 @@ public class EchoStateNet {
     {
         // 1: find numbers of nodes
         List<ConnectionGene> connections = gene.getConnections(); // gene.getNodes() or so...
-        int nNodes = gene.nr_of_nodes; //gene.parent.getNumNodes()
+        int nNodes = gene.getNrNodes(); //gene.parent.getNumNodes()
         int inSize = gene.getParentPopulation().inNodes; //gene.parent.getNumInNodes()
         int outSize = gene.getParentPopulation().outNodes; //gene.parent.getNumOutNodes()
         int hidSize = nNodes - inSize - outSize;
+        boolean fakehid = false; // just for debug
 
         // make weight arrays. adopt ordering from nodes list. this being [in]+[out]+[hid]
 
@@ -38,6 +39,7 @@ public class EchoStateNet {
         if (hidSize == 0) // create placeholder only if hidden layer is empty
         {
             hidSize = 1;
+            fakehid = true;
         }
 
         double[][] inW = new double[hidSize][inSize];
@@ -62,7 +64,19 @@ public class EchoStateNet {
                 }
             } else if (source < inSize) //nodes from in to hidden layer
             {
-                inW[target - (inSize + outSize)][source] = con.weight;
+                try {
+                    inW[target - (inSize + outSize)][source] = con.weight;
+                }catch (ArrayIndexOutOfBoundsException e)
+                {
+                    System.out.println(gene.getNrNodes());
+                    System.out.println(inSize);
+                    System.out.println(hidSize);
+                    System.out.println(outSize);
+                    System.out.println(fakehid);
+                    System.out.println(target);
+                    e.printStackTrace();
+                    System.exit(1);
+                }
             } else //nodes in recurrent layer
             {
                 hidW[target - (inSize + outSize)][source - (inSize + outSize)] = con.weight;

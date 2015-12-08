@@ -6,7 +6,6 @@ public class Genome implements Serializable{
     public int speciesHint;
     private transient Population parentPopulation;
     public double fitness;
-    public int nr_of_nodes;
     public List<List<Integer>> potentials;
     private List<ConnectionGene> genes;
     private List<Integer> nodes;
@@ -16,7 +15,6 @@ public class Genome implements Serializable{
         this.speciesHint = g.speciesHint;
         this.parentPopulation = g.parentPopulation;
         this.fitness = g.fitness;
-        this.nr_of_nodes = g.nr_of_nodes;
         this.genes = new ArrayList<>();
         for (ConnectionGene gene : g.genes) {
             this.genes.add(new ConnectionGene(gene));
@@ -35,14 +33,13 @@ public class Genome implements Serializable{
     Genome(Population parentPopulation) {
         this.parentPopulation = parentPopulation;
         this.speciesHint = -1;
-        this.nr_of_nodes = parentPopulation.inNodes + parentPopulation.outNodes;
         this.genes = new ArrayList<>(parentPopulation.inNodes * parentPopulation.outNodes);
-        this.nodes = new ArrayList<>(nr_of_nodes);
+        this.nodes = new ArrayList<>(parentPopulation.inNodes + parentPopulation.outNodes);
         this.potentials = new ArrayList<>(parentPopulation.inNodes);
         this.fitness = 0;
         // Create all the input and output nodes
         int innovationCounter = 0;
-        for (int i = 0; i < nr_of_nodes; i++) {
+        for (int i = 0; i < parentPopulation.inNodes + parentPopulation.outNodes; i++) {
             this.nodes.add(i);
             if (i < parentPopulation.inNodes) {
                 potentials.add(new ArrayList<>());
@@ -69,14 +66,15 @@ public class Genome implements Serializable{
         }
 
         // Adding a weight.
-        int potential_connections = (nr_of_nodes - parentPopulation.outNodes) * (nr_of_nodes - parentPopulation.inNodes) - genes.size();
+        int potential_connections = (getNrNodes() - parentPopulation.outNodes) *
+                                    (getNrNodes() - parentPopulation.inNodes) - getN();
         if (randomUniform() < P_addWeight && potential_connections > 0) {
 
             int random_nr = (int) (randomUniform() * potential_connections);
 
             // Select a node that has potential nodes to connect to.
             // Select a random node from the potential connections of you source node.
-            int source = 0, target = 0, targetIdx = 0;
+            int source = 0, target, targetIdx;
             while (true) {
                 random_nr -= potentials.get(source).size();
                 if (random_nr < 0) {
@@ -103,7 +101,6 @@ public class Genome implements Serializable{
             int placement = (int) (randomUniform() * genes.size());
             // The old connection will be disabled.
             genes.get(placement).weight = 0;
-            nr_of_nodes++;
             int newNodeId = ++parentPopulation.nodeId;
             nodes.add(newNodeId);
             List<Integer> p = new ArrayList<Integer>();
@@ -142,6 +139,8 @@ public class Genome implements Serializable{
     }
 
     public int getN(){ return genes.size(); }
+
+    public int getNrNodes(){ return nodes.size(); }
 
     private double randomUniform(){ return parentPopulation.rng.nextDouble(); }
 
