@@ -19,8 +19,21 @@ public class Population implements Serializable {
     private transient List<Genome> generation;
     private ArrayList<ArrayList<Genome>> generationSpecies;
 
+    private static String[][] tracknames = {{"road" ,"aalborg" },    {"road" ,"alpine-1" },   {"road" ,"alpine-2" },
+                                            {"road" ,"brondehach" }, {"road" ,"corkscrew" },  {"road" ,"eroad" },
+                                            {"road" ,"e-track-1" },  {"road" ,"e-track-2" },  {"road" ,"e-track-3" },
+                                            {"road" ,"e-track-4" },  {"road" ,"e-track-6" },  {"road" ,"forza" },
+                                            {"road" ,"g-track-1" },  {"road" ,"g-track-2" },  {"road" ,"g-track-3" },
+                                            {"road" ,"ole-road-1" }, {"road" ,"ruudskogen" }, {"road" ,"spring" },
+                                            {"road" ,"street-1" },   {"road" ,"wheel-1" },    {"road" ,"wheel-2" },
+                                            {"dirt" ,"dirt-1" },     {"dirt" ,"dirt-2" },     {"dirt" ,"dirt-3" },
+                                            {"dirt" ,"dirt-4" },     {"dirt" ,"dirt-5" },     {"dirt" ,"dirt-6" },
+                                            {"dirt" ,"mixed-1" },    {"dirt" ,"mixed-2" },    {"oval" ,"a-speedway" },
+                                            {"oval" ,"b-speedway" }, {"oval" ,"c-speedway" }, {"oval" ,"d-speedway" },
+                                            {"oval" ,"e-speedway" }, {"oval" ,"f-speedway" }, {"oval" ,"g-speedway" },
+                                            {"oval" ,"e-track-5" },  {"oval" ,"michigan" }};
     public Random rng;
-
+    public int trackIdx;
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double kill_rate, double mutation_rate, double P_addNode, double P_addWeight, double P_mutateWeights,
                double P_changeWeight, double P_randomizeWeight, double permutation, double compatibility_threshold, int pop_size, Random rng) {
@@ -110,9 +123,12 @@ public class Population implements Serializable {
 
         for (int genomeIdx = 0; genomeIdx < generation.size();)
         {
+            //select track
+            trackIdx = pickTrack();
+            System.out.println("Selected track: " + tracknames[trackIdx][1] + " from " + tracknames[trackIdx][0] + "s");
             // set up race (just copied at this point)
             Race race = new Race();
-            race.setTrack("road", "alpine-1");
+            race.setTrack(tracknames[trackIdx][0], tracknames[trackIdx][1]);
             race.setTermination(Race.Termination.LAPS, 1);
             race.setStage(Controller.Stage.RACE);
 
@@ -330,5 +346,19 @@ public class Population implements Serializable {
             return 1;
         }
         return 0;
+    }
+
+    private int pickTrack()
+    {
+        if (trackIdx < 21) //last was road, pick dirt
+        {
+            return rng.nextInt(21);
+        }else if (trackIdx < 29) // last was dirt, pick oval
+        {
+            return 21 + rng.nextInt(8);
+        }else // last was oval, pick road
+        {
+            return  29 + rng.nextInt(9);
+        }
     }
 }
