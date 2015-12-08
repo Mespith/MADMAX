@@ -14,7 +14,8 @@ public class Evolution {
     private static Population population;
     private static Random rng;
     public static String popSource = "populations/10gen50ind_2.ser";
-    public static String popTarget = "populations/10gen50ind_3.ser";
+    public static String popTarget = "populations/pop50gen_final.ser";
+    private static int population_size = 50;
 
     public static void main() {
         rng = new Random(SEED);
@@ -61,7 +62,6 @@ public class Evolution {
         double c3 = 3.0;
         int nr_of_inputs = 15;
         int nr_of_outputs = 3;
-        int population_size = 50;
         double p_new_node = 0.3;
         double p_new_connection = 0.2;
         double p_mutate_weight = 0.8;
@@ -79,7 +79,12 @@ public class Evolution {
     }
 
     private static void evolve(int nr_of_generations) {
+        Parser p = new Parser();
         for (int generation = 1; generation <= nr_of_generations; generation++) {
+            if (generation%10 == 0){
+                String filename = "populations/pop" + population_size + "gen_" + generation + ".ser";
+                Population.storePopulation(population, filename);
+            }
             population.Speciefy();
             population.TestGeneration();
             population.newGeneration();
@@ -87,7 +92,7 @@ public class Evolution {
         population.Speciefy();
         population.TestGeneration();
 
-        Parser p = new Parser();
+
         p.WriteForESN(population.BestIndividual());
     }
 }
