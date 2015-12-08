@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="add049f7-9fc6-4525-a9a0-6d2cd97eca91" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MADMAX.iml" afterPath="$PROJECT_DIR$/MADMAX.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StartTORCS.bat" afterPath="$PROJECT_DIR$/StartTORCS.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ConnectionGene.java" afterPath="$PROJECT_DIR$/src/ConnectionGene.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Evolution.java" afterPath="$PROJECT_DIR$/src/Evolution.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Genome.java" afterPath="$PROJECT_DIR$/src/Genome.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Population.java" afterPath="$PROJECT_DIR$/src/Population.java" />
     </list>
     <ignored path="MadMaxDriver.iws" />
@@ -57,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/src/ConnectionGene.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -79,12 +80,9 @@
         <entry file="file://$PROJECT_DIR$/src/Population.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="121" column="43" selection-start-line="121" selection-start-column="43" selection-end-line="121" selection-end-column="43" />
+              <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#Speciefy#0;class#Population#0" expanded="false" />
-                <element signature="method#crossover#0;class#Population#0" expanded="false" />
-                <element signature="method#compatibility#0;class#Population#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -93,8 +91,8 @@
       <file leaf-file-name="StartTORCS.bat" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/StartTORCS.bat">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.028145695">
-              <caret line="1" column="4" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -177,8 +175,8 @@
         <option value="$PROJECT_DIR$/src/EchoStateNet.java" />
         <option value="$PROJECT_DIR$/src/Genome.java" />
         <option value="$PROJECT_DIR$/src/RaceTracker.java" />
-        <option value="$PROJECT_DIR$/StartTORCS.bat" />
         <option value="$PROJECT_DIR$/src/Population.java" />
+        <option value="$PROJECT_DIR$/StartTORCS.bat" />
       </list>
     </option>
   </component>
@@ -739,19 +737,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Evolution.java</url>
-          <line>55</line>
+          <line>56</line>
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Evolution.java</url>
-          <line>62</line>
+          <line>63</line>
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Evolution.java</url>
-          <line>81</line>
+          <line>82</line>
           <properties />
           <option name="timeStamp" value="42" />
         </line-breakpoint>
@@ -787,9 +785,6 @@
           <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Speciefy#0;class#Population#0" expanded="false" />
-            <element signature="method#crossover#0;class#Population#0" expanded="false" />
-            <element signature="method#compatibility#0;class#Population#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1120,7 +1115,7 @@
     <entry file="file://$PROJECT_DIR$/src/ConnectionGene.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1144,12 +1139,9 @@
     <entry file="file://$PROJECT_DIR$/src/Population.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="121" column="43" selection-start-line="121" selection-start-column="43" selection-end-line="121" selection-end-column="43" />
+          <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Speciefy#0;class#Population#0" expanded="false" />
-            <element signature="method#crossover#0;class#Population#0" expanded="false" />
-            <element signature="method#compatibility#0;class#Population#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1174,8 +1166,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/StartTORCS.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.028145695">
-          <caret line="1" column="4" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

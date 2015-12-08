@@ -1,6 +1,6 @@
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.Random;
+
 public class ConnectionGene implements Serializable{
 
     public int in_node;
