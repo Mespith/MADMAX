@@ -14,11 +14,15 @@ public class RaceTracker2 extends RaceTracker {
     int lapCount;
     double offset;
     int MAX_LAPS = 2;
+    boolean halfWayDone;
+    double halfWayDist;
 
     public RaceTracker2(){
         super();
         lapDist = 0;
         lapCount = 0;
+        halfWayDone = true;
+        halfWayDist = 0;
     }
 
     public void doTimestep(SensorModel sensors, Action actions)
@@ -40,7 +44,7 @@ public class RaceTracker2 extends RaceTracker {
 
         evalTimestep(); // evaluate temporary fitness. set stopRace
 
-        if (lapCount > MAX_LAPS || raceTime > TIMELIMIT) //
+        if (raceTime > TIMELIMIT) //
         {
             actions.abandonRace = true;
         }
@@ -74,13 +78,24 @@ public class RaceTracker2 extends RaceTracker {
         if (offset == 0)
         {
             offset = sensorMemory.getFirst()[0];
+            halfWayDist = offset/2;
         }
         if (sensorMemory.getFirst()[0] - sensorMemory.getLast()[0] > 1000)
         {
             lapDist += sensorMemory.getFirst()[0];
             lapCount++;
+            halfWayDone = false;
         }
-
+        if (sensorMemory.getLast()[0] - sensorMemory.getFirst()[0] > 1000)
+        {
+            lapDist -= sensorMemory.getFirst()[0];
+            lapCount--;
+            halfWayDone = true;
+        }
+        if (sensorMemory.getFirst()[0] < halfWayDist && sensorMemory.getLast()[0] > halfWayDist)
+        {
+            halfWayDone = true;
+        }
         if (actionMemory.getLast()[0] > 0.5 && actionMemory.getLast()[1] > 0.5)
         {
             //don't brake and accelerate at the same time!
