@@ -84,7 +84,12 @@ public class EchoStateNet {
                 }
             } else //nodes in recurrent layer
             {
-                hidW[target - (inSize + outSize)][source - (inSize + outSize)] = con.weight;
+                try {
+                    hidW[target - (inSize + outSize)][source - (inSize + outSize)] = con.weight;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(target);
+                    System.out.println(source);
+                }
             }
         }
 

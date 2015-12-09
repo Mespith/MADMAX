@@ -15,7 +15,7 @@ public class Evolution {
     private static Random rng;
     public static String popSource = "";
     public static String popTarget = "populations/pop50gen_final.ser";
-    private static int population_size = 50;
+    private static int population_size = 100;
 
     public static void main() {
         rng = new Random(SEED);
@@ -33,7 +33,7 @@ public class Evolution {
 
         startTorcs();
 
-        evolve(10);
+        evolve(1);
 
         if (!popTarget.equals(""))
         {
@@ -79,9 +79,8 @@ public class Evolution {
     }
 
     private static void evolve(int nr_of_generations) {
-        Parser p = new Parser();
         for (int generation = 1; generation <= nr_of_generations; generation++) {
-            if (generation%10 == 0){
+            if (generation%1 == 0){
                 String filename = "populations/pop" + population_size + "gen_" + generation + ".ser";
                 Population.storePopulation(population, filename);
             }
@@ -92,7 +91,7 @@ public class Evolution {
         population.Speciefy();
         population.TestGeneration();
 
-
-        p.WriteForESN(population.BestIndividual());
+//        Parser p = new Parser();
+//        p.WriteForESN(population.BestIndividual());
     }
 }

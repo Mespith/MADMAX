@@ -118,7 +118,7 @@ public class Population implements Serializable {
     // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
 
-        int racers = 5; // number of simultaneously tested genomes
+        int racers = 10; // number of simultaneously tested genomes
         List<DefaultDriver> driverList = new ArrayList<>();
 
         for (int genomeIdx = 0; genomeIdx < generation.size();)
