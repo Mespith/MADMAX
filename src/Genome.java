@@ -32,7 +32,7 @@ public class Genome implements Serializable{
 
     Genome(Population parentPopulation) {
         this.parentPopulation = parentPopulation;
-        this.speciesHint = -1;
+        this.speciesHint = -1; //gives hint of species according to previously assigned species, set to -1 for the first generation
         this.genes = new ArrayList<>(parentPopulation.inNodes * parentPopulation.outNodes);
         this.nodes = new ArrayList<>(parentPopulation.inNodes + parentPopulation.outNodes);
         this.potentials = new ArrayList<>(parentPopulation.inNodes);
@@ -88,7 +88,8 @@ public class Genome implements Serializable{
             }
 
             // Create the new connection
-            ConnectionGene g = new ConnectionGene(source, target, parentPopulation.innovation_nr++);
+            int sourceId = source < parentPopulation.inNodes ? source : source + parentPopulation.outNodes;
+            ConnectionGene g = new ConnectionGene(sourceId, target, parentPopulation.innovation_nr++);
 
             // Remove the newly connected node from the potential nodes.
             potentials.get(source).remove(targetIdx);

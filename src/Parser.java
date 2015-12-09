@@ -1,5 +1,11 @@
 import org.ejml.simple.SimpleMatrix;
 
+import java.io.FileReader;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import java.io.*;
 import java.util.Vector;
 
@@ -106,4 +112,46 @@ public class Parser {
             }
         }
     }
+
+    /*public Population resurrectPopulation(List<String> matrixFiles, double c1, double c2, double c3, int inNodes, int outNodes, double kill_rate, double mutation_rate, double P_addNode, double P_addWeight, double P_mutateWeights,
+                                          double P_changeWeight, double permutation, double compatibility_threshold, int pop_size, Random rng) {
+
+        //Create new population according to new set of parameters.
+        Population resurrectedPopulation = new Population(c1, c2, c3, inNodes, outNodes, kill_rate, mutation_rate, P_addNode, P_addWeight, P_mutateWeights,
+                                                            P_changeWeight, permutation, compatibility_threshold, pop_size, rng);
+
+        //Add the different echo state network matrices to a list, each element corresponding to a genome in the population
+        List<EchoStateNet> genomeMatrices = new ArrayList<>();
+        for (String fileName : matrixFiles) {
+            //Read the genome echo state network from file
+            EchoStateNet matrices = ParseForESN(fileName);
+            //Create a new Genome
+            Genome currentGenome = new Genome(resurrectedPopulation);
+            resurrectedPopulation.getGeneration().add(currentGenome);
+            //Go through all the old input nodes
+            for (int i = 0; i < matrices.inW.numCols(); i++){
+                //update their weights to the output nodes
+                for (int j = resurrectedPopulation.inNodes; j < resurrectedPopulation.inNodes + matrices.outW.numRows(); j++){
+                    currentGenome.getConnections().get(i).weight = matrices.inW.get(j, i);
+                }
+                //add connection genes from the input nodes to the hidden nodes
+                for (int j = resurrectedPopulation.inNodes + resurrectedPopulation.outNodes; j < resurrectedPopulation.inNodes + resurrectedPopulation.outNodes + matrices.resW.numRows(); j++){
+                    currentGenome.getNodes().add(++currentGenome.nr_of_nodes);
+                    currentGenome.getConnections().add(new ConnectionGene(i, j, matrices.resW.get(j, i), resurrectedPopulation.incrementInnovationNr()));
+                }
+            }
+            resurrectedPopulation.nodeId = currentGenome.nr_of_nodes > resurrectedPopulation.nodeId ? currentGenome.nr_of_nodes : resurrectedPopulation.nodeId;
+        }
+
+        //Go through all the input nodes
+        for (int i = 0; i < resurrectedPopulation.inNodes; i++){
+
+        }
+
+
+        return resurrectedPopulation;
+    }
+*/
+
+
 }

@@ -1,6 +1,8 @@
 *.class
 */workspace.xml
 
+*.bat
+
 #workspace file
 workspace.xml
 

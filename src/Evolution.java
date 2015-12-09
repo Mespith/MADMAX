@@ -2,7 +2,6 @@ import cicontest.algorithm.abstracts.DriversUtils;
 import race.TorcsConfiguration;
 
 import java.io.*;
-import java.util.List;
 import java.util.Random;
 
 /**

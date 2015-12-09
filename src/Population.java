@@ -121,12 +121,12 @@ public class Population implements Serializable {
         int racers = 10; // number of simultaneously tested genomes
         List<DefaultDriver> driverList = new ArrayList<>();
 
+        //select track
+        trackIdx = pickTrack();
+        //System.out.println("Selected track: " + tracknames[trackIdx][1] + " from " + tracknames[trackIdx][0] + "s");
+
         for (int genomeIdx = 0; genomeIdx < generation.size();)
         {
-            //select track
-            trackIdx = pickTrack();
-            System.out.println("Selected track: " + tracknames[trackIdx][1] + " from " + tracknames[trackIdx][0] + "s");
-            // set up race (just copied at this point)
             Race race = new Race();
             race.setTrack(tracknames[trackIdx][0], tracknames[trackIdx][1]);
             race.setTermination(Race.Termination.LAPS, 1);
@@ -147,7 +147,7 @@ public class Population implements Serializable {
             int offset = driverList.size() - racers;
             for (int competitors = 0; competitors < racers; competitors++)
             {
-                System.out.println("Fitness of competitor"+(competitors+1)+": "+driverList.get(offset+competitors).tracker.getFitness());
+                //System.out.println("Fitness of competitor"+(competitors+1)+": "+driverList.get(offset+competitors).tracker.getFitness());
             }
         }
         // calculate fitness for all genomes.
@@ -288,9 +288,15 @@ public class Population implements Serializable {
     private void shrink_species() {
         for (int i = 0; i < generationSpecies.size(); i++) {
             if (i < species.size()) {
-                species.set(i, new Genome(generationSpecies.get(i).get(0)));
-            }
-            else {
+                try {
+                    species.add(new Genome(generationSpecies.get(i).get(0))); //IOoBEx idx 0 w/ size 0
+                } catch (IndexOutOfBoundsException e) {
+                    generationSpecies.remove(i);
+                    species.remove(i);
+                    i--;
+                    System.out.println("species(" + i + ") is empty");
+                }
+            } else {
                 species.add(new Genome(generationSpecies.get(i).get(0)));
             }
         }
@@ -352,13 +358,13 @@ public class Population implements Serializable {
     {
         if (trackIdx < 21) //last was road, pick dirt
         {
-            return rng.nextInt(21);
+            return 21 + rng.nextInt(8);
         }else if (trackIdx < 29) // last was dirt, pick oval
         {
-            return 21 + rng.nextInt(8);
+            return 29 + rng.nextInt(9);
         }else // last was oval, pick road
         {
-            return  29 + rng.nextInt(9);
+            return  rng.nextInt(21);
         }
     }
 }
