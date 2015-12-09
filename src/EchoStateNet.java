@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.Math;
 import java.util.List;
 
@@ -120,5 +122,44 @@ public class EchoStateNet {
             iterator.set(Math.tanh(iterator.next()));
         }
         return input;
+    }
+
+    public static void storeESN(EchoStateNet esn, String path)
+    {
+        try {
+            PrintWriter writer = new PrintWriter(path, "UTF-8");
+
+            // print alpha
+            writer.println(esn.leaking_rate);
+
+            //print inW
+            for (int idx = 0; idx < esn.inW.numRows(); idx++) {
+                String s = Double.toString(esn.inW.get(idx, 0));
+                for (int jdx = 1; jdx < esn.inW.numCols(); jdx++) {
+                    s = s + ";" + esn.inW.get(idx, jdx);
+                }
+                writer.println(s);
+            }
+            //print resW
+            for (int idx = 0; idx < esn.resW.numRows(); idx++) {
+                String s = Double.toString(esn.resW.get(idx, 0));
+                for (int jdx = 1; jdx < esn.resW.numCols(); jdx++) {
+                    s = s + ";" + esn.resW.get(idx, jdx);
+                }
+                writer.println(s);
+            }
+            //print outW
+            for (int idx = 0; idx < esn.outW.numRows(); idx++) {
+                String s = Double.toString(esn.outW.get(idx, 0));
+                for (int jdx = 1; jdx < esn.outW.numCols(); jdx++) {
+                    s = s + ";" + esn.outW.get(idx, jdx);
+                }
+                writer.println(s);
+            }
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
