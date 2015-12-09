@@ -288,9 +288,15 @@ public class Population implements Serializable {
     private void shrink_species() {
         for (int i = 0; i < generationSpecies.size(); i++) {
             if (i < species.size()) {
-                species.set(i, new Genome(generationSpecies.get(i).get(0))); //IOoBEx idx 0 w/ size 0
-            }
-            else {
+                try {
+                    species.add(new Genome(generationSpecies.get(i).get(0))); //IOoBEx idx 0 w/ size 0
+                } catch (IndexOutOfBoundsException e) {
+                    generationSpecies.remove(i);
+                    species.remove(i);
+                    i--;
+                    System.out.println("species(" + i + ") is empty");
+                }
+            } else {
                 species.add(new Genome(generationSpecies.get(i).get(0)));
             }
         }

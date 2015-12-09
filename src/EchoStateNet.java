@@ -6,11 +6,11 @@ import org.ejml.simple.SimpleMatrix;
 
 public class EchoStateNet {
 
-    SimpleMatrix inW;
-    SimpleMatrix resW;
-    SimpleMatrix outW;
-    SimpleMatrix x_prev; //activation OUTPUT of last iteration
-    double leaking_rate;
+    public SimpleMatrix inW;
+    public SimpleMatrix resW;
+    public SimpleMatrix outW;
+    public SimpleMatrix x_prev; //activation OUTPUT of last iteration
+    public double leaking_rate;
 
     public EchoStateNet(double[][] inW, double[][] resW, double[][] outW, double leaking_rate)
     {

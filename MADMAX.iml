@@ -17,6 +17,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="EJML" level="project" />
+    <orderEntry type="library" name="ejml-v0" level="project" />
     <orderEntry type="library" name="ejml-v028" level="project" />
   </component>
 </module>

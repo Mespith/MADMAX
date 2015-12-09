@@ -32,7 +32,7 @@ public class Genome implements Serializable{
 
     Genome(Population parentPopulation) {
         this.parentPopulation = parentPopulation;
-        this.speciesHint = -1;
+        this.speciesHint = -1; //gives hint of species according to previously assigned species, set to -1 for the first generation
         this.genes = new ArrayList<>(parentPopulation.inNodes * parentPopulation.outNodes);
         this.nodes = new ArrayList<>(parentPopulation.inNodes + parentPopulation.outNodes);
         this.potentials = new ArrayList<>(parentPopulation.inNodes);
