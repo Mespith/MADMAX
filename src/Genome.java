@@ -88,7 +88,7 @@ public class Genome implements Serializable{
             }
 
             // Create the new connection
-            source = source < parentPopulation.inNodes ? source : source + parentPopulation.outNodes;
+            int sourceId = source < parentPopulation.inNodes ? source : source + parentPopulation.outNodes;
             ConnectionGene g = new ConnectionGene(nodes.get(source), target, parentPopulation.innovation_nr++);
 
             // Remove the newly connected node from the potential nodes.
