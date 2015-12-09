@@ -8,16 +8,14 @@ import cicontest.torcs.controller.extras.AutomatedGearbox;
 import cicontest.torcs.controller.extras.AutomatedRecovering;
 import org.ejml.simple.SimpleMatrix;
 
-import java.io.*;
-
-public class DefaultDriver extends AbstractDriver {
+public class MadMaxDriver extends AbstractDriver {
 
     EchoStateNet esn;
 
-    DefaultDriver() {
+    MadMaxDriver() {
         initialize();
         Parser parser = new Parser();
-        esn = parser.ParseForESN("OutputWeights.txt");
+        esn = parser.ParseForESN("NetworkConfiguration.txt");
     }
 
     public void loadGenome(IGenome genome) { }

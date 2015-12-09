@@ -12,7 +12,7 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
     private static final long serialVersionUID = 654963126362653L;
 
     public Class<? extends Driver> getDriverClass(){
-        return DefaultDriver.class;
+        return MadMaxDriver.class;
     }
 
     public void run(boolean continue_from_checkpoint) { }
@@ -22,7 +22,7 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
         race.setTrack("road", "aalborg");
         race.setTermination(Race.Termination.LAPS, 1);
         race.setStage(Controller.Stage.RACE);
-        race.addCompetitor(new DefaultDriver());
+        race.addCompetitor(new MadMaxDriver());
         Boolean withGUI = true;
         RaceResults results;
         if(withGUI) {

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Driver: MadMaxDriver
+Class-Path: CIContest-driver.jar EJML-core-0.28.jar EJML-core-0.28-sou
+ rces.jar EJML-dense64-0.28.jar EJML-dense64-0.28-sources.jar EJML-den
+ seC64-0.28.jar EJML-denseC64-0.28-sources.jar EJML-equation-0.28.jar 
+ EJML-equation-0.28-sources.jar EJML-simple-0.28.jar EJML-simple-0.28-
+ sources.jar
+Main-Class: DefaultDriverAlgorithm
+

@@ -6,9 +6,9 @@ import cicontest.torcs.controller.Human;
 public class DefaultRace extends AbstractRace {
 
 	public int[] runQualification(DefaultDriverGenome[] drivers, boolean withGUI){
-		DefaultDriver[] driversList = new DefaultDriver[drivers.length + 1 ];
+		MadMaxDriver[] driversList = new MadMaxDriver[drivers.length + 1 ];
 		for(int i=0; i<drivers.length; i++){
-			driversList[i] = new DefaultDriver();
+			driversList[i] = new MadMaxDriver();
 			driversList[i].loadGenome(drivers[i]);
 		}
 		return runQualification(driversList, withGUI);
@@ -17,9 +17,9 @@ public class DefaultRace extends AbstractRace {
 	
 	public int[] runRace(DefaultDriverGenome[] drivers, boolean withGUI){
 		int size = Math.min(10, drivers.length);
-		DefaultDriver[] driversList = new DefaultDriver[size];
+		MadMaxDriver[] driversList = new MadMaxDriver[size];
 		for(int i=0; i<size; i++){
-			driversList[i] = new DefaultDriver();
+			driversList[i] = new MadMaxDriver();
 			driversList[i].loadGenome(drivers[i]);
 		}
 		return runRace(driversList, withGUI, true);
@@ -34,10 +34,10 @@ public class DefaultRace extends AbstractRace {
 		}
 		
 		DefaultDriverGenome best = (DefaultDriverGenome) DriversUtils.getStoredGenome();
-		DefaultDriver driver = new DefaultDriver();
+		MadMaxDriver driver = new MadMaxDriver();
 		driver.loadGenome(best);
 		
-		DefaultDriver[] driversList = new DefaultDriver[1];
+		MadMaxDriver[] driversList = new MadMaxDriver[1];
 		driversList[0] = driver;
 		runQualification(driversList, true);
 	}
@@ -48,11 +48,11 @@ public class DefaultRace extends AbstractRace {
 			return;
 		}
 	
-		DefaultDriver[] driversList = new DefaultDriver[1];
+		MadMaxDriver[] driversList = new MadMaxDriver[1];
 		
 		for(int i=0; i<10; i++){
 			DefaultDriverGenome best = (DefaultDriverGenome) DriversUtils.getStoredGenome();
-			DefaultDriver driver = new DefaultDriver();
+			MadMaxDriver driver = new MadMaxDriver();
 			driver.loadGenome(best);
 			driversList[i] = driver;
 		}
@@ -70,7 +70,7 @@ public class DefaultRace extends AbstractRace {
 		Driver[] driversList = new Driver[10];
 		for(int i=0; i<10; i++){
 			DefaultDriverGenome best = (DefaultDriverGenome) DriversUtils.getStoredGenome();
-			DefaultDriver driver = new DefaultDriver();
+			MadMaxDriver driver = new MadMaxDriver();
 			driver.loadGenome(best);
 			driversList[i] = driver;
 		}
