@@ -12,6 +12,7 @@ public class RaceTracker2 extends RaceTracker {
     static int MEM_SIZE = 2;
     double lapDist;
     int lapCount;
+    double offset;
     int MAX_LAPS = 2;
 
     public RaceTracker2(){
@@ -70,6 +71,10 @@ public class RaceTracker2 extends RaceTracker {
     private void evalTimestep()
     {
         // see if lap was completed
+        if (offset == 0)
+        {
+            offset = sensorMemory.getFirst()[0];
+        }
         if (sensorMemory.getFirst()[1] != sensorMemory.getLast()[1])
         {
             lapDist += sensorMemory.getFirst()[0];
@@ -89,7 +94,7 @@ public class RaceTracker2 extends RaceTracker {
 
     private double computeFitness()
     {
-        double f = sensorMemory.getLast()[0] + lapDist; // distance travelled
+        double f = sensorMemory.getLast()[0] + lapDist - offset; // distance travelled
         f *= (raceTime - temporaryFitness)/raceTime; // factor in time spent pressing all pedals at once
         return f;
     }
