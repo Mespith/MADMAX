@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
-import java.util.concurrent.atomic.DoubleAccumulator;
 
 /**
  * Created by Jaimy on 26/11/2015.

@@ -5,10 +5,12 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
-      <element id="library" level="project" name="EJML" />
-      <element id="file-copy" path="$PROJECT_DIR$/CIContest-driver.jar" />
       <element id="module-output" name="MADMAX" />
       <element id="file-copy" path="$PROJECT_DIR$/NetworkConfiguration.txt" output-file-name="NetworkConfiguration.txt" />
+      <element id="dir-copy" path="$PROJECT_DIR$/../EJML/source" />
+      <element id="directory" name="memory">
+        <element id="dir-copy" path="$PROJECT_DIR$/memory" />
+      </element>
     </root>
   </artifact>
 </component>
