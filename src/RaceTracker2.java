@@ -23,7 +23,7 @@ public class RaceTracker2 extends RaceTracker {
         lapCount = 0;
         halfWayDone = true;
         halfWayDist = 0;
-        TIMELIMIT = 10000;
+        TIMELIMIT = 5000;
     }
 
     public void doTimestep(SensorModel sensors, Action actions)
@@ -63,7 +63,7 @@ public class RaceTracker2 extends RaceTracker {
     private double[] fetchSensors(SensorModel sensors)
     {
         double[] s = {sensors.getDistanceFromStartLine(),sensors.getLastLapTime(),
-                      sensors.getDistanceRaced(), sensors.getAngleToTrackAxis()};
+                      sensors.getDistanceRaced(), sensors.getAngleToTrackAxis(), sensors.getSpeed()};
         return s;
     }
 
@@ -97,6 +97,7 @@ public class RaceTracker2 extends RaceTracker {
         {
             halfWayDone = true;
         }
+
         if (actionMemory.getLast()[0] > 0.5 && actionMemory.getLast()[1] > 0.5)
         {
             //don't brake and accelerate at the same time!
@@ -105,6 +106,10 @@ public class RaceTracker2 extends RaceTracker {
         else if (Math.abs(sensorMemory.getLast()[1]) > 1.5)
         {
             temporaryFitness += 1; //don't go parallel to the track.
+        }
+        else if (sensorMemory.getLast()[4] < 0)
+        {
+            temporaryFitness += 1;
         }
     }
 

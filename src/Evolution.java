@@ -12,7 +12,7 @@ public class Evolution {
     private static long SEED = 54;
     private static Population population;
     private static Random rng;
-    public static String popSource = "";
+    public static String popSource = "populations/fredpop50gen_11.ser";
     public static String popTarget = "";
     private static int population_size = 50;
 
@@ -32,7 +32,7 @@ public class Evolution {
 
         startTorcs();
 
-        evolve(10);
+        evolve(30);
 
         if (!popTarget.equals(""))
         {
@@ -81,8 +81,8 @@ public class Evolution {
         for (int generation = 1; generation <= nr_of_generations; generation++) {
             population.Speciefy();
             population.TestGeneration();
-            if (generation%5 == 0){
-                String filename = "populations/fredpop" + population_size + "gen_" + generation + ".ser";
+            if (generation%1 == 0){
+                String filename = "populations/fredpop" + population_size + "gen_" + (generation+6)  + ".ser";
                 Population.storePopulation(population, filename);
             }
             population.newGeneration();

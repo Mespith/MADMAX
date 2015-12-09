@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Population implements Serializable {
-    
+
+    public static int racers = 1; // number of simultaneously tested genomes
+
     //innovation number is the number of the latest innovation added to the population, inNodes # of input nodes, outNodes # of output nodes
     public int innovation_nr, nodeId, inNodes, outNodes;
     public double P_addNode, P_addWeight, P_mutateWeights, P_changeWeight, P_randomizeWeight, P_permuteWeight, permutation, kill_rate, mutation_rate;
@@ -118,7 +120,7 @@ public class Population implements Serializable {
     // Parse every genome to a NN and use it to race.
     public void TestGeneration() {
 
-        int racers = 10; // number of simultaneously tested genomes
+
         List<DefaultDriver> driverList = new ArrayList<>();
 
         //select track
