@@ -33,7 +33,7 @@ public class Evolution {
 
         startTorcs();
 
-        evolve(10);
+        evolve(30);
 
         if (!popTarget.equals(""))
         {
@@ -81,12 +81,12 @@ public class Evolution {
     private static void evolve(int nr_of_generations) {
         Parser p = new Parser();
         for (int generation = 1; generation <= nr_of_generations; generation++) {
-            if (generation%10 == 0){
-                String filename = "populations/pop" + population_size + "gen_" + generation + ".ser";
-                Population.storePopulation(population, filename);
-            }
             population.Speciefy();
             population.TestGeneration();
+            if (generation%5 == 0){
+                String filename = "populations/fredpop" + population_size + "gen_" + generation + ".ser";
+                Population.storePopulation(population, filename);
+            }
             population.newGeneration();
         }
         population.Speciefy();

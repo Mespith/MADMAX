@@ -23,6 +23,7 @@ public class RaceTracker2 extends RaceTracker {
         lapCount = 0;
         halfWayDone = true;
         halfWayDist = 0;
+        TIMELIMIT = 10000;
     }
 
     public void doTimestep(SensorModel sensors, Action actions)

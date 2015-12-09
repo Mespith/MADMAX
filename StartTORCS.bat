@@ -1,2 +1,2 @@
-start /d "C:\Users\King Kong Kai\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\TORCS" wtorcs.exe -nofuel -nodamage -nolaptime
+start /d "C:\Program Files (x86)\torcs" wtorcs.exe -nofuel -nodamage -nolaptime
 exit
