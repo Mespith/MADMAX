@@ -25,7 +25,7 @@ public class RaceTracker {
     double finalFitness;                        // final fitness value. computed once.
     LinkedList<double[]> sensorMemory;          // list of n past sensor parameters
     LinkedList<double[]> actionMemory;          // list of n past action parameters
-    static long TIMELIMIT = 600; //Long.MAX_VALUE-1;     // number of time steps after which the race is terminated
+    static long TIMELIMIT = 10000; //Long.MAX_VALUE-1;     // number of time steps after which the race is terminated
     long raceTime;                              // number of past timesteps in current race
     boolean stopRace;                           // driver will terminate race if set to true
 

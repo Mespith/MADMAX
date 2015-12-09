@@ -14,7 +14,7 @@ public class DefaultDriver extends AbstractDriver {
 
     private EchoStateNet esn;
     public int position;
-    public RaceTracker2 tracker;
+    public RaceTracker tracker;
 
     DefaultDriver() {
         initialize();
@@ -22,7 +22,7 @@ public class DefaultDriver extends AbstractDriver {
 
     DefaultDriver(EchoStateNet esn) {
         this.esn = esn;
-        this.tracker = new RaceTracker2();
+        this.tracker = new RaceTracker();
     }
 
     public void loadGenome(IGenome genome) { }

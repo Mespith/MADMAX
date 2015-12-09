@@ -2,7 +2,6 @@ import cicontest.algorithm.abstracts.DriversUtils;
 import race.TorcsConfiguration;
 
 import java.io.*;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -33,7 +32,7 @@ public class Evolution {
 
         startTorcs();
 
-        evolve(30);
+        evolve(10);
 
         if (!popTarget.equals(""))
         {
@@ -79,7 +78,6 @@ public class Evolution {
     }
 
     private static void evolve(int nr_of_generations) {
-        Parser p = new Parser();
         for (int generation = 1; generation <= nr_of_generations; generation++) {
             population.Speciefy();
             population.TestGeneration();
@@ -92,7 +90,7 @@ public class Evolution {
         population.Speciefy();
         population.TestGeneration();
 
-
-        p.WriteForESN(population.BestIndividual());
+//        Parser p = new Parser();
+//        p.WriteForESN(population.BestIndividual());
     }
 }

@@ -83,7 +83,7 @@ public class RaceTracker2 extends RaceTracker {
         }
         if (sensorMemory.getFirst()[0] - sensorMemory.getLast()[0] > 1000)
         {
-            lapDist += sensorMemory.getFirst()[0];
+            lapDist = sensorMemory.getFirst()[0];
             lapCount++;
             halfWayDone = false;
         }
@@ -114,6 +114,7 @@ public class RaceTracker2 extends RaceTracker {
         //System.out.println("lapDist = " + lapDist);
         //System.out.println("offset = " + offset);
         //System.out.println("sensorMemory.getLast()[0] = " + sensorMemory.getLast()[0]);
+
         f *= (raceTime - temporaryFitness)/raceTime; // factor in time spent pressing all pedals at once
         return f;
     }
