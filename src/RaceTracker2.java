@@ -72,7 +72,7 @@ public class RaceTracker2 extends RaceTracker {
         // see if lap was completed
         if (sensorMemory.getFirst()[1] != sensorMemory.getLast()[1])
         {
-            lapDist += sensorMemory.getFirst()[0];
+            lapDist = sensorMemory.getFirst()[0];
             lapCount++;
         }
 
@@ -89,7 +89,7 @@ public class RaceTracker2 extends RaceTracker {
 
     private double computeFitness()
     {
-        double f = sensorMemory.getLast()[0] + lapDist; // distance travelled
+        double f = sensorMemory.getLast()[0] + lapCount * lapDist; // distance travelled
         f *= (raceTime - temporaryFitness)/raceTime; // factor in time spent pressing all pedals at once
         return f;
     }

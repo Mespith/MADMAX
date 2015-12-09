@@ -13,7 +13,7 @@ public class Evolution {
     private static long SEED = 54;
     private static Population population;
     private static Random rng;
-    public static String popSource = "populations/10gen50ind_2.ser";
+    public static String popSource = "";
     public static String popTarget = "populations/pop50gen_final.ser";
     private static int population_size = 50;
 

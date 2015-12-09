@@ -33,7 +33,7 @@ public class Population implements Serializable {
                                             {"oval" ,"e-speedway" }, {"oval" ,"f-speedway" }, {"oval" ,"g-speedway" },
                                             {"oval" ,"e-track-5" },  {"oval" ,"michigan" }};
     public Random rng;
-    public int trackIdx;
+    public transient int trackIdx;
     //temporary constructor:
     Population(double c1, double c2, double c3, int inNodes, int outNodes, double kill_rate, double mutation_rate, double P_addNode, double P_addWeight, double P_mutateWeights,
                double P_changeWeight, double P_randomizeWeight, double permutation, double compatibility_threshold, int pop_size, Random rng) {
