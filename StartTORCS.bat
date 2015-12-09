@@ -1,2 +1,2 @@
-start /d "C:\Users\Jaimy\Documents\UVA\Computational_Intelligence\torcs" wtorcs.exe -T -nofuel -nodamage -nolaptime
+start /d "C:\Program Files (x86)\torcs" wtorcs.exe -T -nofuel -nodamage -nolaptime
 exit
