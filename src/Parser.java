@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Vector;
 
 /**
@@ -11,12 +9,8 @@ public class Parser {
     Parser() {}
 
     public EchoStateNet ParseForESN(String filePath){
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        InputStream f_in = Parser.class.getResourceAsStream(filePath);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(f_in));
 
         String line = null;
         try {

@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
 Driver: MadMaxDriver
-Class-Path: MatrixIterator64F SimpleMatrix
 Main-Class: DefaultDriverAlgorithm
 

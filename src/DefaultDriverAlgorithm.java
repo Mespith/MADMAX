@@ -1,5 +1,6 @@
 import java.io.File;
 import cicontest.algorithm.abstracts.AbstractAlgorithm;
+import cicontest.algorithm.abstracts.AbstractRace;
 import cicontest.algorithm.abstracts.DriversUtils;
 import cicontest.torcs.client.Controller;
 import cicontest.torcs.controller.Driver;
@@ -11,11 +12,34 @@ public class DefaultDriverAlgorithm extends AbstractAlgorithm {
 
     private static final long serialVersionUID = 654963126362653L;
 
+    DefaultDriverGenome[] drivers = new DefaultDriverGenome[1];
+    int [] results = new int[1];
+
     public Class<? extends Driver> getDriverClass(){
         return MadMaxDriver.class;
     }
 
-    public void run(boolean continue_from_checkpoint) { }
+    public void run(boolean continue_from_checkpoint) {
+        if(!continue_from_checkpoint){
+            //init NN
+            DefaultDriverGenome genome = new  DefaultDriverGenome();
+            drivers[0] = genome;
+
+            //Start a race
+            DefaultRace race = new DefaultRace();
+            race.setTrack( AbstractRace.DefaultTracks.getTrack(0));
+            race.laps = 1;
+
+            //for speedup set withGUI to false
+            results = race.runRace(drivers, true);
+
+            // Save genome/nn
+            DriversUtils.storeGenome(drivers[0]);
+        }
+        // create a checkpoint this allows you to continue this run later
+        DriversUtils.createCheckpoint(this);
+        //DriversUtils.clearCheckpoint();
+    }
 
     public void run() {
         Race race = new Race();

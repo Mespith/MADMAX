@@ -12,7 +12,7 @@ public class MadMaxDriver extends AbstractDriver {
 
     EchoStateNet esn;
 
-    MadMaxDriver() {
+    public MadMaxDriver() {
         initialize();
         Parser parser = new Parser();
         esn = parser.ParseForESN("NetworkConfiguration.txt");
@@ -40,7 +40,7 @@ public class MadMaxDriver extends AbstractDriver {
     }
 
     public String getDriverName() {
-        return "simple example 2";
+        return "Mad Max";
     }
 
     public void controlQualification(Action action, SensorModel sensors) { }
