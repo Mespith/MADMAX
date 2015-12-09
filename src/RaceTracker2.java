@@ -81,7 +81,7 @@ public class RaceTracker2 extends RaceTracker {
             offset = sensorMemory.getFirst()[0];
             halfWayDist = offset/2;
         }
-        if (sensorMemory.getFirst()[0] - sensorMemory.getLast()[0] > 1000)
+        if (halfWayDone && sensorMemory.getFirst()[0] - sensorMemory.getLast()[0] > 1000)
         {
             lapDist = sensorMemory.getFirst()[0];
             lapCount++;
