@@ -30,13 +30,14 @@ public class MadMaxDriver extends AbstractDriver {
     @Override
     public void control(Action action, SensorModel sensors) {
 
-        double[][] sensorArray = {{1.0}, {sensors.getSpeed()}, {sensors.getAngleToTrackAxis()}};
-        SimpleMatrix sensorMat = new SimpleMatrix(sensorArray);
-        SimpleMatrix actuatorMat = esn.forward_propagation(sensorMat);
+        double[][] actIn = {{ sensors.getSpeed() }, { sensors.getAngleToTrackAxis() }, { sensors.getTrackEdgeSensors()[0] }, { sensors.getTrackEdgeSensors()[6] },
+                { sensors.getTrackEdgeSensors()[9] }, { sensors.getTrackEdgeSensors()[12] }, { sensors.getTrackEdgeSensors()[18] }, { sensors.getLateralSpeed() }, { sensors.getTrackPosition() }};
+        SimpleMatrix actInMat = new SimpleMatrix(actIn);
+        SimpleMatrix actOut = esn.forward_propagation(actInMat);
 
-        action.accelerate = actuatorMat.get(0, 0);
-        action.steering = actuatorMat.get(1, 0);
-        action.brake = actuatorMat.get(2, 0);
+        action.accelerate = actOut.get(0);
+        action.steering = actOut.get(1);
+        action.brake = actOut.get(2);
     }
 
     public String getDriverName() {
