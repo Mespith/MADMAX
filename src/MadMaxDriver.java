@@ -15,7 +15,7 @@ public class MadMaxDriver extends AbstractDriver {
     public MadMaxDriver() {
         initialize();
         Parser parser = new Parser();
-        esn = parser.ParseForESN("NetworkConfiguration.txt");
+        esn = parser.ParseForESN("best_driver.txt");
     }
 
     public void loadGenome(IGenome genome) { }

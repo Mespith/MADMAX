@@ -9,8 +9,15 @@ public class Parser {
     Parser() {}
 
     public EchoStateNet ParseForESN(String filePath){
-        InputStream f_in = Parser.class.getResourceAsStream(filePath);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(f_in));
+//        InputStream f_in = Parser.class.getResourceAsStream(filePath);
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(f_in));
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(filePath));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String line = null;
         try {
